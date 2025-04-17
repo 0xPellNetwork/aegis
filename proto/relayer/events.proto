@@ -3,7 +3,7 @@ package relayer;
 
 import "relayer/crosschain_flags.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/relayer/types";
 
 // ballot created event
 message EventBallotCreated {

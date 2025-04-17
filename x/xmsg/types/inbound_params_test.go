@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/testutil/sample"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
 )
 
 func TestInboundTxParams_Validate(t *testing.T) {

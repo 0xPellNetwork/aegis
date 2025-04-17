@@ -5,7 +5,7 @@ import (
 
 	"cosmossdk.io/math"
 
-	"github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 func WithdrawableEmissions(t *testing.T) types.WithdrawableEmissions {

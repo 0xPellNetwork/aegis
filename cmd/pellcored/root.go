@@ -49,10 +49,10 @@ import (
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/app"
-	pellcoredconfig "github.com/pell-chain/pellcore/cmd/pellcored/config"
-	pevmserver "github.com/pell-chain/pellcore/server"
-	servercfg "github.com/pell-chain/pellcore/server/config"
+	"github.com/0xPellNetwork/aegis/app"
+	pellcoredconfig "github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	pevmserver "github.com/0xPellNetwork/aegis/server"
+	servercfg "github.com/0xPellNetwork/aegis/server/config"
 )
 
 const EnvPrefix = "pellcore"

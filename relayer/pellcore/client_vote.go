@@ -10,12 +10,12 @@ import (
 	"github.com/pkg/errors"
 	"gitlab.com/thorchain/tss/go-tss/blame"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/proofs"
-	"github.com/pell-chain/pellcore/pkg/retry"
-	pctx "github.com/pell-chain/pellcore/relayer/context"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/proofs"
+	"github.com/0xPellNetwork/aegis/pkg/retry"
+	pctx "github.com/0xPellNetwork/aegis/relayer/context"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // PostVoteBlockHeader posts a vote on an observed block header

@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 func TestGenesisState_Validate(t *testing.T) {

@@ -6,7 +6,7 @@ import (
 	types2 "github.com/coinbase/rosetta-sdk-go/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 const (

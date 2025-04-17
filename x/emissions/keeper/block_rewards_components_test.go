@@ -9,10 +9,10 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	emissionskeeper "github.com/pell-chain/pellcore/x/emissions/keeper"
-	emissionstypes "github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	emissionskeeper "github.com/0xPellNetwork/aegis/x/emissions/keeper"
+	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 func TestKeeper_CalculateFixedValidatorRewards(t *testing.T) {

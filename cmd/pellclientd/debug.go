@@ -14,14 +14,14 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	evmobserver "github.com/pell-chain/pellcore/relayer/chains/evm/observer"
-	"github.com/pell-chain/pellcore/relayer/config"
-	pctx "github.com/pell-chain/pellcore/relayer/context"
-	"github.com/pell-chain/pellcore/relayer/keys"
-	"github.com/pell-chain/pellcore/relayer/pellcore"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	evmobserver "github.com/0xPellNetwork/aegis/relayer/chains/evm/observer"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	pctx "github.com/0xPellNetwork/aegis/relayer/context"
+	"github.com/0xPellNetwork/aegis/relayer/keys"
+	"github.com/0xPellNetwork/aegis/relayer/pellcore"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 var debugArgs = debugArguments{}

@@ -26,8 +26,8 @@ import (
 	ethermint "github.com/evmos/ethermint/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/pell-chain/pellcore/rpc/backend"
-	rpctypes "github.com/pell-chain/pellcore/rpc/types"
+	"github.com/0xPellNetwork/aegis/rpc/backend"
+	rpctypes "github.com/0xPellNetwork/aegis/rpc/types"
 )
 
 // The Ethereum API allows applications to connect to an Evmos node that is

@@ -3,7 +3,7 @@ package pkg.coin;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/pell-chain/pellcore/pkg/coin";
+option go_package = "github.com/0xPellNetwork/aegis/pkg/coin";
 
 // CoinType represents the type of coin
 enum CoinType {

@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	"github.com/pell-chain/pellcore/x/lightclient/types"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	"github.com/0xPellNetwork/aegis/x/lightclient/types"
 )
 
 // UpdateVerificationFlags updates the light client verification flags.

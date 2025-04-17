@@ -21,7 +21,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 
-	"github.com/pell-chain/pellcore/rpc/backend"
+	"github.com/0xPellNetwork/aegis/rpc/backend"
 )
 
 // API is the private miner prefixed set of APIs in the Miner JSON-RPC spec.

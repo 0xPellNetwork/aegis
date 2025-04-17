@@ -7,7 +7,7 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"gopkg.in/yaml.v2"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
 )
 
 var _ paramtypes.ParamSet = (*Params)(nil)

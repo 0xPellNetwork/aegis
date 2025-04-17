@@ -1,7 +1,7 @@
 syntax = "proto3";
 package pkg.proofs.ethereum;
 
-option go_package = "github.com/pell-chain/pellcore/pkg/proofs/ethereum";
+option go_package = "github.com/0xPellNetwork/aegis/pkg/proofs/ethereum";
 
 // Proof represents the proof of a ethereum transaction
 message Proof {

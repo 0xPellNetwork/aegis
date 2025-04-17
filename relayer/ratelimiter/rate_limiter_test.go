@@ -6,11 +6,11 @@ import (
 	sdkmath "cosmossdk.io/math"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/relayer/ratelimiter"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	xmsgkeeper "github.com/pell-chain/pellcore/x/xmsg/keeper"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/relayer/ratelimiter"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	xmsgkeeper "github.com/0xPellNetwork/aegis/x/xmsg/keeper"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func Test_NewInput(t *testing.T) {

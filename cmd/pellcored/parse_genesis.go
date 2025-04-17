@@ -27,12 +27,12 @@ import (
 	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/app"
-	emissionstypes "github.com/pell-chain/pellcore/x/emissions/types"
-	pevmtypes "github.com/pell-chain/pellcore/x/pevm/types"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/app"
+	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
+	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 const MaxItemsForList = 10

@@ -5,7 +5,7 @@ package mocks
 import (
 	mock "github.com/stretchr/testify/mock"
 
-	relayertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 
 	types "github.com/cosmos/cosmos-sdk/types"
 )

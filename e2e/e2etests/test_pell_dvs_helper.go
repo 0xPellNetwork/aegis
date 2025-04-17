@@ -10,9 +10,9 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/pell-chain/pellcore/e2e/runner"
-	"github.com/pell-chain/pellcore/pkg/crypto/bls"
-	xsecuritytypes "github.com/pell-chain/pellcore/x/xsecurity/types"
+	"github.com/0xPellNetwork/aegis/e2e/runner"
+	"github.com/0xPellNetwork/aegis/pkg/crypto/bls"
+	xsecuritytypes "github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 // generateBLSPubkeyParams returns the BLS public key parameters for the test case

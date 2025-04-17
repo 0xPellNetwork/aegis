@@ -10,8 +10,8 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // VoteOnPellRecharge defines the rpc handler method for MsgVoteOnPellRecharge.

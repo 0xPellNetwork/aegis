@@ -6,9 +6,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func TestMsgResetChainNonces_ValidateBasic(t *testing.T) {

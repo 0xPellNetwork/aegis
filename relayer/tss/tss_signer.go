@@ -26,14 +26,14 @@ import (
 	"gitlab.com/thorchain/tss/go-tss/p2p"
 	"gitlab.com/thorchain/tss/go-tss/tss"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/cosmos"
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	"github.com/pell-chain/pellcore/relayer/config"
-	pctx "github.com/pell-chain/pellcore/relayer/context"
-	"github.com/pell-chain/pellcore/relayer/keys"
-	"github.com/pell-chain/pellcore/relayer/metrics"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	pctx "github.com/0xPellNetwork/aegis/relayer/context"
+	"github.com/0xPellNetwork/aegis/relayer/keys"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 const (

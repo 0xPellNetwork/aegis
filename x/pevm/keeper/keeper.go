@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/pevm/types"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
 )
 
 type Keeper struct {

@@ -8,9 +8,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/pell-chain/pellcore/pkg/crypto"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/crypto"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // AddObserver adds an observer address to the observer set

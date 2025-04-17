@@ -11,7 +11,7 @@ import (
 	"github.com/rs/zerolog"
 	"google.golang.org/grpc"
 
-	"github.com/pell-chain/pellcore/relayer/config"
+	"github.com/0xPellNetwork/aegis/relayer/config"
 )
 
 func waitForPellCore(config config.Config, logger zerolog.Logger) {

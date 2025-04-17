@@ -8,9 +8,9 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/cmd"
-	"github.com/pell-chain/pellcore/pkg/cosmos"
-	"github.com/pell-chain/pellcore/relayer/hsm"
+	"github.com/0xPellNetwork/aegis/cmd"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
+	"github.com/0xPellNetwork/aegis/relayer/hsm"
 )
 
 var HsmCmd = &cobra.Command{

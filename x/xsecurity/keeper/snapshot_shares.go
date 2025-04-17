@@ -6,8 +6,8 @@ import (
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
-	xsecuritytypes "github.com/pell-chain/pellcore/x/xsecurity/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
+	xsecuritytypes "github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 // SnapshotSharesFromRestakingModuleByEpoch is a function to snapshot shares from restaking module by epoch

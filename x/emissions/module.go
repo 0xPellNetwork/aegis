@@ -15,9 +15,9 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/x/emissions/client/cli"
-	emissionskeeper "github.com/pell-chain/pellcore/x/emissions/keeper"
-	"github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/x/emissions/client/cli"
+	emissionskeeper "github.com/0xPellNetwork/aegis/x/emissions/keeper"
+	"github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 var (

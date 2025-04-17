@@ -4,7 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 const (

@@ -10,8 +10,8 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/ethereum/go-ethereum/common/math"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // VoteTSS votes on creating a TSS key and recording the information about it (public

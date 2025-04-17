@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"gitlab.com/thorchain/tss/go-tss/blame"
 
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func TestConvertNodes(t *testing.T) {

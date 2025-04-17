@@ -17,15 +17,15 @@ import (
 	"go.nhat.io/grpcmock"
 	"go.nhat.io/grpcmock/planner"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/proofs"
-	"github.com/pell-chain/pellcore/relayer/config"
-	corecontext "github.com/pell-chain/pellcore/relayer/context"
-	"github.com/pell-chain/pellcore/relayer/keys"
-	"github.com/pell-chain/pellcore/relayer/testutils/stub"
-	lightclienttypes "github.com/pell-chain/pellcore/x/lightclient/types"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/proofs"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	corecontext "github.com/0xPellNetwork/aegis/relayer/context"
+	"github.com/0xPellNetwork/aegis/relayer/keys"
+	"github.com/0xPellNetwork/aegis/relayer/testutils/stub"
+	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 const (

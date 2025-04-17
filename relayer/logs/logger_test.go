@@ -5,9 +5,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/relayer/config"
-	clientlogs "github.com/pell-chain/pellcore/relayer/logs"
-	"github.com/pell-chain/pellcore/testutil/sample"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	clientlogs "github.com/0xPellNetwork/aegis/relayer/logs"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
 )
 
 func TestInitLogger(t *testing.T) {

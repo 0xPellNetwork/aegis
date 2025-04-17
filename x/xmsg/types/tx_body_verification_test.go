@@ -5,11 +5,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/coin"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/coin"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func TestVerifyInTxBody(t *testing.T) {

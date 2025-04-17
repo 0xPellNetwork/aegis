@@ -18,13 +18,13 @@ import (
 	"github.com/rs/zerolog"
 	"gitlab.com/thorchain/tss/go-tss/blame"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/proofs"
-	keyinterfaces "github.com/pell-chain/pellcore/relayer/keys/interfaces"
-	"github.com/pell-chain/pellcore/relayer/outtxprocessor"
-	lightclienttypes "github.com/pell-chain/pellcore/x/lightclient/types"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/proofs"
+	keyinterfaces "github.com/0xPellNetwork/aegis/relayer/keys/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/outtxprocessor"
+	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 type Order string

@@ -8,8 +8,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/pell-chain/pellcore/relayer/metrics"
-	clienttypes "github.com/pell-chain/pellcore/relayer/types"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
+	clienttypes "github.com/0xPellNetwork/aegis/relayer/types"
 )
 
 // WatchGasToken watches evm chain for gas token balance and post to pellcore when it below threshold

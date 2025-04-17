@@ -6,7 +6,7 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/pell-chain/pellcore/pkg/cosmos"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
 )
 
 // GetTssAddrEVM returns the ethereum address of the tss pubkey

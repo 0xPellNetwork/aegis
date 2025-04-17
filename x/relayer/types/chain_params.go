@@ -10,7 +10,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	ethchains "github.com/ethereum/go-ethereum/common"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
 )
 
 const (

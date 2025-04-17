@@ -6,8 +6,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/app"
-	"github.com/pell-chain/pellcore/e2e/config"
+	"github.com/0xPellNetwork/aegis/app"
+	"github.com/0xPellNetwork/aegis/e2e/config"
 )
 
 const (

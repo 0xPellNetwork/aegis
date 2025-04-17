@@ -29,8 +29,8 @@ import (
 	"github.com/ethereum/go-ethereum/eth/filters"
 	"github.com/pkg/errors"
 
-	"github.com/pell-chain/pellcore/rpc/backend"
-	"github.com/pell-chain/pellcore/rpc/types"
+	"github.com/0xPellNetwork/aegis/rpc/backend"
+	"github.com/0xPellNetwork/aegis/rpc/types"
 )
 
 // BloomIV represents the bit indexes and value inside the bloom filter that belong

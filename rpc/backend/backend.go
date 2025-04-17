@@ -36,8 +36,8 @@ import (
 	ethermint "github.com/evmos/ethermint/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	rpctypes "github.com/pell-chain/pellcore/rpc/types"
-	"github.com/pell-chain/pellcore/server/config"
+	rpctypes "github.com/0xPellNetwork/aegis/rpc/types"
+	"github.com/0xPellNetwork/aegis/server/config"
 )
 
 // BackendI implements the Cosmos and EVM backend.

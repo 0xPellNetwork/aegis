@@ -6,11 +6,11 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	"github.com/pell-chain/pellcore/x/pevm/keeper"
-	"github.com/pell-chain/pellcore/x/pevm/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	"github.com/0xPellNetwork/aegis/x/pevm/keeper"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
 )
 
 func TestMsgServer_DeploySystemContracts(t *testing.T) {

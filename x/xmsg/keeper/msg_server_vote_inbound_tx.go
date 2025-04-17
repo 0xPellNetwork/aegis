@@ -7,7 +7,7 @@ import (
 	cosmoserrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 const XMSG_EVENT_INDEX = "%d-%d"

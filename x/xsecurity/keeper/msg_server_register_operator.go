@@ -11,7 +11,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/pell-chain/pellcore/x/xsecurity/types"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 // RegisterOperator registers an operator

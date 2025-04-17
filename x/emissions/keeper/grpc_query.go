@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 var _ types.QueryServer = Keeper{}

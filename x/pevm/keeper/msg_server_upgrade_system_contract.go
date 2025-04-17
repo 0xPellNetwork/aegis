@@ -7,8 +7,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
 
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	"github.com/pell-chain/pellcore/x/pevm/types"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
 )
 
 // UpgradeSystemContracts upgrades the system contracts.

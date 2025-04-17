@@ -1,7 +1,7 @@
 syntax = "proto3";
 package pkg.proofs.bitcoin;
 
-option go_package = "github.com/pell-chain/pellcore/pkg/proofs/bitcoin";
+option go_package = "github.com/0xPellNetwork/aegis/pkg/proofs/bitcoin";
 
 // Proof represents the proof of a bitcoin transaction
 message Proof {

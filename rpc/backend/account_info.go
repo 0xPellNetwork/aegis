@@ -30,7 +30,7 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	"github.com/pkg/errors"
 
-	rpctypes "github.com/pell-chain/pellcore/rpc/types"
+	rpctypes "github.com/0xPellNetwork/aegis/rpc/types"
 )
 
 // GetCode returns the contract code at the given address and block number.

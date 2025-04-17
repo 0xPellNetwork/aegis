@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
 )
 
 func (m InboundTxParams) Validate() error {

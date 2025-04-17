@@ -6,9 +6,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/app"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	"github.com/pell-chain/pellcore/x/authority/types"
+	"github.com/0xPellNetwork/aegis/app"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	"github.com/0xPellNetwork/aegis/x/authority/types"
 )
 
 // setConfig sets the global config to use pell chain's bech32 prefixes

@@ -12,9 +12,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	lightclientmocks "github.com/pell-chain/pellcore/testutil/keeper/mocks/lightclient"
-	"github.com/pell-chain/pellcore/x/lightclient/keeper"
-	"github.com/pell-chain/pellcore/x/lightclient/types"
+	lightclientmocks "github.com/0xPellNetwork/aegis/testutil/keeper/mocks/lightclient"
+	"github.com/0xPellNetwork/aegis/x/lightclient/keeper"
+	"github.com/0xPellNetwork/aegis/x/lightclient/types"
 )
 
 // LightclientMockOptions represents options for instantiating a lightclient keeper with mocks

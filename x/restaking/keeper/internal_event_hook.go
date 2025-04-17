@@ -5,7 +5,7 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 var _ types.InternalEventLogHooks = Hooks{}

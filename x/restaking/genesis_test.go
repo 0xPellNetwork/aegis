@@ -7,10 +7,10 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/nullify"
-	"github.com/pell-chain/pellcore/x/restaking"
-	"github.com/pell-chain/pellcore/x/restaking/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/nullify"
+	"github.com/0xPellNetwork/aegis/x/restaking"
+	"github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 // TestGenesis verifies that the restaking module can correctly import genesis state

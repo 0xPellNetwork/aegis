@@ -5,7 +5,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/pell-chain/pellcore/pkg/authz"
+	"github.com/0xPellNetwork/aegis/pkg/authz"
 )
 
 var _ sdk.Msg = &MsgVoteOnGasRecharge{}

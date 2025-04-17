@@ -12,11 +12,11 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/onrik/ethrpc"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/relayer/chains/base"
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/relayer/chains/base"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 type EVMEventReactor struct {

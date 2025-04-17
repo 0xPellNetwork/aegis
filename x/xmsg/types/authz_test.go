@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func TestGetAllAuthzPellclientTxTypes(t *testing.T) {

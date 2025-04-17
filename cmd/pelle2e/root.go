@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/cmd/pelle2e/multi"
+	"github.com/0xPellNetwork/aegis/cmd/pelle2e/multi"
 )
 
 var asciiArt = `

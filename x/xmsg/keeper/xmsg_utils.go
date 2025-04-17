@@ -8,8 +8,8 @@ import (
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	pellObserverTypes "github.com/pell-chain/pellcore/x/relayer/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	pellObserverTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // UpdateNonce sets the Xmsg outbound nonce to the next nonce, and updates the nonce of blockchain state.

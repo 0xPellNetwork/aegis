@@ -15,12 +15,12 @@ import (
 	"gitlab.com/thorchain/tss/go-tss/keygen"
 	"gitlab.com/thorchain/tss/go-tss/p2p"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	pctx "github.com/pell-chain/pellcore/relayer/context"
-	"github.com/pell-chain/pellcore/relayer/metrics"
-	"github.com/pell-chain/pellcore/relayer/pellcore"
-	mc "github.com/pell-chain/pellcore/relayer/tss"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	pctx "github.com/0xPellNetwork/aegis/relayer/context"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
+	"github.com/0xPellNetwork/aegis/relayer/pellcore"
+	mc "github.com/0xPellNetwork/aegis/relayer/tss"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func GenerateTss(

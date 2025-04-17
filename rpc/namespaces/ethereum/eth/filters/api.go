@@ -32,7 +32,7 @@ import (
 	"github.com/ethereum/go-ethereum/rpc"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/pell-chain/pellcore/rpc/types"
+	"github.com/0xPellNetwork/aegis/rpc/types"
 )
 
 // FilterAPI gathers

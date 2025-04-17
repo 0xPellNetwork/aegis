@@ -60,8 +60,8 @@ ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=pellcore \
 		  -X github.com/cosmos/cosmos-sdk/version.ClientName=pellclientd \
 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
-		  -X github.com/pell-chain/pellcore/pkg/constant.Name=pellcored \
-	      -X github.com/pell-chain/pellcore/pkg/constant.Version=$(VERSION) \
+		  -X github.com/0xPellNetwork/aegis/pkg/constant.Name=pellcored \
+	      -X github.com/0xPellNetwork/aegis/pkg/constant.Version=$(VERSION) \
 		  -X github.com/CosmWasm/wasmd/app.Bech32Prefix=pell \
 		  -X github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)
 

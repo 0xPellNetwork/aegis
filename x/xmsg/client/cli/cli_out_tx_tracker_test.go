@@ -6,10 +6,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/app"
-	"github.com/pell-chain/pellcore/testutil/network"
-	"github.com/pell-chain/pellcore/testutil/nullify"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/app"
+	"github.com/0xPellNetwork/aegis/testutil/network"
+	"github.com/0xPellNetwork/aegis/testutil/nullify"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func networkWithOutTxTrackerObjects(t *testing.T, n int) (*network.Network, []types.OutTxTracker) {

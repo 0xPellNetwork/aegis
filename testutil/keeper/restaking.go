@@ -12,9 +12,9 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	restakingmocks "github.com/pell-chain/pellcore/testutil/keeper/mocks/restaking"
-	"github.com/pell-chain/pellcore/x/restaking/keeper"
-	"github.com/pell-chain/pellcore/x/restaking/types"
+	restakingmocks "github.com/0xPellNetwork/aegis/testutil/keeper/mocks/restaking"
+	"github.com/0xPellNetwork/aegis/x/restaking/keeper"
+	"github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 type RestakingMockOptions struct {

@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
-	"github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 func (k Keeper) ShowAvailableEmissions(goCtx context.Context, req *types.QueryShowAvailableEmissionsRequest) (*types.QueryShowAvailableEmissionsResponse, error) {

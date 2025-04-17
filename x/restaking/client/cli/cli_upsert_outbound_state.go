@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cobra"
 
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 // UpsertOutboundStateCmd returns a CLI command for upserting outbound state.

@@ -16,10 +16,10 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/pell-chain/pellcore/e2e/runner"
-	"github.com/pell-chain/pellcore/e2e/utils"
-	"github.com/pell-chain/pellcore/x/restaking/types"
-	xsecuritytypes "github.com/pell-chain/pellcore/x/xsecurity/types"
+	"github.com/0xPellNetwork/aegis/e2e/runner"
+	"github.com/0xPellNetwork/aegis/e2e/utils"
+	"github.com/0xPellNetwork/aegis/x/restaking/types"
+	xsecuritytypes "github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 const (

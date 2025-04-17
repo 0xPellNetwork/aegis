@@ -7,8 +7,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/pkg/cosmos"
-	pellcrypto "github.com/pell-chain/pellcore/pkg/crypto"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
+	pellcrypto "github.com/0xPellNetwork/aegis/pkg/crypto"
 )
 
 func GetPubKeyCmd() *cobra.Command {

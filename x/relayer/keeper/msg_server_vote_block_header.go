@@ -6,8 +6,8 @@ import (
 	cosmoserrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	lightclienttypes "github.com/pell-chain/pellcore/x/lightclient/types"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // VoteBlockHeader vote for a new block header to the storers

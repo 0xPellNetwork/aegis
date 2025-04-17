@@ -3,11 +3,11 @@ package base
 import (
 	"sync"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	corecontext "github.com/pell-chain/pellcore/relayer/context"
-	clientlogs "github.com/pell-chain/pellcore/relayer/logs"
-	"github.com/pell-chain/pellcore/relayer/metrics"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	corecontext "github.com/0xPellNetwork/aegis/relayer/context"
+	clientlogs "github.com/0xPellNetwork/aegis/relayer/logs"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
 )
 
 // Signer is the base structure for grouping the common logic between chain signers.

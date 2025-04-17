@@ -10,8 +10,8 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 var _ types.EventHandler = &ConnectorEventHandler{}

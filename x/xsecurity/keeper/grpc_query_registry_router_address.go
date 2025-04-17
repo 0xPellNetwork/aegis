@@ -6,7 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/xsecurity/types"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 // QueryRegistryRouterAddress returns the registry router address and stake registry router address

@@ -5,7 +5,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
 )
 
 const (

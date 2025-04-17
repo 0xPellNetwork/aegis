@@ -15,7 +15,7 @@ import "relayer/relayer.proto";
 import "relayer/tss.proto";
 import "relayer/tss_funds_migrator.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/relayer/types";
 
 // relayer genesis state
 message GenesisState {

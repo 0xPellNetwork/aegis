@@ -6,7 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/pell-chain/pellcore/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 const TypMsgCreateGroup = "create_dvs_group"

@@ -23,11 +23,11 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/app"
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
-	"github.com/pell-chain/pellcore/pkg/crypto"
-	"github.com/pell-chain/pellcore/x/relayer/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/app"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/pkg/crypto"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // Token distribution

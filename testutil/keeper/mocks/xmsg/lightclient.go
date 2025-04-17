@@ -5,7 +5,7 @@ package mocks
 import (
 	mock "github.com/stretchr/testify/mock"
 
-	proofs "github.com/pell-chain/pellcore/pkg/proofs"
+	proofs "github.com/0xPellNetwork/aegis/pkg/proofs"
 
 	types "github.com/cosmos/cosmos-sdk/types"
 )

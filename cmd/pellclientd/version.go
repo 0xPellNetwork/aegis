@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/pkg/constant"
+	"github.com/0xPellNetwork/aegis/pkg/constant"
 )
 
 var VersionCmd = &cobra.Command{

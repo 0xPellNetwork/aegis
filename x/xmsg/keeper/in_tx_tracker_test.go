@@ -9,10 +9,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/nullify"
-	"github.com/pell-chain/pellcore/x/xmsg/keeper"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/nullify"
+	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func createNInTxTracker(keeper *keeper.Keeper, ctx sdk.Context, n int, chainID int64) []types.InTxTracker {

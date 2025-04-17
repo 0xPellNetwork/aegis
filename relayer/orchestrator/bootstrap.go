@@ -9,14 +9,14 @@ import (
 	ethrpc2 "github.com/onrik/ethrpc"
 	"github.com/pkg/errors"
 
-	evmobserver "github.com/pell-chain/pellcore/relayer/chains/evm/observer"
-	evmsigner "github.com/pell-chain/pellcore/relayer/chains/evm/signer"
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	"github.com/pell-chain/pellcore/relayer/config"
-	pctx "github.com/pell-chain/pellcore/relayer/context"
-	"github.com/pell-chain/pellcore/relayer/db"
-	clientlogs "github.com/pell-chain/pellcore/relayer/logs"
-	"github.com/pell-chain/pellcore/relayer/metrics"
+	evmobserver "github.com/0xPellNetwork/aegis/relayer/chains/evm/observer"
+	evmsigner "github.com/0xPellNetwork/aegis/relayer/chains/evm/signer"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	pctx "github.com/0xPellNetwork/aegis/relayer/context"
+	"github.com/0xPellNetwork/aegis/relayer/db"
+	clientlogs "github.com/0xPellNetwork/aegis/relayer/logs"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
 )
 
 // CreateSignerMap creates a map of interfaces.ChainSigner (by chainID) for all chains in the config.

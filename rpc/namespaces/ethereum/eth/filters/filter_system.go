@@ -35,7 +35,7 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	"github.com/pkg/errors"
 
-	"github.com/pell-chain/pellcore/rpc/ethereum/pubsub"
+	"github.com/0xPellNetwork/aegis/rpc/ethereum/pubsub"
 )
 
 var (

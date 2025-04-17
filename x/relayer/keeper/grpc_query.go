@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 var _ types.QueryServer = Keeper{}

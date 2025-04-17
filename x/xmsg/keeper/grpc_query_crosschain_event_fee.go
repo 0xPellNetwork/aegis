@@ -7,7 +7,7 @@ import (
 	"github.com/gogo/status"
 	"google.golang.org/grpc/codes"
 
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // CrosschainFeeParams returns all crosschain fee params

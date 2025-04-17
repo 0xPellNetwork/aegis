@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/pell-chain/pellcore/x/lightclient/types"
+	"github.com/0xPellNetwork/aegis/x/lightclient/types"
 )
 
 // ChainStateAll queries all chain statess

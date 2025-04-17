@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // VoteOnInboundBlockBallot VoteOnInboundBallot casts a vote on an inbound transaction observed on a connected chain. If this

@@ -11,9 +11,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	xsecuritymocks "github.com/pell-chain/pellcore/testutil/keeper/mocks/xsecurity"
-	"github.com/pell-chain/pellcore/x/xsecurity/keeper"
-	"github.com/pell-chain/pellcore/x/xsecurity/types"
+	xsecuritymocks "github.com/0xPellNetwork/aegis/testutil/keeper/mocks/xsecurity"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/keeper"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 type XSecurityMockOptions struct {

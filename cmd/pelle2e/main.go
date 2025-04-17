@@ -6,7 +6,7 @@ import (
 
 	"github.com/fatih/color"
 
-	"github.com/pell-chain/pellcore/cmd/pelle2e/common"
+	"github.com/0xPellNetwork/aegis/cmd/pelle2e/common"
 )
 
 func main() {

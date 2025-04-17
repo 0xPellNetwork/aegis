@@ -1,7 +1,7 @@
 package sample
 
 import (
-	"github.com/pell-chain/pellcore/x/pevm/types"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
 )
 
 func SystemContract_pell() *types.SystemContract {

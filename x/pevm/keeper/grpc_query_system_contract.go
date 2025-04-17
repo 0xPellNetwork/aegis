@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/pell-chain/pellcore/x/pevm/types"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
 )
 
 func (k Keeper) SystemContract(c context.Context, req *types.QueryGetSystemContractRequest) (*types.SystemContractResponse, error) {

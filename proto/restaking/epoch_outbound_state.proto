@@ -3,7 +3,7 @@ package restaking;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/restaking/types";
 
 // EpochOutboundState represents the outbound state of a chain
 message EpochOutboundState {

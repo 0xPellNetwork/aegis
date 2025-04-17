@@ -12,7 +12,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	clienttypes "github.com/pell-chain/pellcore/relayer/types"
+	clienttypes "github.com/0xPellNetwork/aegis/relayer/types"
 )
 
 const TempSQLiteDbPath = "file::memory:?cache=shared"

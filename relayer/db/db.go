@@ -11,7 +11,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
-	"github.com/pell-chain/pellcore/relayer/types"
+	"github.com/0xPellNetwork/aegis/relayer/types"
 )
 
 // SqliteInMemory is a special string to use in-memory database.

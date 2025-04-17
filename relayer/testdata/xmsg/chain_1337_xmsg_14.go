@@ -3,7 +3,7 @@ package xmsg
 import (
 	sdkmath "cosmossdk.io/math"
 
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // This xmsg was generated in local e2e tests, see original json text attached at end of file

@@ -5,7 +5,7 @@ import (
 	"cosmossdk.io/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 func (k Keeper) SetWithdrawableEmission(ctx sdk.Context, we types.WithdrawableEmissions) {

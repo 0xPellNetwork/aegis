@@ -11,17 +11,17 @@ import (
 	"github.com/onrik/ethrpc"
 	"github.com/pkg/errors"
 
-	"github.com/pell-chain/pellcore/pkg/bg"
-	"github.com/pell-chain/pellcore/relayer/chains/base"
-	"github.com/pell-chain/pellcore/relayer/chains/evm"
-	"github.com/pell-chain/pellcore/relayer/chains/evm/observer/handler"
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	"github.com/pell-chain/pellcore/relayer/config"
-	pctx "github.com/pell-chain/pellcore/relayer/context"
-	"github.com/pell-chain/pellcore/relayer/db"
-	clientlogs "github.com/pell-chain/pellcore/relayer/logs"
-	"github.com/pell-chain/pellcore/relayer/metrics"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/bg"
+	"github.com/0xPellNetwork/aegis/relayer/chains/base"
+	"github.com/0xPellNetwork/aegis/relayer/chains/evm"
+	"github.com/0xPellNetwork/aegis/relayer/chains/evm/observer/handler"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	pctx "github.com/0xPellNetwork/aegis/relayer/context"
+	"github.com/0xPellNetwork/aegis/relayer/db"
+	clientlogs "github.com/0xPellNetwork/aegis/relayer/logs"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 const (

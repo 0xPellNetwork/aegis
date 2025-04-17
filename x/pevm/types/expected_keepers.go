@@ -11,9 +11,9 @@ import (
 	"github.com/evmos/ethermint/x/evm/statedb"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	relayertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

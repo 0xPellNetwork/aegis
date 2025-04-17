@@ -5,10 +5,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/proofs"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	"github.com/pell-chain/pellcore/x/lightclient/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/proofs"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	"github.com/0xPellNetwork/aegis/x/lightclient/types"
 )
 
 func TestGenesisState_Validate(t *testing.T) {

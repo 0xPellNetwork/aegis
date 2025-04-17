@@ -5,7 +5,7 @@ import "gogoproto/gogo.proto";
 import "pkg/proofs/bitcoin/bitcoin.proto";
 import "pkg/proofs/ethereum/ethereum.proto";
 
-option go_package = "github.com/pell-chain/pellcore/pkg/proofs";
+option go_package = "github.com/0xPellNetwork/aegis/pkg/proofs";
 
 // BlockHeader represents the header of a block
 message BlockHeader {

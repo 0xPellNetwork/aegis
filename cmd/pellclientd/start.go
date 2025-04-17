@@ -22,15 +22,15 @@ import (
 	"github.com/spf13/cobra"
 	"gitlab.com/thorchain/tss/go-tss/p2p"
 
-	"github.com/pell-chain/pellcore/pkg/authz"
-	"github.com/pell-chain/pellcore/pkg/constant"
-	"github.com/pell-chain/pellcore/relayer/config"
-	appcontext "github.com/pell-chain/pellcore/relayer/context"
-	clientlogs "github.com/pell-chain/pellcore/relayer/logs"
-	"github.com/pell-chain/pellcore/relayer/metrics"
-	orchestrator "github.com/pell-chain/pellcore/relayer/orchestrator"
-	"github.com/pell-chain/pellcore/relayer/pellcore"
-	observerTypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/authz"
+	"github.com/0xPellNetwork/aegis/pkg/constant"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	appcontext "github.com/0xPellNetwork/aegis/relayer/context"
+	clientlogs "github.com/0xPellNetwork/aegis/relayer/logs"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
+	orchestrator "github.com/0xPellNetwork/aegis/relayer/orchestrator"
+	"github.com/0xPellNetwork/aegis/relayer/pellcore"
+	observerTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 type Multiaddr = core.Multiaddr

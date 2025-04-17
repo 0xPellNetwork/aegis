@@ -7,7 +7,7 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/fatih/color"
 
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 const (

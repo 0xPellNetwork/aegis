@@ -10,7 +10,7 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/pell-chain/pellcore/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 type MiddlewareSyncHandler struct {

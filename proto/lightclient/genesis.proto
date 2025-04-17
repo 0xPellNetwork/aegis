@@ -6,7 +6,7 @@ import "lightclient/chain_state.proto";
 import "lightclient/verification_flags.proto";
 import "pkg/proofs/proofs.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/lightclient/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/lightclient/types";
 
 // GenesisState defines the lightclient module's genesis state.
 message GenesisState {

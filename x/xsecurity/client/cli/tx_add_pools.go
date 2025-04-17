@@ -8,8 +8,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cobra"
 
-	xsecuritytypes "github.com/pell-chain/pellcore/x/restaking/types"
-	"github.com/pell-chain/pellcore/x/xsecurity/types"
+	xsecuritytypes "github.com/0xPellNetwork/aegis/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 func CmdAddpools() *cobra.Command {

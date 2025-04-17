@@ -3,7 +3,7 @@ package emissions;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/emissions/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/emissions/types";
 
 // emission type
 enum EmissionType {

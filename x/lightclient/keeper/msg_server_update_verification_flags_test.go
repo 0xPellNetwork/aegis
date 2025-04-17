@@ -6,11 +6,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	"github.com/pell-chain/pellcore/x/lightclient/keeper"
-	"github.com/pell-chain/pellcore/x/lightclient/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	"github.com/0xPellNetwork/aegis/x/lightclient/keeper"
+	"github.com/0xPellNetwork/aegis/x/lightclient/types"
 )
 
 func TestMsgServer_UpdateVerificationFlags(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 
-	"github.com/pell-chain/pellcore/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 // GenerateGenesisState creates a randomized GenState of the module

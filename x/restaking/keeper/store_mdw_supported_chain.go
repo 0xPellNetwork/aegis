@@ -6,7 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 
-	"github.com/pell-chain/pellcore/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 // GetDVSSupportedChainList returns the list of supported chains for a given registry router address

@@ -10,7 +10,7 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/cosmos"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
 )
 
 func TestGetTssAddrEVM(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/require"
 
-	pellcore "github.com/pell-chain/pellcore/cmd/pellcored"
+	pellcore "github.com/0xPellNetwork/aegis/cmd/pellcored"
 )
 
 // alwaysErrorValue allows to test f.Value.Set failure

@@ -5,11 +5,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	xmsgkeeper "github.com/pell-chain/pellcore/x/xmsg/keeper"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	xmsgkeeper "github.com/0xPellNetwork/aegis/x/xmsg/keeper"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func TestMsgServer_AbortStuckXmsg(t *testing.T) {

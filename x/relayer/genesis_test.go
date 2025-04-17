@@ -5,11 +5,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/nullify"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	observer "github.com/pell-chain/pellcore/x/relayer"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/nullify"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	observer "github.com/0xPellNetwork/aegis/x/relayer"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func TestGenesis(t *testing.T) {

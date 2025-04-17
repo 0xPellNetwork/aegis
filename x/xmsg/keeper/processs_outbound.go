@@ -10,10 +10,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	pevmtypes "github.com/pell-chain/pellcore/x/pevm/types"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 /* ProcessSuccessfulOutbound processes a successful outbound transaction. It does the following things in one function:

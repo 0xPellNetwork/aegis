@@ -10,8 +10,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/cmd/pelltool/config"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/cmd/pelltool/config"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 const (

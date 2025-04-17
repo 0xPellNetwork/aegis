@@ -1,6 +1,6 @@
 package sample
 
-import authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
+import authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
 
 func Policies() authoritytypes.Policies {
 	return authoritytypes.Policies{

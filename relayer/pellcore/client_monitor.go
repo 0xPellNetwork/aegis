@@ -8,8 +8,8 @@ import (
 	"github.com/cenkalti/backoff"
 	"github.com/pkg/errors"
 
-	"github.com/pell-chain/pellcore/pkg/retry"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/retry"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // MonitorVoteInboundResult monitors the result of a vote inbound tx

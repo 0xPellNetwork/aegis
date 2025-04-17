@@ -6,7 +6,7 @@ import (
 	sdkmath "cosmossdk.io/math"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/x/xsecurity/types"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 // TestDiffOperatorWeightedSharesWith_NoDifferences tests that no differences are returned when oldList and newList are identical.

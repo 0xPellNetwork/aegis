@@ -33,7 +33,7 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
 
-	rpctypes "github.com/pell-chain/pellcore/rpc/types"
+	rpctypes "github.com/0xPellNetwork/aegis/rpc/types"
 )
 
 // ChainID is the EIP-155 replay-protection chain id for the current ethereum chain config.

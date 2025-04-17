@@ -5,12 +5,12 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	xmsgkeeper "github.com/pell-chain/pellcore/x/xmsg/keeper"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	xmsgkeeper "github.com/0xPellNetwork/aegis/x/xmsg/keeper"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // SetupStateForProcessLogsPellSent sets up additional state required for processing logs for PellSent events

@@ -53,17 +53,17 @@ builds:
       #   goarch: arm64
     flags: &default_flags
       - -tags=goleveldb,ledger
-      - -buildvcs=false 
+      - -buildvcs=false
     ldflags: &default_ldflags
       - -X github.com/cosmos/cosmos-sdk/version.Name=pellcore
       - -X github.com/cosmos/cosmos-sdk/version.ServerName=pellcored
       - -X github.com/cosmos/cosmos-sdk/version.ClientName=pellclientd
       - -X github.com/cosmos/cosmos-sdk/version.Version={{ .Version }}
       - -X github.com/cosmos/cosmos-sdk/version.Commit={{ .Env.COMMIT }}
-      - -X github.com/pell-chain/pellcore/pkg/constant.Name=pellcored
-      - -X github.com/pell-chain/pellcore/pkg/constant.Version={{ .Version }}
-      - -X github.com/pell-chain/pellcore/pkg/constant.CommitHash={{ .Env.COMMIT }}
-      - -X github.com/pell-chain/pellcore/pkg/constant.BuildTime={{ .Env.BUILDTIME }}
+      - -X github.com/0xPellNetwork/aegis/pkg/constant.Name=pellcored
+      - -X github.com/0xPellNetwork/aegis/pkg/constant.Version={{ .Version }}
+      - -X github.com/0xPellNetwork/aegis/pkg/constant.CommitHash={{ .Env.COMMIT }}
+      - -X github.com/0xPellNetwork/aegis/pkg/constant.BuildTime={{ .Env.BUILDTIME }}
       - -X github.com/cosmos/cosmos-sdk/types.DBBackend=goleveldb
 
   - id: "pellclientd"

@@ -16,9 +16,9 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/x/xsecurity/client/cli"
-	"github.com/pell-chain/pellcore/x/xsecurity/keeper"
-	"github.com/pell-chain/pellcore/x/xsecurity/types"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/client/cli"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/keeper"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 var (

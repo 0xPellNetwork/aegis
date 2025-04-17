@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
 
-	relayertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

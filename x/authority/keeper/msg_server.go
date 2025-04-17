@@ -1,6 +1,6 @@
 package keeper
 
-import "github.com/pell-chain/pellcore/x/authority/types"
+import "github.com/0xPellNetwork/aegis/x/authority/types"
 
 type msgServer struct {
 	Keeper

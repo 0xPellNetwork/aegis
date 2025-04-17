@@ -5,9 +5,9 @@ import (
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	pevmtypes "github.com/pell-chain/pellcore/x/pevm/types"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // PayGasAndUpdateXmsg updates the outbound tx with the new amount after paying the gas fee

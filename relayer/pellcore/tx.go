@@ -4,10 +4,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/authz"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	clientauthz "github.com/pell-chain/pellcore/relayer/authz"
-	clientcommon "github.com/pell-chain/pellcore/relayer/common"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	clientauthz "github.com/0xPellNetwork/aegis/relayer/authz"
+	clientcommon "github.com/0xPellNetwork/aegis/relayer/common"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // GetInBoundVoteMessage returns a new MsgVoteOnObservedInboundTx

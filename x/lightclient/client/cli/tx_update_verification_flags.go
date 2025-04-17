@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/x/lightclient/types"
+	"github.com/0xPellNetwork/aegis/x/lightclient/types"
 )
 
 func CmdUpdateVerificationFlags() *cobra.Command {

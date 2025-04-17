@@ -5,7 +5,7 @@ package mocks
 import (
 	mock "github.com/stretchr/testify/mock"
 
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
 
 	types "github.com/cosmos/cosmos-sdk/types"
 )

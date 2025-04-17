@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 func (k Keeper) GetEmissionsFactors(goCtx context.Context, _ *types.QueryGetEmissionsFactorsRequest) (*types.QueryGetEmissionsFactorsResponse, error) {

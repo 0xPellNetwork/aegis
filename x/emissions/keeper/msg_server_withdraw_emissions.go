@@ -7,8 +7,8 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
-	"github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 // WithdrawEmission allows the user to withdraw from their withdrawable emissions.

@@ -3,14 +3,14 @@
 package mocks
 
 import (
-	chains "github.com/pell-chain/pellcore/pkg/chains"
-	coin "github.com/pell-chain/pellcore/pkg/coin"
+	chains "github.com/0xPellNetwork/aegis/pkg/chains"
+	coin "github.com/0xPellNetwork/aegis/pkg/coin"
 
 	context "context"
 
 	mock "github.com/stretchr/testify/mock"
 
-	relayertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 
 	types "github.com/cosmos/cosmos-sdk/types"
 )

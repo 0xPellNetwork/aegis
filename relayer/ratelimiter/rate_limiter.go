@@ -4,7 +4,7 @@ package ratelimiter
 import (
 	sdkmath "cosmossdk.io/math"
 
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // Input is the input data for the rate limiter

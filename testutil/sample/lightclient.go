@@ -8,11 +8,11 @@ import (
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/proofs"
-	"github.com/pell-chain/pellcore/pkg/proofs/ethereum"
-	"github.com/pell-chain/pellcore/pkg/testdata"
-	lightclienttypes "github.com/pell-chain/pellcore/x/lightclient/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/proofs"
+	"github.com/0xPellNetwork/aegis/pkg/proofs/ethereum"
+	"github.com/0xPellNetwork/aegis/pkg/testdata"
+	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
 )
 
 func BlockHeader(blockHash []byte) proofs.BlockHeader {

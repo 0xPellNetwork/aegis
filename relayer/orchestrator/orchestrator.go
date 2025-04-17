@@ -14,17 +14,17 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/samber/lo"
 
-	"github.com/pell-chain/pellcore/pkg/bg"
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/constant"
-	pellmath "github.com/pell-chain/pellcore/pkg/math"
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	appcontext "github.com/pell-chain/pellcore/relayer/context"
-	"github.com/pell-chain/pellcore/relayer/logs"
-	"github.com/pell-chain/pellcore/relayer/metrics"
-	"github.com/pell-chain/pellcore/relayer/outtxprocessor"
-	"github.com/pell-chain/pellcore/relayer/ratelimiter"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/bg"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/constant"
+	pellmath "github.com/0xPellNetwork/aegis/pkg/math"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	appcontext "github.com/0xPellNetwork/aegis/relayer/context"
+	"github.com/0xPellNetwork/aegis/relayer/logs"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
+	"github.com/0xPellNetwork/aegis/relayer/outtxprocessor"
+	"github.com/0xPellNetwork/aegis/relayer/ratelimiter"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 const (

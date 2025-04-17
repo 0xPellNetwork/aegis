@@ -3,8 +3,8 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // VoteOnOutboundBallot casts a vote on an outbound transaction observed on a connected chain (after

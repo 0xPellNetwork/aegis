@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/cmd/pelltool/config"
-	"github.com/pell-chain/pellcore/cmd/pelltool/filterdeposit"
+	"github.com/0xPellNetwork/aegis/cmd/pelltool/config"
+	"github.com/0xPellNetwork/aegis/cmd/pelltool/filterdeposit"
 )
 
 var rootCmd = &cobra.Command{

@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/pell-chain/pellcore/x/xsecurity/types"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 var _ types.MsgServer = msgServer{}

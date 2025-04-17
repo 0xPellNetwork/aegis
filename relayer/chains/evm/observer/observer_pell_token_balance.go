@@ -11,8 +11,8 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 
-	"github.com/pell-chain/pellcore/relayer/metrics"
-	clienttypes "github.com/pell-chain/pellcore/relayer/types"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
+	clienttypes "github.com/0xPellNetwork/aegis/relayer/types"
 )
 
 // WatchPellToken watches evm chain for pell token balance and post to pellcore when it below threshold

@@ -9,7 +9,7 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/x/pevm/types"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
 )
 
 func TestIsContractReverted(t *testing.T) {

@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 
-	"github.com/pell-chain/pellcore/pkg/proofs"
+	"github.com/0xPellNetwork/aegis/pkg/proofs"
 )
 
 // DefaultGenesis returns the default lightclient genesis state

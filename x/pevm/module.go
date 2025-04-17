@@ -15,9 +15,9 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/x/pevm/client/cli"
-	"github.com/pell-chain/pellcore/x/pevm/keeper"
-	"github.com/pell-chain/pellcore/x/pevm/types"
+	"github.com/0xPellNetwork/aegis/x/pevm/client/cli"
+	"github.com/0xPellNetwork/aegis/x/pevm/keeper"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
 )
 
 var (

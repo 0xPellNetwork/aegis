@@ -5,9 +5,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func TestValidateAddressForChain(t *testing.T) {

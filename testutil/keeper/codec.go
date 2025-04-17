@@ -16,10 +16,10 @@ import (
 	etherminttypes "github.com/evmos/ethermint/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	emissionstypes "github.com/pell-chain/pellcore/x/emissions/types"
-	pevmtypes "github.com/pell-chain/pellcore/x/pevm/types"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
+	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func NewCodec() *codec.ProtoCodec {

@@ -6,8 +6,8 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 func (k Keeper) UpdateBlocksPerEpoch(goCtx context.Context, msg *restakingtypes.MsgUpdateBlocksPerEpoch) (*restakingtypes.MsgUpdateBlocksPerEpochResponse, error) {

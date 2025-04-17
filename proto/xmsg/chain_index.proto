@@ -3,7 +3,7 @@ package xmsg;
 
 import "xmsg/pell_event.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/xmsg/types";
 
 // chain_index represent inbound chain index
 message ChainIndex {

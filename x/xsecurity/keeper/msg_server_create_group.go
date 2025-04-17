@@ -11,9 +11,9 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
-	"github.com/pell-chain/pellcore/x/xsecurity/types"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 // CreateGroup creates a DVS group

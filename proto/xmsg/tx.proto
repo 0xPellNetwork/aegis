@@ -11,7 +11,7 @@ import "xmsg/crosschain_fee_param.proto";
 import "xmsg/pell_event.proto";
 import "xmsg/rate_limiter_flags.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/xmsg/types";
 
 // Msg defines the Msg service.
 service Msg {

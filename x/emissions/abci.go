@@ -7,9 +7,9 @@ import (
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
-	"github.com/pell-chain/pellcore/x/emissions/keeper"
-	"github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/x/emissions/keeper"
+	"github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 func BeginBlocker(ctx sdk.Context, keeper keeper.Keeper) {

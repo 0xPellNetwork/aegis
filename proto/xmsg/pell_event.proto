@@ -4,7 +4,7 @@ package xmsg;
 import "gogoproto/gogo.proto";
 
 // TODO : fix the descriptor numbers for the fields
-option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/xmsg/types";
 
 /// @notice Emitted when @param staker deposit @param shares of @param token to
 /// @param strategy. event Deposit(address staker, IERC20 token, IStrategy

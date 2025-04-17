@@ -12,7 +12,7 @@ import (
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
 )
 
 const node = "tcp://3.218.170.198:26657"

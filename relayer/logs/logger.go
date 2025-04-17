@@ -8,7 +8,7 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"github.com/pell-chain/pellcore/relayer/config"
+	"github.com/0xPellNetwork/aegis/relayer/config"
 )
 
 const (

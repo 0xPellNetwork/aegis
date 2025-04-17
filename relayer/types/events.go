@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/pell-chain/pellcore/pkg/coin"
+	"github.com/0xPellNetwork/aegis/pkg/coin"
 )
 
 // InboundEvent represents an inbound event

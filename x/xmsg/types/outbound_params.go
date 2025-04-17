@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
 )
 
 func (m OutboundTxParams) GetGasPrice() (uint64, error) {

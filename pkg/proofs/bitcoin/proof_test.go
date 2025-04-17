@@ -13,7 +13,7 @@ import (
 	"github.com/btcsuite/btcutil"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/testdata"
+	"github.com/0xPellNetwork/aegis/pkg/testdata"
 )
 
 func TestBitcoinMerkleProof(t *testing.T) {

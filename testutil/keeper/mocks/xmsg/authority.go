@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
 	mock "github.com/stretchr/testify/mock"
 
 	types "github.com/cosmos/cosmos-sdk/types"

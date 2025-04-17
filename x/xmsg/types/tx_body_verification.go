@@ -7,8 +7,8 @@ import (
 	eth "github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // VerifyInTxBody validates the tx body for a inbound tx

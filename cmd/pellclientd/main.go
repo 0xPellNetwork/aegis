@@ -8,8 +8,8 @@ import (
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 	"github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/app"
-	"github.com/pell-chain/pellcore/cmd"
+	"github.com/0xPellNetwork/aegis/app"
+	"github.com/0xPellNetwork/aegis/cmd"
 )
 
 const (

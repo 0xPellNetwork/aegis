@@ -10,7 +10,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/app"
+	"github.com/0xPellNetwork/aegis/app"
 )
 
 func TestParsefileToObserverMapper(t *testing.T) {

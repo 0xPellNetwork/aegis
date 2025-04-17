@@ -3,7 +3,7 @@ package authority;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/authority/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/authority/types";
 
 // PolicyType defines the type of policy
 enum PolicyType {

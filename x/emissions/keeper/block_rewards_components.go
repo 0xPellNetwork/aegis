@@ -4,9 +4,9 @@ import (
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
-	"github.com/pell-chain/pellcore/pkg/coin"
-	"github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/pkg/coin"
+	"github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 func (k Keeper) GetBlockRewardComponents(ctx sdk.Context) (sdkmath.LegacyDec, sdkmath.LegacyDec, sdkmath.LegacyDec) {

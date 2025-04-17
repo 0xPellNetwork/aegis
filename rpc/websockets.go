@@ -41,10 +41,10 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
 
-	"github.com/pell-chain/pellcore/rpc/ethereum/pubsub"
-	rpcfilters "github.com/pell-chain/pellcore/rpc/namespaces/ethereum/eth/filters"
-	"github.com/pell-chain/pellcore/rpc/types"
-	"github.com/pell-chain/pellcore/server/config"
+	"github.com/0xPellNetwork/aegis/rpc/ethereum/pubsub"
+	rpcfilters "github.com/0xPellNetwork/aegis/rpc/namespaces/ethereum/eth/filters"
+	"github.com/0xPellNetwork/aegis/rpc/types"
+	"github.com/0xPellNetwork/aegis/server/config"
 )
 
 const (

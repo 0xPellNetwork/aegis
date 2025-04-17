@@ -1,8 +1,8 @@
 package xmsg
 
 import (
-	"github.com/pell-chain/pellcore/pkg/coin"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/coin"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // XmsgByNonceMap maps the [chainID, nonce] to the cross chain transaction

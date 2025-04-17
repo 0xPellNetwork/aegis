@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/pell-chain/pellcore/e2e/runner"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/e2e/runner"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 const WAIT_KEYGEN_HEIGHT = 15

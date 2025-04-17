@@ -8,8 +8,8 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/pell-chain/pellcore/e2e/contracts/erc20"
-	"github.com/pell-chain/pellcore/e2e/utils"
+	"github.com/0xPellNetwork/aegis/e2e/contracts/erc20"
+	"github.com/0xPellNetwork/aegis/e2e/utils"
 )
 
 // WaitForTxReceiptOnEvm waits for a tx receipt on EVM

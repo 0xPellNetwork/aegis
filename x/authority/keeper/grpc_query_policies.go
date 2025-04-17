@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/pell-chain/pellcore/x/authority/types"
+	"github.com/0xPellNetwork/aegis/x/authority/types"
 )
 
 // Policies queries policies

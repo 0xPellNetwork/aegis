@@ -15,11 +15,11 @@ import (
 	"go.nhat.io/grpcmock"
 	"go.nhat.io/grpcmock/planner"
 
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
-	"github.com/pell-chain/pellcore/relayer/keys"
-	keyinterfaces "github.com/pell-chain/pellcore/relayer/keys/interfaces"
-	"github.com/pell-chain/pellcore/relayer/testutils/stub"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/relayer/keys"
+	keyinterfaces "github.com/0xPellNetwork/aegis/relayer/keys/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/testutils/stub"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 const skipMethod = "skip"

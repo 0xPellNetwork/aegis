@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/relayer/types"
+	"github.com/0xPellNetwork/aegis/relayer/types"
 )
 
 func TestNew(t *testing.T) {

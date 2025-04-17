@@ -13,13 +13,13 @@ import (
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/app"
-	pellcored "github.com/pell-chain/pellcore/cmd/pellcored"
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	emissionstypes "github.com/pell-chain/pellcore/x/emissions/types"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/app"
+	pellcored "github.com/0xPellNetwork/aegis/cmd/pellcored"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func setConfig(t *testing.T) {

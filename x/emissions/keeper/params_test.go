@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	emissionstypes "github.com/pell-chain/pellcore/x/emissions/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 func TestKeeper_GetParams(t *testing.T) {

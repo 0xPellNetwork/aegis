@@ -9,9 +9,9 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/cosmos"
-	"github.com/pell-chain/pellcore/pkg/crypto"
-	"github.com/pell-chain/pellcore/relayer/keys"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
+	"github.com/0xPellNetwork/aegis/pkg/crypto"
+	"github.com/0xPellNetwork/aegis/relayer/keys"
 )
 
 func Test_LoadTssFilesFromDirectory(t *testing.T) {

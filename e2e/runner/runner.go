@@ -33,16 +33,16 @@ import (
 	"github.com/fatih/color"
 	"google.golang.org/grpc"
 
-	"github.com/pell-chain/pellcore/e2e/config"
-	"github.com/pell-chain/pellcore/e2e/contracts/erc20"
-	"github.com/pell-chain/pellcore/e2e/txserver"
-	"github.com/pell-chain/pellcore/pkg/chains"
-	lightclienttypes "github.com/pell-chain/pellcore/x/lightclient/types"
-	pevmtypes "github.com/pell-chain/pellcore/x/pevm/types"
-	relayertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
-	xsecuritytypes "github.com/pell-chain/pellcore/x/xsecurity/types"
+	"github.com/0xPellNetwork/aegis/e2e/config"
+	"github.com/0xPellNetwork/aegis/e2e/contracts/erc20"
+	"github.com/0xPellNetwork/aegis/e2e/txserver"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
+	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
+	xsecuritytypes "github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 const (

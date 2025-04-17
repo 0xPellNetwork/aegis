@@ -29,7 +29,7 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	"github.com/pkg/errors"
 
-	rpctypes "github.com/pell-chain/pellcore/rpc/types"
+	rpctypes "github.com/0xPellNetwork/aegis/rpc/types"
 )
 
 // GetTransactionByHash returns the Ethereum format transaction identified by Ethereum transaction hash

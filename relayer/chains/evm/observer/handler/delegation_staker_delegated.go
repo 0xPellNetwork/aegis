@@ -11,12 +11,12 @@ import (
 	"github.com/onrik/ethrpc"
 	"github.com/rs/zerolog"
 
-	"github.com/pell-chain/pellcore/relayer/chains/evm"
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	"github.com/pell-chain/pellcore/relayer/compliance"
-	"github.com/pell-chain/pellcore/relayer/config"
-	"github.com/pell-chain/pellcore/relayer/pellcore"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/relayer/chains/evm"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/compliance"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	"github.com/0xPellNetwork/aegis/relayer/pellcore"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 var _ interfaces.ChainEventHandler = &StakerDelegatedHandler{}

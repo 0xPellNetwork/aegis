@@ -17,9 +17,9 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	relayermocks "github.com/pell-chain/pellcore/testutil/keeper/mocks/relayer"
-	"github.com/pell-chain/pellcore/x/relayer/keeper"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	relayermocks "github.com/0xPellNetwork/aegis/testutil/keeper/mocks/relayer"
+	"github.com/0xPellNetwork/aegis/x/relayer/keeper"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // RelayerMockOptions represents options for instantiating an relayer keeper with mocks

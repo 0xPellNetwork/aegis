@@ -1,7 +1,7 @@
 syntax = "proto3";
 package xsecurity;
 
-option go_package = "github.com/pell-chain/pellcore/x/xsecurity/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/xsecurity/types";
 
 // xsecurity genesis state
 message GenesisState {

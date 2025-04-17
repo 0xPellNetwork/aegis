@@ -17,10 +17,10 @@ import (
 	"github.com/rs/zerolog/log"
 	flag "github.com/spf13/pflag"
 
-	"github.com/pell-chain/pellcore/app/ante"
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
-	"github.com/pell-chain/pellcore/relayer/authz"
-	"github.com/pell-chain/pellcore/relayer/hsm"
+	"github.com/0xPellNetwork/aegis/app/ante"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/relayer/authz"
+	"github.com/0xPellNetwork/aegis/relayer/hsm"
 )
 
 var (

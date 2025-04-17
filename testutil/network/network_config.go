@@ -16,8 +16,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	"github.com/pell-chain/pellcore/app"
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/app"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
 )
 
 // DefaultConfig will initialize config for the network with custom application,

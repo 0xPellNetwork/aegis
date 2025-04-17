@@ -16,9 +16,9 @@ import (
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/proofs/bitcoin"
-	"github.com/pell-chain/pellcore/pkg/proofs/ethereum"
-	"github.com/pell-chain/pellcore/pkg/testdata"
+	"github.com/0xPellNetwork/aegis/pkg/proofs/bitcoin"
+	"github.com/0xPellNetwork/aegis/pkg/proofs/ethereum"
+	"github.com/0xPellNetwork/aegis/pkg/testdata"
 )
 
 const (

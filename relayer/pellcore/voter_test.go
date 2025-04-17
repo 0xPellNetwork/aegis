@@ -14,7 +14,7 @@ import (
 	"github.com/rs/zerolog/log"
 	. "gopkg.in/check.v1"
 
-	"github.com/pell-chain/pellcore/relayer/keys"
+	"github.com/0xPellNetwork/aegis/relayer/keys"
 )
 
 type VoterSuite struct {

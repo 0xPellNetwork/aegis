@@ -13,9 +13,9 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/constant"
-	"github.com/pell-chain/pellcore/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/constant"
+	"github.com/0xPellNetwork/aegis/relayer/types"
 )
 
 // TelemetryServer provides http endpoint for Tss server

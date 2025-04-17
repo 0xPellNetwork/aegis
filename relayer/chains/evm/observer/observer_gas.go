@@ -6,7 +6,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	clienttypes "github.com/pell-chain/pellcore/relayer/types"
+	clienttypes "github.com/0xPellNetwork/aegis/relayer/types"
 )
 
 // WatchGasPrice watches evm chain for gas prices and post to pellcore

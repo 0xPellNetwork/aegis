@@ -3,8 +3,8 @@ package lightclient
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/lightclient/keeper"
-	"github.com/pell-chain/pellcore/x/lightclient/types"
+	"github.com/0xPellNetwork/aegis/x/lightclient/keeper"
+	"github.com/0xPellNetwork/aegis/x/lightclient/types"
 )
 
 // InitGenesis initializes the lightclient module's state from a provided genesis state

@@ -11,9 +11,9 @@ package ante_test
 // 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 // 	"github.com/stretchr/testify/require"
 
-// 	"github.com/pell-chain/pellcore/app"
-// 	"github.com/pell-chain/pellcore/app/ante"
-// 	"github.com/pell-chain/pellcore/testutil/sample"
+// 	"github.com/0xPellNetwork/aegis/app"
+// 	"github.com/0xPellNetwork/aegis/app/ante"
+// 	"github.com/0xPellNetwork/aegis/testutil/sample"
 // )
 
 // func TestVesting_AnteHandle(t *testing.T) {

@@ -15,9 +15,9 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/x/relayer/client/cli"
-	"github.com/pell-chain/pellcore/x/relayer/keeper"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/client/cli"
+	"github.com/0xPellNetwork/aegis/x/relayer/keeper"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 var (
