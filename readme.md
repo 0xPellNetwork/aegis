@@ -1,7 +1,6 @@
-# Pell Chain
+# Aegis Chain
 
-PellChain is an L1 blockchain compatible with both CosmWasm and EVM virtual machines, enabling omnichain, generic
-smart contracts and messaging between any blockchain.
+Aegis Chain is a Layer 1 blockchain in the Pell ecosystem, featuring dual compatibility with CosmWasm and EVM virtual machines. It enables omnichain capabilities, generic smart contracts and cross-chain messaging between any blockchain.
 
 ## Prerequisites
 
@@ -12,19 +11,19 @@ smart contracts and messaging between any blockchain.
 - [buf](https://buf.build/) (optional, for processing protocol buffer files)
 - [jq](https://stedolan.github.io/jq/download/) (optional, for running scripts)
 
-## Components of PellChain
+## Components of Aegis Chain
 
-PellChain is built with [Cosmos SDK](https://github.com/cosmos/cosmos-sdk), a
+Aegis Chain is built with [Cosmos SDK](https://github.com/cosmos/cosmos-sdk), a
 modular framework for building blockchain and
 [Ethermint](https://github.com/evmos/ethermint), a module that implements
 EVM-compatibility.
 
-- [pell-node](https://github.com/0xPellNetwork/chain) (this repository)
-  contains the source code for the PellChain node (`pellcored`) and the
-  PellChain relayer (`pellclientd`).
+- [aegis](https://github.com/0xPellNetwork/aegis) (this repository)
+  contains the source code for the Aegis Chain node (`aegisd`) and the
+  Aegis Chain relayer (`aegisclientd`).
 - [protocol-contracts](https://github.com/0xPellNetwork/contracts)
   contains the source code for the Solidity smart contracts that implement the
-  core functionality of PellChain.
+  core functionality of Aegis Chain.
 
 ## Building the pellcored/pellclientd binaries
 
