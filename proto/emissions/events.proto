@@ -1,0 +1,42 @@
+syntax = "proto3";
+package emissions;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/emissions/types";
+
+// emission type
+enum EmissionType {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // slash
+  SLASH = 0;
+  // reward
+  REWARDS = 1;
+}
+
+// relayer emission
+message RelayerEmission {
+  EmissionType emission_type = 1;
+  string observer_address = 2;
+  string amount = 3 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// relayer emissions event
+message EventRelayerEmissions {
+  string msg_type_url = 1;
+  repeated RelayerEmission emissions = 2;
+}
+
+// block emissions event
+message EventBlockEmissions {
+  string msg_type_url = 1;
+  string bond_factor = 2;
+  string reserves_factor = 3;
+  string duration_factor = 4;
+  string validator_rewards_for_block = 5;
+  string observer_rewards_for_block = 6;
+  string tss_rewards_for_block = 7;
+}

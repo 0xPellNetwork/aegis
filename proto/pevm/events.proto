@@ -1,0 +1,28 @@
+syntax = "proto3";
+package pevm;
+
+option go_package = "github.com/pell-chain/pellcore/x/pevm/types";
+
+// deploy pell system contract event
+message EventSystemContractsDeployed {
+  string msg_type_url = 1;
+  string system_contract = 2;
+  string connector = 3;
+  string empty_contract = 4;
+  string proxy_admin = 5;
+  string delegation_manager_proxy = 6;
+  string strategy_manager_proxy = 7;
+  string slasher_proxy = 8;
+  string delegation_manager_impl = 9;
+  string strategy_manager_impl = 10;
+  string slasher_impl = 11;
+  string dvs_directory = 12;
+  string dvs_directory_proxy = 13;
+  string registry_router = 14;
+  string registry_router_factory = 15;
+  string signer = 16;
+  string wrapped_pell = 17;
+  string gateway = 18;
+  string gas_swap = 19;
+  string stake_registry_router = 20;
+}

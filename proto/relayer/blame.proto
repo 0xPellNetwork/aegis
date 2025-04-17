@@ -1,0 +1,18 @@
+syntax = "proto3";
+package relayer;
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// node infomation
+message Node {
+  string pub_key = 1;
+  bytes blame_data = 2;
+  bytes blame_signature = 3;
+}
+
+// blame infomation
+message Blame {
+  string index = 1;
+  string failure_reason = 2;
+  repeated Node nodes = 3;
+}

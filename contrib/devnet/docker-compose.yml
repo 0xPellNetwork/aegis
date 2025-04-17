@@ -1,0 +1,32 @@
+
+
+services:
+
+  pellcore:
+    image: ${DOCKER_REGISTRY:-docker.io/pellnetwork/}pellnode-devnet:${TAG:-latest}
+    volumes:
+      - /home/ubuntu/config/pellcore:/root/.pellcored
+    entrypoint: ["/root/start-pellcored.sh"]
+    ports:
+      - "1317:1317"
+      - "8545:8545"
+      - "8546:8546"
+      - "26656:26656"
+      - "26657:26657"
+      - "26660:26660"
+      # - "6060:6060"
+      - "9090:9090"
+
+  pellclient:
+    image: ${DOCKER_REGISTRY:-docker.io/pellnetwork/}pellnode-devnet:${TAG:-latest}
+    entrypoint: ["/root/start-pellclientd.sh"]
+    ports:
+      - "6668:6668"
+      - "8123:8123"
+    volumes:
+      - /home/ubuntu/config/pellclient:/root/.pellcored
+      - /home/ubuntu/config/pelltss:/root/.tss
+    environment:
+      - CLIENT_HOTKEY_PASSWORD=${CLIENT_HOTKEY_PASSWORD}
+      - CLIENT_TSS_PASSWORD=${CLIENT_TSS_PASSWORD}
+      - BSC_EXTERNAL_RPC_URL=${BSC_EXTERNAL_RPC_URL}

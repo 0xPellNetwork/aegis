@@ -1,0 +1,21 @@
+syntax = "proto3";
+package pevm;
+
+import "gogoproto/gogo.proto";
+import "pevm/system_contract.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/pevm/types";
+
+// GenesisState defines the pevm module's genesis state.
+message GenesisState {
+  SystemContract system_contract = 3;
+}
+
+// Genesis state legacy
+message GenesisStateLegacy {
+  Params params = 1 [(gogoproto.nullable) = false];
+  SystemContract system_contract = 3;
+}
+
+// null params
+message Params {}

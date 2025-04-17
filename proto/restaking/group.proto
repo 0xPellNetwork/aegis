@@ -1,0 +1,165 @@
+syntax = "proto3";
+package restaking;
+
+import "gogoproto/gogo.proto";
+import "restaking/epoch_outbound_state.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+
+// RegistryRouterList is a list of registry router addresses
+message RegistryRouterList {
+  repeated string addresses = 1;
+}
+
+// DVSInfoList is a list of DVSInfo
+message DVSInfoList {
+  repeated DVSInfo dvs_infos = 1;
+}
+
+// DVSInfo is the information of a DVS
+message DVSInfo {
+  uint64 chain_id = 1;
+  string service_manager = 2;
+  string ejection_manager = 3;
+  string central_scheduler = 4;
+  string stake_manager = 5;
+  string bls_apk_registry = 6;
+  string index_registry = 7;
+  OutboundStatus outbound_state = 8;
+}
+
+// GroupList is a list of groups
+message GroupList {
+  repeated Group groups = 1;
+}
+
+// Group represents the group configuration
+message Group {
+  uint64 group_number = 1;
+  OperatorSetParam operator_set_param = 2;
+  uint64 minimum_stake = 3;
+  repeated PoolParams pool_params = 4;
+  GroupEjectionParam group_ejection_param = 5;
+}
+
+// OperatorSetParam defines the parameters for the operator set
+message OperatorSetParam {
+  uint32 max_operator_count = 1;
+  uint32 kick_bips_of_operator_stake = 2;
+  uint32 kick_bips_of_total_stake = 3;
+}
+
+// PoolParams defines the pool parameters
+message PoolParams {
+  uint64 chain_id = 1;
+  string pool = 2;
+  uint64 multiplier = 3;
+}
+
+// GroupEjectionParam defines the parameters for group ejection
+message GroupEjectionParam {
+  uint32 rate_limit_window = 1; // Time delta to track ejection over
+  uint32 ejectable_stake_percent = 2; // Max stake to be ejectable per time delta
+}
+
+// GroupOperatorRegistrationList is a list of quorum operator registration
+message GroupOperatorRegistrationList {
+  repeated GroupOperatorRegistration operator_registered_infos = 1;
+}
+
+// OperatorRegisteredInfo represents the information of an operator registration
+message GroupOperatorRegistration {
+  string operator = 1;
+  bytes operator_id = 2;
+  bytes group_numbers = 3;
+  string socket = 4;
+  PubkeyRegistrationParams pubkey_params = 5;
+}
+
+// PubkeyRegistrationParams holds public key registration details
+message PubkeyRegistrationParams {
+  G1Point pubkey_g1 = 1;
+  G2Point pubkey_g2 = 2;
+}
+
+// G1Point represents a point on the BN254 curve
+message G1Point {
+  uint64 x = 1; // Use uint64 arrays or strings if you need higher precision.
+  uint64 y = 2; // Adjust as needed based on your application's handling of
+  // large integers.
+}
+
+// G2Point represents a point on the BN254 curve, with field elements encoded as
+// arrays
+message G2Point {
+  repeated uint64 x = 1; // Encodes X[1] * i + X[0]
+  repeated uint64 y = 2; // Encodes Y[1] * i + Y[0]
+}
+
+// Due to a bug in the old version, use uint64 for Point data.
+// A V2 data structure with bigint is needed to fix the bug.
+// The next version (v1.2.0) will use the V2 data structure.
+// The following version will remove the V1 data structure.
+
+// GroupOperatorRegistrationListV2 is a list of quorum operator registration
+message GroupOperatorRegistrationListV2 {
+  repeated GroupOperatorRegistrationV2 operator_registered_infos = 1;
+}
+
+// OperatorRegisteredInfoV2 represents the information of an operator registration
+message GroupOperatorRegistrationV2 {
+  string operator = 1;
+  bytes operator_id = 2;
+  bytes group_numbers = 3;
+  string socket = 4;
+  PubkeyRegistrationParamsV2 pubkey_params = 5;
+}
+
+// PubkeyRegistrationParamsV2 holds public key registration details
+message PubkeyRegistrationParamsV2 {
+  G1PointV2 pubkey_g1 = 3;
+  G2PointV2 pubkey_g2 = 4;
+}
+
+// G1Point represents a point on the BN254 curve
+message G1PointV2 {
+  string x = 1 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  string y = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// G2Point represents a point on the BN254 curve, with field elements encoded as
+// arrays
+message G2PointV2 {
+  repeated string x = 1 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  repeated string y = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// SignatureWithSaltAndExpiry holds the operator's signature details
+message SignatureWithSaltAndExpiry {
+  bytes signature = 1;
+  bytes salt = 2; // Can be `bytes` for 32 bytes of salt.
+  uint64 expiry = 3; // Timestamp as uint64 for expiration
+}
+
+// GroupSyncList is a list of quorum sync xmsg index
+message GroupSyncList {
+  repeated string xmsg_index = 1;
+}
+
+// RegistryRouterSet is a set of registry router address and stake registry router address
+message RegistryRouterSet {
+  string registry_router_address = 1;
+  string stake_registry_router_address = 2;
+}

@@ -1,0 +1,9 @@
+version: "3"
+
+# This docker-compose file overrides the orcherstrator service to use the setup only option
+# It is used to setup the localnet environment without running tests
+
+services:
+  orchestrator:
+    entrypoint: ["/work/start-pelle2e.sh", "local --setup-only"]
+

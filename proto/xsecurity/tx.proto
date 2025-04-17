@@ -1,0 +1,139 @@
+syntax = "proto3";
+package xsecurity;
+
+import "cosmos/msg/v1/msg.proto";
+import "gogoproto/gogo.proto";
+import "restaking/group.proto";
+import "xsecurity/store.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/xsecurity/types";
+
+// Msg defines the Msg service.
+service Msg {
+  // CreateRegistryRouter creates a registry router
+  rpc CreateRegistryRouter(MsgCreateRegistryRouter) returns (MsgCreateRegistryRouterResponse);
+
+  // CreateGroup creates a group
+  rpc CreateGroup(MsgCreateGroup) returns (MsgCreateGroupResponse);
+
+  // SetGroupParam sets the parameters of a DVS group
+  rpc SetGroupParam(MsgSetGroupParam) returns (MsgSetGroupParamResponse);
+
+  // AddPools adds strategies to a DVS group
+  rpc AddPools(MsgAddPools) returns (MsgAddPoolsResponse);
+
+  // RemovePools removes strategies from a DVS group
+  rpc RemovePools(MsgRemovePools) returns (MsgRemovePoolsResponse);
+
+  // RegisterOperator registers an operator
+  rpc RegisterOperator(MsgRegisterOperator) returns (MsgRegisterOperatorResponse);
+
+  // UpdateVotingPowerRatio updates the voting power ratio
+  rpc UpdateVotingPowerRatio(MsgUpdateVotingPowerRatio) returns (MsgUpdateVotingPowerRatioResponse);
+
+  // UpdateLSTStakingEnabled updates the LST staking enabled status
+  rpc UpdateLSTStakingEnabled(MsgUpdateLSTStakingEnabled) returns (MsgUpdateLSTStakingEnabledResponse);
+}
+
+// MsgCreateRegistryRouter creates a registry router
+message MsgCreateRegistryRouter {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string chain_approver = 2;
+  string churn_approver = 3;
+  string ejector = 4;
+  string pauser = 5;
+  string unpauser = 6;
+  int64 initial_paused_status = 7;
+}
+
+// MsgCreateRegistryRouterResponse is the response for MsgCreateRegistryRouter
+message MsgCreateRegistryRouterResponse {}
+
+// MsgCreateGroup creates a DVS group
+message MsgCreateGroup {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  restaking.OperatorSetParam operator_set_params = 2;
+  repeated restaking.PoolParams pool_params = 3;
+  restaking.GroupEjectionParam group_ejection_params = 4;
+  string min_stake = 5 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// MsgCreateGroupResponse is the response for MsgCreateDVSGroup
+message MsgCreateGroupResponse {}
+
+// MsgSetGroupParam sets the parameters of a DVS group
+message MsgSetGroupParam {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  restaking.OperatorSetParam operator_set_params = 3;
+}
+
+// MsgSetGroupParamResponse is the response for MsgSetGroupParam
+message MsgSetGroupParamResponse {}
+
+// MsgAddPool adds strategies to a DVS group
+message MsgAddPools {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  int64 group_number = 2;
+  repeated restaking.PoolParams pools = 3;
+}
+
+// MsgAddPoolResponse is the response for MsgAddPool
+message MsgAddPoolsResponse {}
+
+// MsgRemovePool removes strategies from a DVS group
+message MsgRemovePools {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  int64 group_number = 2;
+  repeated restaking.PoolParams pools = 3;
+}
+
+// MsgRemovePoolResponse is the response for MsgRemovePool
+message MsgRemovePoolsResponse {}
+
+// MsgRegisterOperator registers an operator
+message MsgRegisterOperator {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  RegisterOperatorParam register_operator_param = 2;
+  string operator_address = 3;
+}
+
+// MsgRegisterOperatorResponse is the response for MsgRegisterOperator
+message MsgRegisterOperatorResponse {}
+
+// MsgUpdateVotingPowerRatio updates the voting power ratio
+message MsgUpdateVotingPowerRatio {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string numerator = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  string denominator = 3 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// MsgUpdateVotingPowerRatioResponse is the response for
+// MsgUpdateVotingPowerRatio
+message MsgUpdateVotingPowerRatioResponse {}
+
+// MsgUpdateLSTStakingEnabled updates the LST staking enabled status
+message MsgUpdateLSTStakingEnabled {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  bool enabled = 2;
+}
+
+// MsgUpdateLSTStakingEnabledResponse is the response for
+// MsgUpdateLSTStakingEnabled
+message MsgUpdateLSTStakingEnabledResponse {}

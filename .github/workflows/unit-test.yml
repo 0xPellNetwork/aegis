@@ -1,0 +1,53 @@
+name: Go Unit Tests
+
+on:
+  # Trigger on push to the 'main' branch and pull requests to any branch
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: [ "self-hosted", "Linux", "X64", "ci" ]
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Verify the code
+      - name: Verify code
+        run: |
+          echo "Current branch: $(git branch --show-current)"
+          echo "Last commit: $(git log -1 --oneline)"
+
+      # Step 3: Setup the Go environment
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.23  # Specify your project's Go version here
+          cache: false
+
+      # Step 4: Install dependencies
+      - name: Install dependencies
+        run: go mod tidy
+
+      - name: Verify testdata existence
+        run: |
+          if [ ! -d "./relayer/testdata" ]; then
+            echo "relayer/testdata directory not found!"
+            exit 1
+          fi
+          ls -R ./relayer/testdata
+
+      - name: Run Unit Tests
+        run: go test ./... -coverprofile=coverage.out
+
+      # Optional Step: Upload coverage results to Codecov
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}  # Add Codecov token in GitHub Secrets
+          files: coverage.out
+          flags: unittests
+          name: Codecov Report

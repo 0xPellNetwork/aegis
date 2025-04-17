@@ -1,0 +1,37 @@
+package cli
+
+import (
+	"context"
+
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/spf13/cobra"
+
+	"github.com/pell-chain/pellcore/x/relayer/types"
+)
+
+func CmdShowKeygen() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "show-keygen",
+		Short: "shows keygen",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			clientCtx := client.GetClientContextFromCmd(cmd)
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			params := &types.QueryGetKeygenRequest{}
+
+			res, err := queryClient.Keygen(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
+		},
+	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
+}

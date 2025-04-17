@@ -1,0 +1,45 @@
+name: GoSec Security Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: gosec-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+      
+jobs:
+  tests:
+    runs-on: [ "self-hosted", "Linux", "X64", "ci" ]
+
+    env:
+      GO111MODULE: on
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+
+      - name: Compute diff �
+        run: |
+          GIT_DIFF=$(git diff HEAD^...HEAD --name-only | grep -E '\.(go|mod|sum)$' || true)
+          echo "GIT_DIFF=$GIT_DIFF" >> $GITHUB_ENV
+
+      - name: Run Gosec Security Scanner
+        env:
+            GITHUB_AUTHENTICATION_TOKEN: ${{ secrets.GH_TOKEN }}
+        uses: securego/gosec@v2.19.0
+        if: "env.GIT_DIFF != ''"
+        with:
+          args: '-no-fail -fmt sarif -out results.sarif ./...'
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        if: "env.GIT_DIFF != ''"
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: results.sarif

@@ -1,0 +1,80 @@
+name: Cosmovisor Upgrade test
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+
+  build:
+    runs-on: [ "self-hosted", "Linux", "X64", "ci" ]
+    name: Build
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      TAG: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+          fetch-depth: 0
+          tags: true
+
+      - name: Retrieve PREVIOUS_GIT_VERSION
+        run: |
+          set -e
+          
+          echo "===== Listing all Git tags ====="
+          git tag --list
+          
+          echo "===== Running the Python script ====="
+          CURRENT_TAG=${GITHUB_REF#refs/tags/}
+          echo "Current tag: $CURRENT_TAG"
+          
+          OUTPUT=$(python3 contrib/localnet/scripts/get_previous_git_version.py "$CURRENT_TAG")
+          
+          echo "===== Script output ====="
+          echo "The script returned: $OUTPUT"
+          
+          echo "PREVIOUS_GIT_VERSION=$OUTPUT" >> $GITHUB_ENV
+
+      - name: Retrieve UPGRADE_VERSION
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          set -e
+          echo "===== Running the Python script for UPGRADE_VERSION ====="
+          # Extract the tag value from the GITHUB_REF variable.
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "Current tag is: $TAG"
+          NEW_OUTPUT=$(python3 contrib/localnet/scripts/get_upgrade_version.py "$TAG")
+          echo "UPGRADE_VERSION=$NEW_OUTPUT"
+          echo "UPGRADE_VERSION=$NEW_OUTPUT" >> $GITHUB_ENV
+
+      - name: Build Docker image
+        working-directory: contrib/localnet
+        run: |
+          docker compose -f docker-compose-upgrade.build.yml build pellnode
+          docker compose -f docker-compose.build.yml build pell-contracts
+          docker compose -f docker-compose.build.yml build orchestrator
+          docker compose -f docker-compose.build.yml build eth
+
+      - name: E2E Test
+        working-directory: contrib/localnet
+        run: |
+          docker compose -p pell-e2e-upgrade -f docker-compose-upgrade.yml down
+          docker compose -p pell-e2e-upgrade -f docker-compose-upgrade.yml up  -d 
+
+          sleep 200
+
+          docker compose -p pell-e2e-upgrade -f docker-compose-upgrade.yml restart --no-deps pellclient0
+          docker compose -p pell-e2e-upgrade -f docker-compose-upgrade.yml restart --no-deps pellclient1
+          docker compose -p pell-e2e-upgrade -f docker-compose-upgrade.yml run --rm orchestrator /work/start-e2e-local.sh
+          docker compose -p pell-e2e-upgrade -f docker-compose-upgrade.yml down
+
+      - name: Run on completion
+        if: failure()
+        working-directory: contrib/localnet
+        run: |
+          docker compose -p pell-e2e-upgrade -f docker-compose-upgrade.yml stop

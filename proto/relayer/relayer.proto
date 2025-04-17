@@ -1,0 +1,62 @@
+syntax = "proto3";
+package relayer;
+
+import "gogoproto/gogo.proto";
+import "pkg/chains/chains.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// observation type
+enum ObservationType {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // EMPTY_OBSERVER_TYPE is the default value for the observer type
+  EMPTY_OBSERVER_TYPE = 0;
+  // IN_BOUND_TX is the observer type for inbound transactions
+  IN_BOUND_TX = 1;
+  // OUT_BOUND_TX is the observer type for outbound transactions
+  OUT_BOUND_TX = 2;
+  // TSS_KEY_GEN is the observer type for TSS key generation
+  TSS_KEY_GEN = 3;
+  // TSS_KEY_SIGN is the observer type for TSS key signing
+  TSS_KEY_SIGN = 4;
+  // IN_BOUND_BLOCK is the observer type for inbound blocks
+  IN_BOUND_BLOCK = 5;
+  // PELL_TOKEN_RECHARGE is the observer type for Pell token recharge
+  PELL_TOKEN_RECHARGE = 6;
+  // GAS_TOKEN_RECHARGE is the observer type for gas token recharge
+  GAS_TOKEN_RECHARGE = 7;
+}
+
+// relayer update reason
+enum RelayerUpdateReason {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // UNDEFINED is the default value for the relayer update reason
+  UNDEFINED = 0;
+  // TOMBSTONED is the relayer update reason for tombstoned relayers
+  TOMBSTONED = 1;
+  // ADMIN_UPDATE is the relayer update reason for admin updates
+  ADMIN_UPDATE = 2;
+}
+
+// RelayerMapper is the mapper for relayers
+message RelayerMapper {
+  // index is the index of the relayer mapper
+  string index = 1;
+  // relayer_chain is the chain of the relayer mapper
+  pkg.chains.Chain relayer_chain = 2;
+  // relayer_list is the list of relayers
+  repeated string relayer_list = 3;
+}
+
+// RelayerSet is the set of relayers
+message RelayerSet {
+  repeated string relayer_list = 1;
+}
+
+// LastRelayerCount is the last relayer count
+message LastRelayerCount {
+  // count is the count of the last relayer
+  uint64 count = 1;
+  // last_change_height is the last change height of the relayer
+  int64 last_change_height = 2;
+}

@@ -1,0 +1,453 @@
+syntax = "proto3";
+package xmsg;
+
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "xmsg/chain_index.proto";
+import "xmsg/crosschain_fee_param.proto";
+import "xmsg/gas_price.proto";
+import "xmsg/in_tx_hash_to_xmsg.proto";
+import "xmsg/in_tx_tracker.proto";
+import "xmsg/last_block_height.proto";
+import "xmsg/out_tx_tracker.proto";
+import "xmsg/rate_limiter_flags.proto";
+import "xmsg/xmsg.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Queries a OutTxTracker by index.
+  rpc OutTxTracker(QueryGetOutTxTrackerRequest) returns (QueryOutTxTrackerResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/outTxTracker/{chain_id}/{nonce}";
+  }
+
+  // Queries a list of OutTxTracker items.
+  rpc OutTxTrackerAll(QueryAllOutTxTrackerRequest) returns (QueryOutTxTrackerAllResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/outTxTracker";
+  }
+
+  // Queries a list of OutTxTracker items by chain.
+  rpc OutTxTrackerAllByChain(QueryAllOutTxTrackerByChainRequest) returns (QueryOutTxTrackerAllByChainResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/outTxTrackerByChain/{chain}";
+  }
+
+  // Queries a list of inTxTracker items by chain.
+  rpc InTxTrackerAllByChain(QueryAllInTxTrackerByChainRequest) returns (QueryInTxTrackerAllByChainResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/inTxTrackerByChain/{chain_id}";
+  }
+
+  // Queries a list of inTxTracker items.
+  rpc InTxTrackerAll(QueryAllInTxTrackersRequest) returns (QueryInTxTrackerAllResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/inTxTrackers";
+  }
+
+  // Queries a InTxHashToXmsg by index.
+  rpc InTxHashToXmsg(QueryGetInTxHashToXmsgRequest) returns (QueryInTxHashToXmsgResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/inTxHashToXmsg/{in_tx_hash}";
+  }
+
+  // Queries a InTxHashToXmsg data by index.
+  rpc InTxHashToXmsgData(QueryInTxHashToXmsgDataRequest) returns (QueryInTxHashToXmsgDataResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/in_tx_hash_to_xmsg_data/{in_tx_hash}";
+  }
+
+  // Queries a list of InTxHashToXmsg items.
+  rpc InTxHashToXmsgAll(QueryAllInTxHashToXmsgRequest) returns (QueryInTxHashToXmsgAllResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/inTxHashToXmsg";
+  }
+
+  // Queries a gasPrice by index.
+  rpc GasPrice(QueryGetGasPriceRequest) returns (QueryGasPriceResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/gasPrice/{index}";
+  }
+
+  // Queries a list of gasPrice items.
+  rpc GasPriceAll(QueryAllGasPriceRequest) returns (QueryGasPriceAllResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/gasPrice";
+  }
+
+  // Queries a lastBlockHeight by index.
+  rpc LastBlockHeight(QueryGetLastBlockHeightRequest) returns (QueryLastBlockHeightResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/lastBlockHeight/{index}";
+  }
+
+  // Queries a list of lastBlockHeight items.
+  rpc LastBlockHeightAll(QueryAllLastBlockHeightRequest) returns (QueryLastBlockHeightAllResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/lastBlockHeight";
+  }
+  // Queries a send by index.
+  rpc Xmsg(QueryGetXmsgRequest) returns (QueryXmsgResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/xmsg/{index}";
+  }
+
+  // Queries a send by index.
+  rpc BlockProof(QueryBlockProofRequest) returns (QueryBlockProofResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/blockProof/{chain_id}/{height}";
+  }
+
+  // Queries a send by nonce.
+  rpc XmsgByNonce(QueryGetXmsgByNonceRequest) returns (QueryXmsgByNonceResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/xmsg/{chain_id}/{nonce}";
+  }
+
+  // Queries a list of send items.
+  rpc XmsgAll(QueryAllXmsgRequest) returns (QueryXmsgAllResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/xmsg";
+  }
+
+  // Queries a list of send items.
+  rpc ChainIndex(QueryChainIndexRequest) returns (QueryChainIndexResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/chainIndex";
+  }
+
+  // Queries a index for pell token vote
+  rpc PellRechargeOperationIndex(QueryPellRechargeOperationIndexRequest) returns (QueryPellRechargeOperationIndexResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/pellRechargeOperationIndex";
+  }
+
+  // Queries a index for gas token vote
+  rpc GasRechargeOperationIndex(QueryGasRechargeOperationIndexRequest) returns (QueryGasRechargeOperationIndexResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/gasRechargeOperationIndex";
+  }
+
+  // Queries a list of pending xmsgs.
+  rpc ListPendingXmsg(QueryListPendingXmsgRequest) returns (QueryListPendingXmsgResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/pendingXmsg";
+  }
+
+  // Queries a list of pending xmsgs within rate limit.
+  rpc ListPendingXmsgWithinRateLimit(QueryListPendingXmsgWithinRateLimitRequest) returns (QueryListPendingXmsgWithinRateLimitResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/pendingXmsgWithinRateLimit";
+  }
+
+  // Queries a list of lastMetaHeight items.
+  rpc LastPellHeight(QueryLastPellHeightRequest) returns (QueryLastPellHeightResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/lastPellHeight";
+  }
+
+  // Queries the rate limiter flags
+  rpc RateLimiterFlags(QueryRateLimiterFlagsRequest) returns (QueryRateLimiterFlagsResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/rateLimiterFlags";
+  }
+
+  // Queries the input data of rate limiter.
+  rpc RateLimiterInput(QueryRateLimiterInputRequest) returns (QueryRateLimiterInputResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/rateLimiterInput";
+  }
+
+  // Queries the list of allowed xmsg senders.
+  rpc ListAllowedXmsgSenders(QueryListAllowedXmsgSendersRequest) returns (QueryListAllowedXmsgSendersResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/allowedXmsgSenders";
+  }
+  // Queries a list of crosschain event fees.
+  rpc CrosschainFeeParams(QueryCrosschainFeeParamsRequest) returns (QueryCrosschainFeeParamsResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/crosschain_fee_params";
+  }
+  // Queries a list of crosschain event fees by chain id.
+  rpc CrosschainFeeParamByChainId(QueryCrosschainFeeParamByChainIdRequest) returns (QueryCrosschainFeeParamByChainIdResponse) {
+    option (google.api.http).get = "/pell-chain/xmsg/crosschain_fee_param_by_chain_id/{chain_id}";
+  }
+}
+
+// QueryCrosschainFeeParamsRequest is the request type for the
+// Query/CrosschainFeeParams.
+message QueryCrosschainFeeParamsRequest {}
+
+// QueryCrosschainFeeParamsResponse is the response type for the
+// Query/CrosschainFeeParams.
+message QueryCrosschainFeeParamsResponse {
+  repeated CrosschainFeeParam crosschain_fee_params = 1;
+}
+
+// QueryCrosschainFeeParamByChainIdRequest is the request type for the
+// Query/CrosschainFeeParamByChainId.
+message QueryCrosschainFeeParamByChainIdRequest {
+  int64 chain_id = 1;
+}
+
+// QueryCrosschainFeeParamByChainIdResponse is the response type for the
+// Query/CrosschainFeeParamByChainId.
+message QueryCrosschainFeeParamByChainIdResponse {
+  CrosschainFeeParam crosschain_fee_param = 1;
+}
+
+// QueryListXmsgBuildersRequest is an empty message used to request the list of
+// Xmsg builders
+message QueryListAllowedXmsgSendersRequest {}
+
+// QueryListAllowedXmsgSendersResponse contains the list of authorized Xmsg
+// builder addresses
+message QueryListAllowedXmsgSendersResponse {
+  // builders is a list of authorized Xmsg builder addresses
+  repeated string builders = 1;
+}
+
+// request of query out tx tracker
+message QueryGetOutTxTrackerRequest {
+  int64 chain_id = 1;
+  uint64 nonce = 2;
+}
+
+// response of query out tx tracker
+message QueryOutTxTrackerResponse {
+  OutTxTracker out_tx_tracker = 1 [(gogoproto.nullable) = false];
+}
+
+// request of query all out tx tracker
+message QueryAllOutTxTrackerRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// response of query all out tx tracker
+message QueryOutTxTrackerAllResponse {
+  repeated OutTxTracker out_tx_tracker = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// request of query all out tx tracker by chain
+message QueryAllOutTxTrackerByChainRequest {
+  int64 chain = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+// response of query all out tx tracker by chain
+message QueryOutTxTrackerAllByChainResponse {
+  repeated OutTxTracker out_tx_trackers = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// request of query all in tx tracker by chain
+message QueryAllInTxTrackerByChainRequest {
+  int64 chain_id = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+// response of query all in tx tracker by chain
+message QueryInTxTrackerAllByChainResponse {
+  repeated InTxTracker in_tx_trackers = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// request of query all in tx trackers
+message QueryAllInTxTrackersRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// response of query all in tx trackers
+message QueryInTxTrackerAllResponse {
+  repeated InTxTracker in_tx_trackers = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// request of query in tx hash to xmsg
+message QueryGetInTxHashToXmsgRequest {
+  string in_tx_hash = 1;
+}
+
+// response of query in tx hash to xmsg
+message QueryInTxHashToXmsgResponse {
+  InTxHashToXmsg in_tx_hash_to_xmsg = 1 [(gogoproto.nullable) = false];
+}
+
+// request of query in tx hash to xmsg data
+message QueryInTxHashToXmsgDataRequest {
+  string in_tx_hash = 1;
+}
+
+// response of query in tx hash to xmsg data
+message QueryInTxHashToXmsgDataResponse {
+  repeated Xmsg xmsgs = 1 [(gogoproto.nullable) = false];
+}
+
+// request of query all in tx hash to xmsg
+message QueryAllInTxHashToXmsgRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// response of query all in tx hash to xmsg
+message QueryInTxHashToXmsgAllResponse {
+  repeated InTxHashToXmsg in_tx_hash_to_xmsg = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// request of query gas price
+message QueryGetGasPriceRequest {
+  string index = 1;
+}
+
+// response of query gas price
+message QueryGasPriceResponse {
+  GasPrice gas_price = 1;
+}
+
+// request of query all gas price
+message QueryAllGasPriceRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// response of query all gas price
+message QueryGasPriceAllResponse {
+  repeated GasPrice gas_prices = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// request of query last block height
+message QueryGetLastBlockHeightRequest {
+  string index = 1;
+}
+
+// response of query last block height
+message QueryLastBlockHeightResponse {
+  LastBlockHeight last_block_height = 1;
+}
+
+// request of query all last block height
+message QueryAllLastBlockHeightRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// response of query all last block height
+message QueryLastBlockHeightAllResponse {
+  repeated LastBlockHeight last_block_height = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// request of query xmsg
+message QueryGetXmsgRequest {
+  string index = 1;
+}
+
+// request of query xmsg by nonce
+message QueryGetXmsgByNonceRequest {
+  int64 chain_id = 1;
+  uint64 nonce = 2;
+}
+
+// response of query xmsg by nonce
+message QueryXmsgByNonceResponse {
+  Xmsg xmsg = 1;
+}
+
+// response of query xmsg
+message QueryXmsgResponse {
+  Xmsg xmsg = 1;
+}
+
+// request of query all xmsg
+message QueryAllXmsgRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// response of query all xmsg
+message QueryXmsgAllResponse {
+  repeated Xmsg xmsgs = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// request of query list pending xmsg
+message QueryListPendingXmsgRequest {
+  int64 chain_id = 1;
+  uint32 limit = 2;
+}
+
+// response of query list pending xmsg
+message QueryListPendingXmsgResponse {
+  repeated Xmsg xmsg = 1;
+  uint64 total_pending = 2;
+}
+
+// request of query list pending xmsg within rate limit
+message QueryListPendingXmsgWithinRateLimitRequest {
+  uint32 limit = 1;
+}
+
+// response of query list pending xmsg within rate limit
+message QueryListPendingXmsgWithinRateLimitResponse {
+  repeated Xmsg xmsgs = 1;
+  uint64 total_pending = 2;
+  int64 current_withdraw_window = 3;
+  string current_withdraw_rate = 4;
+  bool rate_limit_exceeded = 5;
+}
+
+// request of query last pell height
+message QueryLastPellHeightRequest {}
+
+// response of query last pell height
+message QueryLastPellHeightResponse {
+  int64 height = 1;
+}
+
+// request of query rate limiter flags
+message QueryRateLimiterFlagsRequest {}
+
+// response of query rate limiter flags
+message QueryRateLimiterFlagsResponse {
+  RateLimiterFlags rate_limiter_flags = 1 [(gogoproto.nullable) = false];
+}
+
+// request of query chain index
+message QueryChainIndexRequest {
+  int64 chain_id = 1;
+}
+
+// response of query chain index
+message QueryChainIndexResponse {
+  uint64 chain_id = 1;
+  uint64 curr_height = 2;
+}
+
+// request of query block proof
+message QueryBlockProofRequest {
+  int64 chain_id = 1;
+  uint64 height = 2;
+}
+
+// response of query block proof
+message QueryBlockProofResponse {
+  uint64 chain_id = 1;
+  uint64 prev_block_height = 2;
+  uint64 block_height = 3;
+  string block_hash = 4;
+
+  repeated Event events = 5;
+}
+
+// request of query recharge pell operation index
+message QueryPellRechargeOperationIndexRequest {
+  int64 chain_id = 1;
+}
+
+// response of query recharge pell operation index
+message QueryPellRechargeOperationIndexResponse {
+  uint64 chain_id = 1;
+  uint64 curr_index = 2;
+}
+
+// request of query recharge gas operation index
+message QueryGasRechargeOperationIndexRequest {
+  int64 chain_id = 1;
+}
+
+// response of query recharge gas operation index
+message QueryGasRechargeOperationIndexResponse {
+  uint64 chain_id = 1;
+  uint64 curr_index = 2;
+}
+
+// request of query rate limiter input
+message QueryRateLimiterInputRequest {
+  uint32 limit = 1;
+  int64 window = 2;
+}
+
+// response of query rate limiter input
+message QueryRateLimiterInputResponse {
+  int64 height = 1;
+  repeated Xmsg xmsgs_missed = 2;
+  repeated Xmsg xmsgs_pending = 3;
+  uint64 total_pending = 4;
+  int64 lowest_pending_xmsg_height = 5;
+}

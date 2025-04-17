@@ -1,0 +1,31 @@
+syntax = "proto3";
+package restaking;
+
+import "gogoproto/gogo.proto";
+import "restaking/delegation.proto";
+import "restaking/group.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+
+// GenesisState defines the pevm module's genesis state.
+message GenesisState {
+  repeated OperatorShares operator_share = 1 [(gogoproto.nullable) = false];
+  repeated RegistryRouterData registry_router_data = 2 [(gogoproto.nullable) = false];
+}
+
+// Genesis state legacy
+message GenesisStateLegacy {
+  Params params = 1 [(gogoproto.nullable) = false];
+  repeated OperatorShares operator_share = 2 [(gogoproto.nullable) = false];
+}
+
+// null params
+message Params {}
+
+// RegistryRouterData is the data structure for registry router
+message RegistryRouterData {
+  RegistryRouterSet registry_router_set = 1 [(gogoproto.nullable) = false];
+  DVSInfoList dvs_info_list = 2 [(gogoproto.nullable) = false];
+  GroupList group_list = 3 [(gogoproto.nullable) = false];
+  GroupOperatorRegistrationListV2 group_operator_registration_list = 4 [(gogoproto.nullable) = false];
+}

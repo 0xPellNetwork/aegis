@@ -1,0 +1,288 @@
+syntax = "proto3";
+package xmsg;
+
+import "cosmos/msg/v1/msg.proto";
+import "gogoproto/gogo.proto";
+import "pkg/chains/chains.proto";
+import "pkg/coin/coin.proto";
+import "pkg/proofs/proofs.proto";
+import "xmsg/chain_index.proto";
+import "xmsg/crosschain_fee_param.proto";
+import "xmsg/pell_event.proto";
+import "xmsg/rate_limiter_flags.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// Msg defines the Msg service.
+service Msg {
+  // add to outbound tx tracker
+  rpc AddToOutTxTracker(MsgAddToOutTxTracker) returns (MsgAddToOutTxTrackerResponse);
+  // add to inbound tx tracker
+  rpc AddToInTxTracker(MsgAddToInTxTracker) returns (MsgAddToInTxTrackerResponse);
+  // remove from outbound tx tracker
+  rpc RemoveFromOutTxTracker(MsgRemoveFromOutTxTracker) returns (MsgRemoveFromOutTxTrackerResponse);
+
+  // vote on gas price
+  rpc VoteGasPrice(MsgVoteGasPrice) returns (MsgVoteGasPriceResponse);
+  // vote on observed outbound tx
+  rpc VoteOnObservedOutboundTx(MsgVoteOnObservedOutboundTx) returns (MsgVoteOnObservedOutboundTxResponse);
+  // vote on observed inbound block
+  rpc VoteOnObservedInboundBlock(MsgVoteInboundBlock) returns (MsgVoteOnObservedInboundBlockResponse);
+  // vote on observed inbound tx
+  rpc VoteOnObservedInboundTx(MsgVoteOnObservedInboundTx) returns (MsgVoteOnObservedInboundTxResponse);
+  // vote on observer recharge pell token
+  rpc VoteOnPellRecharge(MsgVoteOnPellRecharge) returns (MsgVoteOnPellRechargeResponse);
+  // vote on observer recharge gas token
+  rpc VoteOnGasRecharge(MsgVoteOnGasRecharge) returns (MsgVoteOnGasRechargeResponse);
+  // update tss address
+  rpc UpdateTssAddress(MsgUpdateTssAddress) returns (MsgUpdateTssAddressResponse);
+  // migrate tss funds
+  rpc MigrateTssFunds(MsgMigrateTssFunds) returns (MsgMigrateTssFundsResponse);
+  // abort stuck xmsg
+  rpc AbortStuckXmsg(MsgAbortStuckXmsg) returns (MsgAbortStuckXmsgResponse);
+  // update rate limiter flags
+  rpc UpdateRateLimiterFlags(MsgUpdateRateLimiterFlags) returns (MsgUpdateRateLimiterFlagsResponse);
+  // add allowed xmsg sender
+  rpc AddAllowedXmsgSender(MsgAddAllowedXmsgSender) returns (MsgAddAllowedXmsgSenderResponse);
+  // remove allowed xmsg sender
+  rpc RemoveAllowedXmsgSender(MsgRemoveAllowedXmsgSender) returns (MsgRemoveAllowedXmsgSenderResponse);
+
+  // TODO: admin maintenance
+  rpc InboundTxMaintenance(MsgInboundTxMaintenance) returns (MsgInboundTxMaintenanceResponse);
+  // UpsertCrosschainFeeParams upserts crosschain fee params
+  rpc UpsertCrosschainFeeParams(MsgUpsertCrosschainFeeParams) returns (MsgUpsertCrosschainFeeParamsResponse);
+}
+
+// TODO: remove it.
+// MsgInboundTxMaintenance is the message for admin maintenance
+message MsgInboundTxMaintenance {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  int64 chain_id = 2;
+  uint64 from_block_height = 3;
+  uint64 to_block_height = 4;
+}
+
+// TODO: remove it.
+// MsgInboundTxMaintenanceResponse is the response for MsgInboundTxMaintenance
+message MsgInboundTxMaintenanceResponse {}
+
+// migrate tss fund. admin only
+message MsgMigrateTssFunds {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  int64 chain_id = 2;
+  string amount = 3 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Uint",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// MsgMigrateTssFundsResponse response for migrating tss funds
+message MsgMigrateTssFundsResponse {}
+
+// MsgUpdateTssAddress update the tss address
+message MsgUpdateTssAddress {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string tss_pubkey = 2;
+}
+
+// MsgUpdateTssAddressResponse response for updating the tss address
+message MsgUpdateTssAddressResponse {}
+
+// MsgAddToInTxTracker add to inbound tx tracker
+message MsgAddToInTxTracker {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  int64 chain_id = 2;
+  string tx_hash = 3;
+  pkg.coin.CoinType coin_type = 4;
+  pkg.proofs.Proof proof = 5;
+  string block_hash = 6;
+  int64 tx_index = 7;
+}
+
+// MsgAddToInTxTrackerResponse response for adding to inbound tx tracker
+message MsgAddToInTxTrackerResponse {}
+
+// MsgAddToOutTxTracker add to outbound tx tracker
+message MsgAddToOutTxTracker {
+  option (cosmos.msg.v1.signer) = "signer";
+  int64 chain_id = 1;
+  uint64 nonce = 2;
+  string tx_hash = 3;
+  pkg.proofs.Proof proof = 4;
+  string block_hash = 5;
+  int64 tx_index = 6;
+  string signer = 7;
+}
+
+// MsgAddToOutTxTrackerResponse response for adding to outbound tx tracker
+message MsgAddToOutTxTrackerResponse {
+  bool is_removed = 1; // if the tx was removed from the tracker due to no pending xmsg
+}
+
+// MsgRemoveFromOutTxTracker remove from outbound tx tracker
+message MsgRemoveFromOutTxTracker {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  int64 chain_id = 2;
+  uint64 nonce = 3;
+}
+
+// MsgRemoveFromOutTxTrackerResponse response for removing from outbound tx
+// tracker
+message MsgRemoveFromOutTxTrackerResponse {}
+
+// MsgVoteGasPrice vote on gas price
+message MsgVoteGasPrice {
+  option (cosmos.msg.v1.signer) = "signer";
+  int64 chain_id = 1;
+  uint64 price = 2;
+  uint64 block_number = 3;
+  string supply = 4;
+  string signer = 5;
+}
+
+// MsgVoteGasPriceResponse response for voting on gas price
+message MsgVoteGasPriceResponse {}
+
+// MsgVoteOnObservedOutboundTx vote on observed outbound tx
+message MsgVoteOnObservedOutboundTx {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string xmsg_hash = 2;
+  pkg.chains.ReceiveStatus status = 3;
+  int64 out_tx_chain = 4;
+  uint64 out_tx_tss_nonce = 5;
+  string observed_out_tx_hash = 6;
+  uint64 observed_out_tx_block_height = 7;
+  uint64 observed_out_tx_gas_used = 8;
+  string observed_out_tx_effective_gas_price = 9 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  uint64 observed_out_tx_effective_gas_limit = 10;
+  string observed_out_tx_failed_reason_msg = 11;
+}
+
+// MsgVoteOnObservedOutboundTxResponse response for voting on observed outbound
+message MsgVoteOnObservedOutboundTxResponse {}
+
+// MsgVoteOnObservedInboundTx vote on observed inbound tx
+message MsgVoteOnObservedInboundTx {
+  option (cosmos.msg.v1.signer) = "signer";
+  string sender = 1;
+  int64 sender_chain_id = 2;
+  string receiver = 3;
+  int64 receiver_chain = 4;
+  string in_tx_hash = 5;
+  uint64 in_block_height = 6;
+  uint64 gas_limit = 7;
+  string tx_origin = 8;
+  // event index of the sent asset in the observed tx
+  uint64 event_index = 9;
+
+  InboundPellEvent pell_tx = 10;
+  string signer = 11;
+}
+
+// MsgVoteOnObservedInboundTxResponse response for voting on observed inbound tx
+message MsgVoteOnObservedInboundTxResponse {}
+
+// MsgAbortStuckXmsg abort a stuck xmsg
+message MsgAbortStuckXmsg {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string xmsg_index = 2;
+}
+
+// MsgAbortStuckXmsgResponse response for aborting a stuck xmsg
+message MsgAbortStuckXmsgResponse {}
+
+// MsgRefundAbortedXmsg refund an aborted xmsg
+message MsgRefundAbortedXmsg {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string xmsg_index = 2;
+  string refund_address = 3; // if not provided, the refund will be sent to the sender/txOrgin
+}
+
+// MsgRefundAbortedXmsgResponse response for refunding an aborted xmsg
+message MsgRefundAbortedXmsgResponse {}
+
+// MsgUpdateRateLimiterFlags update the rate limiter flags
+message MsgUpdateRateLimiterFlags {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  RateLimiterFlags rate_limiter_flags = 2 [(gogoproto.nullable) = false];
+}
+
+// MsgUpdateRateLimiterFlagsResponse response for updating the rate limiter
+// flags
+message MsgUpdateRateLimiterFlagsResponse {}
+
+// MsgVoteInboundBlock vote on observer inbound block proof
+message MsgVoteInboundBlock {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  BlockProof block_proof = 2;
+}
+
+// vote on observer inboound block proof reponse
+message MsgVoteOnObservedInboundBlockResponse {}
+
+// Add the address of xmsg that can be built
+message MsgAddAllowedXmsgSender {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  repeated string builders = 2;
+}
+
+// Add allowed xmsg sender response
+message MsgAddAllowedXmsgSenderResponse {}
+
+// Remove allowed xmsg sender
+message MsgRemoveAllowedXmsgSender {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  repeated string builders = 2;
+}
+
+// Remove allowed xmsg sender response
+message MsgRemoveAllowedXmsgSenderResponse {}
+
+// vote on observer recharge pell token
+message MsgVoteOnPellRecharge {
+  option (cosmos.msg.v1.signer) = "signer";
+  int64 chain_id = 1;
+  uint64 vote_index = 2;
+  string signer = 3;
+}
+
+// vote on observer recharge pell token response
+message MsgVoteOnPellRechargeResponse {}
+
+// vote on observer recharge gas token
+message MsgVoteOnGasRecharge {
+  option (cosmos.msg.v1.signer) = "signer";
+  int64 chain_id = 1;
+  uint64 vote_index = 2;
+  string signer = 3;
+}
+
+// vote on observer recharge gas token response
+message MsgVoteOnGasRechargeResponse {}
+
+// MsgUpsertCrosschainFeeParam represents the message to upsert crosschain fee
+// param
+message MsgUpsertCrosschainFeeParams {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  repeated CrosschainFeeParam crosschain_fee_params = 2;
+}
+
+// MsgUpsertCrosschainFeeParamResponse represents the response to upsert
+// crosschain fee param
+message MsgUpsertCrosschainFeeParamsResponse {}

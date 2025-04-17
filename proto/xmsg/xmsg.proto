@@ -1,0 +1,100 @@
+syntax = "proto3";
+package xmsg;
+
+import "cosmos/msg/v1/msg.proto";
+import "gogoproto/gogo.proto";
+import "xmsg/pell_event.proto";
+
+// TODO : fix the descriptor numbers for the fields
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// XmsgStatus represent the status of a xmsg
+enum XmsgStatus {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // some observer sees inbound tx
+  PENDING_INBOUND = 0;
+  // super majority observer see inbound tx
+  PENDING_OUTBOUND = 1;
+  // the corresponding outbound tx is mined
+  OUTBOUND_MINED = 2;
+  // outbound cannot succeed; should revert inbound
+  PENDING_REVERT = 3;
+  // inbound reverted.
+  REVERTED = 4;
+  // inbound tx error or invalid paramters and cannot revert; just abort.
+  ABORTED = 5;
+  // But the amount can be refunded to pellchain using and admin proposal
+}
+
+// TxFinalizationStatus represent the status of a transaction
+enum TxFinalizationStatus {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // the corresponding tx is not finalized
+  NOT_FINALIZED = 0;
+  // the corresponding tx is finalized but not executed yet
+  FINALIZED = 1;
+  // the corresponding tx is executed
+  EXECUTED = 2;
+}
+
+// InboundTxParams represent the parameters of an inbound transaction
+message InboundTxParams {
+  string sender = 1; // this address is the immediate contract/EOA that calls
+  // the Connector.send()
+  int64 sender_chain_id = 2;
+  string tx_origin = 3; // this address is the EOA that signs the inbound tx
+  // TODO: inbound_pell_event
+  InboundPellEvent inbound_pell_tx = 4;
+  string inbound_tx_hash = 5;
+  uint64 inbound_tx_block_height = 6;
+  uint64 inbound_tx_event_index = 7;
+  string inbound_tx_ballot_index = 8;
+  uint64 inbound_tx_finalized_pell_height = 9;
+  TxFinalizationStatus tx_finalization_status = 10;
+}
+
+// OutboundTxParams represent the parameters of an outbound transaction
+message OutboundTxParams {
+  string receiver = 1;
+  int64 receiver_chain_id = 2;
+  uint64 outbound_tx_tss_nonce = 3;
+  uint64 outbound_tx_gas_limit = 4;
+  string outbound_tx_gas_price = 5;
+  string outbound_tx_gas_priority_fee = 6;
+  // the above are commands for pellclients
+  // the following fields are used when the outbound tx is mined
+  string outbound_tx_hash = 7;
+  string outbound_tx_ballot_index = 8;
+  uint64 outbound_tx_external_height = 9;
+  string tss_pubkey = 10;
+  TxFinalizationStatus tx_finalization_status = 11;
+  uint64 outbound_tx_gas_used = 12;
+  string outbound_tx_effective_gas_price = 13 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  uint64 outbound_tx_effective_gas_limit = 14;
+}
+
+// Status represent the status of a xmsg
+message Status {
+  XmsgStatus status = 1;
+  string status_message = 2;
+  int64 last_update_timestamp = 3;
+}
+
+// Xmsg represent a xmsg
+message Xmsg {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string index = 2;
+  Status xmsg_status = 3;
+  InboundTxParams inbound_tx_params = 4;
+  repeated OutboundTxParams outbound_tx_params = 5;
+}
+
+// AllowedXmsgSenders represents a list of builder addresses authorized to
+// create Xmsgs
+message AllowedXmsgSenders {
+  repeated string allowed_senders = 1;
+}

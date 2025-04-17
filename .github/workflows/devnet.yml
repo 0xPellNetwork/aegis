@@ -1,0 +1,55 @@
+name: build_and_publish_devnet
+
+on:
+  push:
+    branches: [ "testnet" ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Docker Tag Version For Manual Execution'
+        required: false
+        default: 'latest'
+
+jobs:
+  build_docker_images:
+    name: Build On X64
+    runs-on: ubuntu-22.04
+    permissions:
+      # Need this to be allowed to publish image to registry
+      # see https://docs.github.com/en/actions/publishing-packages/publishing-docker-images
+      packages: write
+      contents: read
+    env:
+      GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      TAG: "latest"
+      DOCKER_REGISTRY: "docker.io"
+      DOCKER_USERNAME: "pellnetwork"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+
+      - name: Log in to the Docker Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Set Version for Hotfix Release from Input.
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "TAG=${{ github.event.inputs.version }}" >> ${GITHUB_ENV}
+
+      # build docker images
+      - name: Build Docker image
+        working-directory: contrib/devnet
+        run: |
+          docker compose -f docker-compose.build.yml build pellnode
+
+      - name: publish
+        run: |
+          docker push ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_USERNAME }}/pellnode-devnet:${{ env.TAG }}

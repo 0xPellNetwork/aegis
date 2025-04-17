@@ -1,0 +1,56 @@
+name: Build and test
+
+on:
+  push:
+    branches:
+      - main
+      - release/**
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: pr-testing-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: [ "self-hosted", "Linux", "X64", "ci" ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+
+      - name: Compute diff �
+        run: |
+          GIT_DIFF=$(git diff HEAD^...HEAD --name-only | grep -E '\.(go|mod|sum)$' || true)
+          echo "GIT_DIFF=$GIT_DIFF" >> $GITHUB_ENV
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        if: "env.GIT_DIFF != ''"
+        with:
+          go-version: 1.20.14
+          cache: false
+
+      - name: Setup GitHub Token for Private Repos
+        if: "env.GIT_DIFF != ''"
+        env:
+            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+            git config --global url."https://$GITHUB_TOKEN:x-oauth-basic@github.com/0xPellNetwork".insteadOf "https://github.com/0xPellNetwork"
+        shell: bash
+
+      - name: Install dependencies
+        if: "env.GIT_DIFF != ''"
+        run: go mod download
+
+      - name: Build
+        if: "env.GIT_DIFF != ''"
+        run: make all
+      
+      - name: Test
+        if: "env.GIT_DIFF != ''"
+        run: make test

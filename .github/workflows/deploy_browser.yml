@@ -1,0 +1,30 @@
+name: deploy_browser
+
+on:
+  # we can also trigger manually in case needed
+  workflow_dispatch:
+
+jobs:
+  deploy_browser:
+    name: Build On X64
+    runs-on: [ "self-hosted", "Linux", "X64", "browser" ]
+    permissions:
+      # Need this to be allowed to publish image to registry
+      # see https://docs.github.com/en/actions/publishing-packages/publishing-docker-images
+      packages: write
+      contents: read
+    env:
+      ETHEREUM_JSONRPC_HTTP_URL: ${{ secrets.ETHEREUM_JSONRPC_HTTP_URL }}
+      ETHEREUM_JSONRPC_TRACE_URL: ${{ secrets.ETHEREUM_JSONRPC_TRACE_URL }}
+      ETHEREUM_JSONRPC_WS_URL: ${{ secrets.ETHEREUM_JSONRPC_WS_URL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+
+      - name: deploy
+        working-directory: contrib/localnet/blockscout
+        run: |
+          docker compose -f pell.yml up -d

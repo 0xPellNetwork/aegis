@@ -1,0 +1,65 @@
+services:
+
+  pellcore0:
+    image: pellnode:${TAG:-latest}
+    hostname: pellcore0
+    entrypoint: ["/root/start-pellcored.sh", "2"]
+    environment:
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+
+  pellcore1:
+    image: pellnode:${TAG:-latest}
+    hostname: pellcore1
+    entrypoint: ["/root/start-pellcored.sh", "2"]
+    environment:
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+
+  pellclient0:
+    image: pellnode:${TAG:-latest}
+    hostname: pellclient0
+    entrypoint: /root/start-pellclientd.sh
+    environment:
+      - ETHDEV_ENDPOINT=http://eth:8545
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+      - BSC_EXTERNAL_RPC_URL=$BSC_EXTERNAL_RPC_URL
+      - MANTLE_TESTNET_EXTERNAL_RPC_URL=$MANTLE_TESTNET_EXTERNAL_RPC_URL
+      - CORE_TESTNET_EXTERNAL_RPC_URL=$CORE_TESTNET_EXTERNAL_RPC_URL
+
+  pellclient1:
+    image: pellnode:${TAG:-latest}
+    hostname: pellclient1
+    entrypoint: /root/start-pellclientd.sh
+    environment:
+      - ETHDEV_ENDPOINT=http://eth:8545
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+      - BSC_EXTERNAL_RPC_URL=$BSC_EXTERNAL_RPC_URL
+      - CORE_TESTNET_EXTERNAL_RPC_URL=$CORE_TESTNET_EXTERNAL_RPC_URL
+      - MANTLE_TESTNET_EXTERNAL_RPC_URL=$MANTLE_TESTNET_EXTERNAL_RPC_URL
+
+  hardhat:
+    image: pell-contracts:${TAG:-latest}
+    hostname: hardhat
+    environment:
+      - LOCALHOST_URL=http://eth:8545
+      - PELL_URL=http://pellcore0:8545
+
+  eth:
+    image: geth:${TAG:-latest}
+    hostname: eth
+
+  env-setup:
+    image: pellnode:${TAG:-latest}
+    hostname: env-setup
+    entrypoint: ["/root/setup.sh"]
+    env_file:
+      - ../env/.env.localnet
+
+  orchestrator:
+    image: orchestrator:${TAG:-latest}
+    depends_on:
+      - pellcore0
+      - eth

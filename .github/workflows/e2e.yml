@@ -1,0 +1,51 @@
+name: E2E test
+
+on:
+  push:
+    branches:
+      - main
+      - release/**
+  pull_request:
+    branches:
+      - main
+
+concurrency: 
+  group: e2e-test-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+
+  build:
+    runs-on: [ "self-hosted", "Linux", "X64", "ci" ]
+    name: Build
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      TAG: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+
+      - name: Build Docker image
+        working-directory: contrib/localnet
+        run: |
+          docker compose -f docker-compose.build.yml build pellnode
+          docker compose -f docker-compose.build.yml build pell-contracts
+          docker compose -f docker-compose.build.yml build orchestrator
+          docker compose -f docker-compose.build.yml build eth
+
+      - name: E2E Test
+        working-directory: contrib/localnet
+        run: |
+          docker compose -p pell-e2e -f docker-compose.e2e.yml down
+          docker compose -p pell-e2e -f docker-compose.e2e.yml up  -d 
+          docker compose -p pell-e2e -f docker-compose.e2e.yml run --rm orchestrator /work/start-e2e-local.sh
+          docker compose -p pell-e2e -f docker-compose.e2e.yml down
+
+      - name: Run on completion
+        if: failure()
+        working-directory: contrib/localnet
+        run: |
+          docker compose -p pell-e2e -f docker-compose.e2e.yml stop

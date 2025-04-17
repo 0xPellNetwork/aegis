@@ -1,0 +1,113 @@
+syntax = "proto3";
+package xmsg;
+
+import "gogoproto/gogo.proto";
+
+// TODO : fix the descriptor numbers for the fields
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+/// @notice Emitted when @param staker deposit @param shares of @param token to
+/// @param strategy. event Deposit(address staker, IERC20 token, IStrategy
+/// strategy, uint256 shares);
+message StakerDeposited {
+  string staker = 1;
+  string token = 2;
+  string strategy = 3;
+  string shares = 4 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Uint",
+    (gogoproto.nullable) = false
+  ];
+}
+
+/// @notice Emitted when @param staker delegates to @param operator.
+/// event StakerDelegated(address indexed staker, address indexed operator);
+message StakerDelegated {
+  string staker = 1;
+  string operator = 2;
+}
+
+// Withdrawal message
+message Withdrawal {
+  string staker = 1; // Maps Solidity 'address' type to 'string'
+  string delegated_to = 2; // Maps Solidity 'address' type to 'string'
+  string withdrawer = 3; // Maps Solidity 'address' type to 'string'
+  string nonce = 4; // Maps Solidity 'uint256' as 'string' to preserve large integers
+  uint32 start_timestamp = 5; // Maps Solidity 'uint32' type
+  repeated string strategies = 6; // Maps 'IStrategy[]' as repeated 'string', assuming addresses
+  repeated string shares = 7; // Maps 'uint256[]' as repeated 'string'
+}
+
+/// event WithdrawalQueued(bytes32 withdrawalRoot, Withdrawal withdrawal);
+message WithdrawalQueued {
+  bytes withdrawal_root = 1; // Maps Solidity 'bytes32' type to 'bytes'
+  Withdrawal withdrawal = 2; // References the 'Withdrawal' message defined above
+}
+
+/// @notice Emitted when @param staker undelegates from @param operator.
+/// event StakerUndelegated(address indexed staker, address indexed operator)
+message StakerUndelegated {
+  string staker = 1;
+  string operator = 2;
+}
+
+/// @notice Emitted when @param pellTxSenderAddress sent to @param
+/// destinationAddress of @param destinationChainId. event PellSent(
+///    address sourceTxOriginAddress,
+///    address indexed pellTxSenderAddress,
+///    uint256 indexed destinationChainId,
+///    bytes destinationAddress,
+///    bytes message,
+///    bytes pellParams
+///  );
+message PellSent {
+  string tx_origin = 1;
+  string sender = 2;
+  int64 receiver_chain_id = 3;
+  string receiver = 4;
+  string message = 5;
+  string pell_params = 6;
+  string pell_value = 7 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Uint",
+    (gogoproto.nullable) = false
+  ];
+  string destination_gas_limit = 8 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Uint",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// inboound pell event
+message InboundPellEvent {
+  // oneof pell_data
+  oneof pell_data {
+    // staker deposited
+    StakerDeposited staker_deposited = 1;
+    // staker delegated
+    StakerDelegated staker_delegated = 2;
+    // pell sent
+    PellSent pell_sent = 3;
+    // withdrawal queued
+    WithdrawalQueued withdrawal_queued = 4;
+    // staker undelegated
+    StakerUndelegated staker_undelegated = 5;
+    RegisterChainDVSToPell register_chain_dvs_to_pell = 6;
+  }
+}
+
+// RegisterChainDVSToPell is a message to register a coordinator to Pell
+message RegisterChainDVSToPell {
+  uint64 chain_id = 1;
+  string registry_router_on_pell = 2;
+  string central_scheduler = 3;
+  SignatureWithSaltAndExpiry dvs_chain_approver_signature = 4;
+  string ejection_manager = 5;
+  string stake_manager = 6;
+}
+
+// SignatureWithSaltAndExpiry is a message to hold a signature with salt and
+// expiry
+message SignatureWithSaltAndExpiry {
+  bytes signature = 1;
+  bytes salt = 2;
+  uint64 expiry = 3;
+}

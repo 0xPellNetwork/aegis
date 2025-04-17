@@ -1,0 +1,20 @@
+syntax = "proto3";
+package xmsg;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// rate limiter setting
+message RateLimiterFlags {
+  bool enabled = 1;
+
+  // window in blocks
+  int64 window = 2;
+
+  // rate in apell per block
+  string rate = 3 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Uint",
+    (gogoproto.nullable) = false
+  ];
+}

@@ -1,0 +1,179 @@
+syntax = "proto3";
+package relayer;
+
+import "cosmos/msg/v1/msg.proto";
+import "gogoproto/gogo.proto";
+import "pkg/chains/chains.proto";
+import "pkg/proofs/proofs.proto";
+import "relayer/blame.proto";
+import "relayer/crosschain_flags.proto";
+import "relayer/params.proto";
+import "relayer/relayer.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// Msg defines the Msg service.
+service Msg {
+  // AddObserver adds an observer
+  rpc AddObserver(MsgAddObserver) returns (MsgAddObserverResponse);
+  // UpdateObserver updates an observer
+  rpc UpdateObserver(MsgUpdateObserver) returns (MsgUpdateObserverResponse);
+  // UpsertChainParams upserts chain parameters
+  rpc UpsertChainParams(MsgUpsertChainParams) returns (MsgUpsertChainParamsResponse);
+  // RemoveChainParams removes chain parameters
+  rpc RemoveChainParams(MsgRemoveChainParams) returns (MsgRemoveChainParamsResponse);
+  // AddBlameVote adds a blame vote
+  rpc AddBlameVote(MsgAddBlameVote) returns (MsgAddBlameVoteResponse);
+  // UpsertCrosschainFlags upserts crosschain flags
+  rpc UpsertCrosschainFlags(MsgUpsertCrosschainFlags) returns (MsgUpsertCrosschainFlagsResponse);
+  // UpdateKeygen updates keygen
+  rpc UpdateKeygen(MsgUpdateKeygen) returns (MsgUpdateKeygenResponse);
+  // ResetChainNonces resets chain nonces
+  rpc ResetChainNonces(MsgResetChainNonces) returns (MsgResetChainNoncesResponse);
+  // VoteBlockHeader votes for a block header
+  rpc VoteBlockHeader(MsgVoteBlockHeader) returns (MsgVoteBlockHeaderResponse);
+  // VoteTSS votes for TSS
+  rpc VoteTSS(MsgVoteTSS) returns (MsgVoteTSSResponse);
+
+  // DeleteBallot deletes a ballot
+  // NOTE: This is a temporary maintenance-only operation that will be removed
+  // after the next upgrade
+  rpc DeleteBallot(MsgDeleteBallot) returns (MsgDeleteBallotResponse);
+}
+
+// MsgUpdateObserver represents the message to update an observer
+message MsgUpdateObserver {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string old_observer_address = 2;
+  string new_observer_address = 3;
+  RelayerUpdateReason update_reason = 4;
+}
+
+// MsgUpdateObserverResponse represents the response to update an observer
+message MsgUpdateObserverResponse {}
+
+// MsgVoteBlockHeader represents the message to vote for a block header
+message MsgVoteBlockHeader {
+  option (cosmos.msg.v1.signer) = "signer";
+  int64 chain_id = 1;
+  bytes block_hash = 2;
+  int64 height = 3;
+  pkg.proofs.HeaderData header = 4 [(gogoproto.nullable) = false];
+  string signer = 5;
+}
+
+// MsgVoteBlockHeaderResponse represents the response to vote for a block header
+message MsgVoteBlockHeaderResponse {
+  bool ballot_created = 1;
+  bool vote_finalized = 2;
+}
+
+// MsgUpsertChainParams represents the message to upsert chain parameters
+message MsgUpsertChainParams {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  ChainParams chain_params = 2;
+}
+
+// MsgUpsertChainParamsResponse represents the response to upsert chain
+// parameters
+message MsgUpsertChainParamsResponse {}
+
+// MsgRemoveChainParams represents the message to remove chain parameters
+message MsgRemoveChainParams {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  int64 chain_id = 2;
+}
+
+// MsgRemoveChainParamsResponse represents the response to remove chain
+// parameters
+message MsgRemoveChainParamsResponse {}
+
+// MsgAddObserver represents the message to add an observer
+message MsgAddObserver {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string observer_address = 2;
+  string pellclient_grantee_pubkey = 3;
+  bool add_node_account_only = 4;
+}
+
+// MsgAddObserverResponse represents the response to add an observer
+message MsgAddObserverResponse {}
+
+// MsgAddBlameVote represents the message to add a blame vote
+message MsgAddBlameVote {
+  option (cosmos.msg.v1.signer) = "signer";
+  int64 chain_id = 1;
+  Blame blame_info = 2 [(gogoproto.nullable) = false];
+  string signer = 3;
+}
+
+// MsgAddBlameVoteResponse represents the response to add a blame vote
+message MsgAddBlameVoteResponse {}
+
+// MsgUpsertCrosschainFlags represents the message to upsert crosschain flags
+message MsgUpsertCrosschainFlags {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  bool is_inbound_enabled = 2;
+  bool is_outbound_enabled = 3;
+  GasPriceIncreaseFlags gas_price_increase_flags = 4;
+  BlockHeaderVerificationFlags block_header_verification_flags = 5;
+}
+
+// MsgUpsertCrosschainFlagsResponse represents the response to upsert crosschain
+// flags
+message MsgUpsertCrosschainFlagsResponse {}
+
+// MsgUpdateKeygen represents the message to update keygen
+message MsgUpdateKeygen {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  int64 block = 2;
+}
+
+// MsgUpdateKeygenResponse represents the response to update keygen
+message MsgUpdateKeygenResponse {}
+
+// MsgResetChainNonces represents the message to reset chain nonces
+message MsgResetChainNonces {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  int64 chain_id = 2;
+  int64 chain_nonce_low = 3;
+  int64 chain_nonce_high = 4;
+}
+
+// MsgResetChainNoncesResponse represents the response to reset chain nonces
+message MsgResetChainNoncesResponse {}
+
+// MsgVoteTSS represents the message to vote for TSS
+message MsgVoteTSS {
+  option (cosmos.msg.v1.signer) = "signer";
+  string tss_pubkey = 1;
+  int64 keygen_pell_height = 2;
+  pkg.chains.ReceiveStatus status = 3;
+  string signer = 4;
+}
+
+// MsgVoteTSSResponse represents the response to vote for TSS
+message MsgVoteTSSResponse {
+  bool ballot_created = 1;
+  bool vote_finalized = 2;
+  bool keygen_success = 3;
+}
+
+// TODO: remove this after the upgrade
+// MsgDeleteBallot represents the message to delete a ballot
+message MsgDeleteBallot {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string ballot_index = 2;
+}
+
+// TODO: remove this after the upgrade
+// MsgDeleteBallotResponse represents the response to delete a ballot
+message MsgDeleteBallotResponse {}

@@ -1,0 +1,8 @@
+{
+ "title": "v100.0.0",
+ "authors": "PellChain Core Contributor Team",
+ "summary": "This is the v100.0.0 upgrade for the Ignite testnet",
+ "details": "See Release Notes https://github.com/0xPellNetwork/chain/releases/tag/v100.0.0",
+ "proposal_forum_url": "https://discord.gg/pellchain",
+ "vote_option_context": "Voting yes on this proposal indicates you want to upgrade the PellChain node software to v1v1001.0.0 and the specified height"
+}

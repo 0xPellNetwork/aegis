@@ -1,0 +1,37 @@
+syntax = "proto3";
+package xmsg;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// Fee charged when constructing cross-chain xmsg from PEVM events
+message CrosschainFeeParam {
+  int64 chain_id = 1;
+  // PellDelegationManagerOperatorSharesIncreased
+  // PellDelegationManagerOperatorSharesDecreased
+  string delegation_operator_share_event_fee = 4 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  // PellDelegationManagerOperatorRegistered
+  // PellDelegationManagerOperatorDetailsModified
+  string delegation_operator_sync_fee = 5 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  // RegistryRouterSyncGroup
+  string registry_router_sync_group_event_fee = 6 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  string dvs_default_fee = 7 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  string pell_sent_event_fee = 8 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  bool is_supported = 9;
+}

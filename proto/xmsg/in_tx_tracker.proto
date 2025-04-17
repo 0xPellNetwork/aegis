@@ -1,0 +1,10 @@
+syntax = "proto3";
+package xmsg;
+
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// inbound tx tracker
+message InTxTracker {
+  int64 chain_id = 1;
+  string tx_hash = 2;
+}

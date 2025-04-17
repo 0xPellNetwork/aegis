@@ -1,0 +1,145 @@
+syntax = "proto3";
+package restaking;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "restaking/delegation.proto";
+import "restaking/epoch_outbound_state.proto";
+import "restaking/group.proto";
+import "xmsg/xmsg.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Queries SystemContract
+  rpc GetEpochChangedOperatorSharesSnapshot(QueryEpochChangedOperatorSharesSnapshotRequest) returns (QueryGetEpochChangedOperatorSharesSnapshotResponse) {
+    option (google.api.http).get = "/pell-chain/restaking/epoch_changed_operator_shares_snapshot";
+  }
+  // Queries blocks per epoch
+  rpc GetEpochInfo(QueryEpochInfoRequest) returns (QueryGetEpochInfoResponse) {
+    option (google.api.http).get = "/pell-chain/restaking/epoch_info";
+  }
+
+  // Queries outbound state by chain id
+  rpc GetOutboundStateByChainID(QueryOutboundStateByChainIDRequest) returns (QueryGetOutboundStateByChainIDResponse) {
+    option (google.api.http).get = "/pell-chain/restaking/outbound_state_by_chain_id";
+  }
+
+  // Queries dvs supported chain outbound state by chain id
+  rpc QueryDVSSupportedChainStatus(QueryDVSSupportedChainStatusRequest) returns (QueryDVSSupportedChainStatusResponse) {
+    option (google.api.http).get = "/pell-chain/restaking/dvs_supported_chain_status";
+  }
+
+  // Queries dvs group data sync status
+  rpc QueryDVSGroupSyncStatus(QueryDVSGroupSyncStatusRequest) returns (QueryDVSGroupSyncStatusResponse) {
+    option (google.api.http).get = "/pell-chain/restaking/dvs_group_sync_status";
+  }
+
+  // Queries dvs supported chain list
+  rpc QueryDVSSupportedChainList(QueryDVSSupportedChainListRequest) returns (QueryDVSSupportedChainListResponse) {
+    option (google.api.http).get = "/pell-chain/restaking/dvs_supported_chain_list";
+  }
+
+  // Queries registry router list
+  rpc QueryDVSRegistryRouterList(QueryDVSRegistryRouterListRequest) returns (QueryDVSRegistryRouterListResponse) {
+    option (google.api.http).get = "/pell-chain/restaking/dvs_registry_router_list";
+  }
+
+  // Queries group date list
+  rpc QueryDVSGroupDataList(QueryDVSGroupDataListRequest) returns (QueryDVSGroupDataListResponse) {
+    option (google.api.http).get = "/pell-chain/restaking/dvs_group_data_list";
+  }
+
+  // Queries group operator registration list
+  rpc QueryDVSGroupOperatorRegistrationList(QueryDVSGroupOperatorRegistrationListRequest) returns (QueryDVSGroupOperatorRegistrationListResponse) {
+    option (google.api.http).get = "/pell-chain/restaking/dvs_group_operator_registration_list";
+  }
+}
+
+// request of query epoch changed operator shares snapshot
+message QueryEpochChangedOperatorSharesSnapshotRequest {
+  uint64 epoch_number = 1;
+}
+
+// response of query epoch changed operator shares snapshot
+message QueryGetEpochChangedOperatorSharesSnapshotResponse {
+  repeated OperatorShares changed_operator_shares_snapshot = 1 [(gogoproto.nullable) = false];
+}
+
+// request of query blocks per epoch
+message QueryEpochInfoRequest {}
+
+// response of query blocks per epoch
+message QueryGetEpochInfoResponse {
+  uint64 block_number = 1;
+}
+
+// request of query outbound state by chain id
+message QueryOutboundStateByChainIDRequest {
+  uint64 chain_id = 1;
+}
+
+// response of query outbound state by chain id
+message QueryGetOutboundStateByChainIDResponse {
+  EpochOutboundState outbound_state = 1;
+}
+
+// request of query dvs supported chain status
+message QueryDVSSupportedChainStatusRequest {
+  string registry_router_address = 1;
+  uint64 chain_id = 2;
+}
+
+// response of query dvs supported chain status
+message QueryDVSSupportedChainStatusResponse {
+  OutboundStatus outbound_state = 1;
+}
+
+// request of query dvs group data sync status
+message QueryDVSGroupSyncStatusRequest {
+  string tx_hash = 1;
+}
+
+// response of query dvs group data sync status
+message QueryDVSGroupSyncStatusResponse {
+  repeated xmsg.Xmsg xmsg = 1;
+}
+
+// request of query dvs supported chain list
+message QueryDVSSupportedChainListRequest {
+  string registry_router_address = 1;
+}
+
+// response of query dvs supported chain list
+message QueryDVSSupportedChainListResponse {
+  DVSInfoList dvs_infos = 1;
+}
+
+// request of query registry router list
+message QueryDVSRegistryRouterListRequest {}
+
+// response of query registry router list
+message QueryDVSRegistryRouterListResponse {
+  repeated RegistryRouterSet registry_router_set = 1;
+}
+
+// request of query group data list
+message QueryDVSGroupDataListRequest {
+  string registry_router_address = 1;
+}
+
+// response of query group data list
+message QueryDVSGroupDataListResponse {
+  repeated Group groups = 1;
+}
+
+// request of query group operator registration list
+message QueryDVSGroupOperatorRegistrationListRequest {
+  string registry_router_address = 1;
+}
+
+// response of query group operator registration list
+message QueryDVSGroupOperatorRegistrationListResponse {
+  repeated GroupOperatorRegistrationV2 operator_registered_infos = 1;
+}

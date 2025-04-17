@@ -1,0 +1,16 @@
+syntax = "proto3";
+package xmsg;
+
+import "cosmos/msg/v1/msg.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// last block height info
+message LastBlockHeight {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string index = 2;
+  string chain = 3;
+  uint64 last_send_height = 4;
+  uint64 last_receive_height = 5;
+}

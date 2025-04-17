@@ -1,0 +1,32 @@
+name: Buf CI
+on:
+  # Apply to all pushes on 'main' branch
+  push:
+      branches:
+          - main
+  # Apply to all pull requests
+  pull_request:
+  delete:
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  buf:
+    runs-on: ["self-hosted", "Linux", "X64", "ci"]
+    steps:
+      # Run `git checkout`
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - uses: bufbuild/buf-setup-action@v1
+      
+      - uses: bufbuild/buf-action@v1
+        with:
+          token: ${{ secrets.BUF_TOKEN }}
+          input: "proto"
+          breaking-against: "https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/0xPellNetwork/chain.git#branch=main,ref=HEAD~1,subdir=proto"
+          # Run breaking change, lint, and format checks for Protobuf sources against all branches,
+          # 'proto' # subdirectory, then push to the BSR once validated
+          lint: ${{ github.event_name == 'push' }}
+          format: ${{ github.event_name == 'push' }}
+          # breaking: ${{ github.event_name == 'push' }}

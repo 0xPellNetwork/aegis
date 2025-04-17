@@ -1,0 +1,9 @@
+{
+    "chain_id": 1337,
+    "delegation_operator_share_event_fee": "10000",
+    "delegation_operator_sync_fee": "10000",
+    "registry_router_sync_group_event_fee": "10000",
+    "dvs_default_fee": "10000",
+    "pell_sent_event_fee": "10000",
+    "is_supported": true
+}

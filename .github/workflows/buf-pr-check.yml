@@ -1,0 +1,25 @@
+name: Pull Request buf check
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ["self-hosted", "Linux", "X64", "ci"]
+    steps:
+      # Run `git checkout`
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      # Install the Buf CLI
+      - uses: bufbuild/buf-setup-action@v1
+      # Check for breaking changes in the 'proto' directory on all pull requests
+      # - uses: bufbuild/buf-breaking-action@v1
+      #   with:
+      #     input: proto
+      #     against: 'https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/0xPellNetwork/chain.git#branch=main,ref=HEAD~1,subdir=proto'
+      # Check for lint errors in the 'proto' directory on all pull requests
+      - uses: bufbuild/buf-lint-action@v1
+        with:
+          input: proto

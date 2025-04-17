@@ -1,0 +1,13 @@
+services:
+
+  pellnode:
+    build:
+      context: ../../.
+      dockerfile: Dockerfile
+      target: devnet
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        HTTP_PROXY: ${HTTP_PROXY}
+        HTTPS_PROXY: ${HTTPS_PROXY}
+      tags:
+        - "docker.io/pellnetwork/pellnode-devnet:${TAG:-latest}"

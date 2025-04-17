@@ -1,0 +1,95 @@
+syntax = "proto3";
+package xsecurity;
+
+import "google/api/annotations.proto";
+import "restaking/group.proto";
+import "xsecurity/store.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/xsecurity/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // GetLSTRegistryRouterAddress returns the LST registry router address
+  rpc QueryRegistryRouterAddress(QueryRegistryRouterAddressRequest) returns (QueryRegistryRouterAddressResponse) {
+    option (google.api.http).get = "/pell-chain/xsecurity/query_registry_router_address";
+  }
+
+  // QueryGroupInfo returns the group info
+  rpc QueryGroupInfo(QueryGroupInfoRequest) returns (QueryGroupInfoResponse) {
+    option (google.api.http).get = "/pell-chain/xsecurity/query_group_info";
+  }
+
+  // QueryOperatorRegistrationList returns the operator registration list
+  rpc QueryOperatorRegistrationList(QueryOperatorRegistrationListRequest) returns (QueryOperatorRegistrationListResponse) {
+    option (google.api.http).get = "/pell-chain/xsecurity/query_operator_registration_list";
+  }
+
+  // QueryOperatorWeightedShares returns the operator weighted shares
+  rpc QueryOperatorWeightedShares(QueryOperatorWeightedSharesRequest) returns (QueryOperatorWeightedSharesResponse) {
+    option (google.api.http).get = "/pell-chain/xsecurity/query_operator_weighted_shares";
+  }
+
+  // QueryVotingPowerRatio returns the voting power ratio
+  rpc QueryVotingPowerRatio(QueryVotingPowerRatioRequest) returns (QueryVotingPowerRatioResponse) {
+    option (google.api.http).get = "/pell-chain/xsecurity/query_voting_power_ratio";
+  }
+
+  // QueryLSTStakingEnabled returns the LST staking enabled status
+  rpc QueryLSTStakingEnabled(QueryLSTStakingEnabledRequest) returns (QueryLSTStakingEnabledResponse) {
+    option (google.api.http).get = "/pell-chain/xsecurity/query_lst_staking_enabled";
+  }
+}
+
+// QueryGetLSTRegistryRouterAddressRequest is the request type for the GetLSTRegistryRouterAddress method.
+message QueryRegistryRouterAddressRequest {}
+
+// QueryGetLSTRegistryRouterAddressResponse is the response type for the GetLSTRegistryRouterAddress method.
+message QueryRegistryRouterAddressResponse {
+  string registry_router_address = 1;
+  string stake_registry_router_address = 2;
+}
+
+// QueryGroupInfoRequest is the request type for the QueryGroupInfo method.
+message QueryGroupInfoRequest {}
+
+// QueryGroupInfoResponse is the response type for the QueryGroupInfo method.
+message QueryGroupInfoResponse {
+  uint64 group_number = 1;
+  restaking.OperatorSetParam operator_set_param = 2;
+  string minimum_stake = 3;
+  repeated restaking.PoolParams pool_params = 4;
+  restaking.GroupEjectionParam group_ejection_param = 5;
+}
+
+// QueryOperatorRegistrationListRequest is the request type for the QueryOperatorRegistrationList method.
+message QueryOperatorRegistrationListRequest {}
+
+// QueryOperatorRegistrationListResponse is the response type for the QueryOperatorRegistrationList method.
+message QueryOperatorRegistrationListResponse {
+  repeated LSTOperatorRegistration operator_registrations = 1;
+}
+
+// QueryOperatorWeightedSharesRequest is the request type for the QueryOperatorWeightedShares method.
+message QueryOperatorWeightedSharesRequest {}
+
+// QueryOperatorWeightedSharesResponse is the response type for the QueryOperatorWeightedShares method.
+message QueryOperatorWeightedSharesResponse {
+  repeated LSTOperatorWeightedShare operator_weighted_shares = 1;
+}
+
+// LSTOperatorWeightedShare represents the weighted shares of an operator
+message QueryVotingPowerRatioRequest {}
+
+// QueryVotingPowerRatioResponse is the response type for the QueryVotingPowerRatio method.
+message QueryVotingPowerRatioResponse {
+  uint64 numerator = 1;
+  uint64 denominator = 2;
+}
+
+// QueryLSTStakingEnabledRequest is the request type for the QueryLSTStakingEnabled method.
+message QueryLSTStakingEnabledRequest {}
+
+// QueryLSTStakingEnabledResponse is the response type for the QueryLSTStakingEnabled method.
+message QueryLSTStakingEnabledResponse {
+  bool lst_staking_enabled = 1;
+}

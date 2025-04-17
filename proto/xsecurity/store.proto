@@ -1,0 +1,110 @@
+syntax = "proto3";
+package xsecurity;
+
+import "gogoproto/gogo.proto";
+import "restaking/group.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/xsecurity/types";
+
+// LSTRegistryRouterAddress is the address of the LST registry router and stake
+// registry router
+message LSTRegistryRouterAddress {
+  string registry_router_address = 1;
+  string stake_registry_router_address = 2;
+}
+
+// LSTGroupInfo is the information of a LST group
+message LSTGroupInfo {
+  uint64 group_number = 1;
+  restaking.OperatorSetParam operator_set_param = 2;
+  string minimum_stake = 3 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  repeated restaking.PoolParams pool_params = 4;
+  restaking.GroupEjectionParam group_ejection_param = 5;
+}
+
+// PubkeyRegistrationParams is the parameters for registering a pubkey
+message PubkeyRegistrationParams {
+  G1Point pubkey_registration_signature = 1;
+  G1Point pubkey_g1 = 2;
+  G2Point pubkey_g2 = 3;
+}
+
+// G1Point represents a point on the BN254 curve
+message G1Point {
+  string x = 1 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  string y = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// G2Point represents a point on the BN254 curve, with field elements encoded as
+// arrays
+message G2Point {
+  repeated string x = 1 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  repeated string y = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// RegisterOperatorParam is the parameters for registering an operator
+message RegisterOperatorParam {
+  string socket = 1;
+  PubkeyRegistrationParams pubkey_params = 2;
+  restaking.SignatureWithSaltAndExpiry signature = 3;
+}
+
+// SignatureWithSaltAndExpiry holds the operator's signature details
+message LSTOperatorRegistration {
+  string operator_address = 1;
+  bytes operator_id = 2;
+  RegisterOperatorParam register_operator_param = 3;
+  string validator_address = 4;
+}
+
+// LSTOperatorRegistrationList is a list of LST operator registrations
+message LSTOperatorRegistrationList {
+  repeated LSTOperatorRegistration operator_registrations = 1;
+}
+
+// LSTOperatorWeightedShare stores the weighted share of an operator
+message LSTOperatorWeightedShare {
+  string operator_address = 1;
+  string validator_addr = 2;
+  string weighted_share = 3 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// LSTOperatorWeightedShareList stores a list of OperatorWeightedShare
+message LSTOperatorWeightedShareList {
+  repeated LSTOperatorWeightedShare operator_weighted_shares = 1;
+}
+
+// LSTVotingPowerRatio is the ratio of voting power
+message LSTVotingPowerRatio {
+  string numerator = 1 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  string denominator = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// LSTStakingEnabled is the enable status of LST staking
+message LSTStakingEnabled {
+  bool enabled = 1;
+}

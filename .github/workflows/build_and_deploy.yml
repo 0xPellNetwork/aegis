@@ -1,0 +1,55 @@
+name: build_and_deploy
+
+on:
+  # push:
+  #   branches: [ "staging", "main" ]
+  # we can also trigger manually in case needed
+  workflow_dispatch:
+
+jobs:
+  build_docker_images:
+    name: Build On X64
+    runs-on: [ "self-hosted", "Linux", "X64", "node2" ]
+    permissions:
+      # Need this to be allowed to publish image to registry
+      # see https://docs.github.com/en/actions/publishing-packages/publishing-docker-images
+      packages: write
+      contents: read
+    env:
+      GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      TAG: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+
+      # build docker images
+      - name: Build Docker image
+        working-directory: contrib/localnet
+        run: |
+          docker compose -f docker-compose.build.yml build pellnode
+          docker compose -f docker-compose.build.yml build pell-contracts
+          docker compose -f docker-compose.build.yml build orchestrator
+          docker compose -f docker-compose.build.yml build eth
+
+  deploy_docker_images:
+    name: Deploy On X64
+    runs-on: [ "self-hosted", "Linux", "X64", "node2" ]
+    env:
+      TAG: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+      BSC_EXTERNAL_RPC_URL: ${{ secrets.BSC_EXTERNAL_RPC_URL }}
+    needs: build_docker_images
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+
+      - name: deploy
+        working-directory: contrib/localnet
+        run: |
+          docker compose -p testnet-alpha -f docker-compose.staging.yml up -d

@@ -1,0 +1,25 @@
+syntax = "proto3";
+package restaking;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+
+// EpochOutboundState represents the outbound state of a chain
+message EpochOutboundState {
+  uint64 chain_id = 1;
+  OutboundStatus outbound_status = 2;
+  uint64 epoch_number = 3;
+}
+
+// OutboundStatus is the status of outbound
+enum OutboundStatus {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // outbound is initializing
+  OUTBOUND_STATUS_INITIALIZING = 0;
+  // outbound is normal
+  OUTBOUND_STATUS_NORMAL = 1;
+  // outbound is syncing
+  OUTBOUND_STATUS_SYNCING = 2;
+  // outbound is paused
+}

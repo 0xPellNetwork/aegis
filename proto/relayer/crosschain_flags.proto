@@ -1,0 +1,46 @@
+syntax = "proto3";
+package relayer;
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/duration.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// gas price increase flags
+message GasPriceIncreaseFlags {
+  int64 epoch_length = 1;
+  google.protobuf.Duration retry_interval = 2 [
+    (gogoproto.nullable) = false,
+    (gogoproto.stdduration) = true
+  ];
+  uint32 gas_price_increase_percent = 3;
+  // Maximum gas price increase in percent of the median gas price
+  // Default is used if 0
+  uint32 gas_price_increase_max = 4;
+  // Maximum number of pending crosschain transactions to check for gas price
+  // increase
+  uint32 max_pending_xmsgs = 5;
+}
+
+// Deprecated(v16): Use VerificationFlags in the lightclient module instead
+message BlockHeaderVerificationFlags {
+  bool is_eth_type_chain_enabled = 1;
+  bool is_btc_type_chain_enabled = 2;
+}
+
+// crosschain flags
+message CrosschainFlags {
+  bool is_inbound_enabled = 1;
+  bool is_outbound_enabled = 2;
+  GasPriceIncreaseFlags gas_price_increase_flags = 3;
+
+  // Deprecated(v16): Use VerificationFlags in the lightclient module instead
+  BlockHeaderVerificationFlags block_header_verification_flags = 4;
+}
+
+// legacy crosschain flags
+message LegacyCrosschainFlags {
+  bool is_inbound_enabled = 1;
+  bool is_outbound_enabled = 2;
+  GasPriceIncreaseFlags gas_price_increase_flags = 3;
+}

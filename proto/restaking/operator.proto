@@ -1,0 +1,16 @@
+syntax = "proto3";
+package restaking;
+
+option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+
+// Operator is the delegation operator information
+message Operator {
+  // operator address
+  string operator = 1;
+
+  // delegation approver address
+  string delegation_approver = 2;
+
+  // staker opt out window
+  uint32 staker_opt_out_window = 3;
+}

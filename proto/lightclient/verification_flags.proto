@@ -1,0 +1,11 @@
+syntax = "proto3";
+package lightclient;
+
+option go_package = "github.com/pell-chain/pellcore/x/lightclient/types";
+
+// VerificationFlags is a structure containing information which chain types are
+// enabled for block header verification
+message VerificationFlags {
+  bool eth_type_chain_enabled = 1;
+  bool btc_type_chain_enabled = 2;
+}

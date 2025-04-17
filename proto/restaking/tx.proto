@@ -1,0 +1,36 @@
+syntax = "proto3";
+package restaking;
+
+import "cosmos/msg/v1/msg.proto";
+import "restaking/epoch_outbound_state.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+
+// Msg defines the Msg service.
+service Msg {
+  // upsert outbound state
+  rpc UpsertOutboundState(MsgUpsertOutboundState) returns (MsgUpsertOutboundStateResponse);
+
+  // update blocks per epoch
+  rpc UpdateBlocksPerEpoch(MsgUpdateBlocksPerEpoch) returns (MsgUpdateBlocksPerEpochResponse);
+}
+
+// upsert outbound state
+message MsgUpsertOutboundState {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  EpochOutboundState outbound_state = 2;
+}
+
+// upsert outbound state response
+message MsgUpsertOutboundStateResponse {}
+
+// update blocks per epoch
+message MsgUpdateBlocksPerEpoch {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  uint64 blocks_per_epoch = 2;
+}
+
+// update blocks per epoch response
+message MsgUpdateBlocksPerEpochResponse {}

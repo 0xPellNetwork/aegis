@@ -1,0 +1,37 @@
+syntax = "proto3";
+package relayer;
+
+import "gogoproto/gogo.proto";
+import "relayer/ballot.proto";
+import "relayer/blame.proto";
+import "relayer/chain_nonces.proto";
+import "relayer/crosschain_flags.proto";
+import "relayer/keygen.proto";
+import "relayer/node_account.proto";
+import "relayer/nonce_to_xmsg.proto";
+import "relayer/params.proto";
+import "relayer/pending_nonces.proto";
+import "relayer/relayer.proto";
+import "relayer/tss.proto";
+import "relayer/tss_funds_migrator.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// relayer genesis state
+message GenesisState {
+  repeated Ballot ballots = 1;
+  RelayerSet observers = 2 [(gogoproto.nullable) = false];
+  repeated NodeAccount node_account_list = 3;
+  CrosschainFlags crosschain_flags = 4;
+  Params params = 5;
+  Keygen keygen = 6;
+  LastRelayerCount last_observer_count = 7;
+  ChainParamsList chain_params_list = 8 [(gogoproto.nullable) = false];
+  TSS tss = 9;
+  repeated TSS tss_history = 10 [(gogoproto.nullable) = false];
+  repeated TssFundMigratorInfo tss_fund_migrators = 11 [(gogoproto.nullable) = false];
+  repeated Blame blame_list = 12 [(gogoproto.nullable) = false];
+  repeated PendingNonces pending_nonces = 13 [(gogoproto.nullable) = false];
+  repeated ChainNonces chain_nonces = 14 [(gogoproto.nullable) = false];
+  repeated NonceToXmsg nonce_to_xmsg = 15 [(gogoproto.nullable) = false];
+}

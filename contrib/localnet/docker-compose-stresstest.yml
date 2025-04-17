@@ -1,0 +1,88 @@
+version: "3"
+
+# This docker-compose redefine the services:
+# - PellChain with 4 nodes to test performance
+# - PellChain observer set with 4 clients to test performance
+# - Orchestrator call stress commands
+
+services:
+  pellcore0:
+    entrypoint: ["/root/start-pellcored.sh", "4"]
+
+  pellcore1:
+    entrypoint: ["/root/start-pellcored.sh", "4"]
+
+  pellcore2:
+    image: pellnode:latest
+    container_name: pellcore2
+    build:
+      context: ../../.
+      dockerfile: Dockerfile-localnet
+    hostname: pellcore2
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.13
+    entrypoint: [ "/root/start-pellcored.sh", "4" ]
+    environment:
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+
+  pellcore3:
+    image: pellnode:latest
+    container_name: pellcore3
+    build:
+      context: ../../.
+      dockerfile: Dockerfile-localnet
+    hostname: pellcore3
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.14
+    entrypoint: [ "/root/start-pellcored.sh", "4" ]
+    environment:
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+
+  pellclient0:
+    ports:
+      - "8123:8123"
+    entrypoint: /root/start-pellclientd.sh
+
+  pellclient1:
+    entrypoint: /root/start-pellclientd.sh
+
+  pellclient2:
+    image: pellnode:latest
+    container_name: pellclient2
+    build:
+      context: ../../.
+      dockerfile: Dockerfile-localnet
+    hostname: pellclient2
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.23
+    entrypoint: /root/start-pellclientd.sh
+    environment:
+      - ETHDEV_ENDPOINT=http://eth:8545
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+
+  pellclient3:
+    image: pellnode:latest
+    container_name: pellclient3
+    build:
+      context: ../../.
+      dockerfile: Dockerfile-localnet
+    hostname: pellclient3
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.24
+    entrypoint: /root/start-pellclientd.sh
+    environment:
+      - ETHDEV_ENDPOINT=http://eth:8545
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+
+  orchestrator:
+    build:
+      dockerfile: contrib/localnet/orchestrator/Dockerfile.fastbuild
+    entrypoint: ["/work/start-pelle2e.sh", "stress"]

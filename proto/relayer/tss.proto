@@ -1,0 +1,13 @@
+syntax = "proto3";
+package relayer;
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// tss
+message TSS {
+  string tss_pubkey = 3;
+  repeated string tss_participant_list = 4;
+  repeated string operator_address_list = 5;
+  int64 finalized_pell_height = 6;
+  int64 keygen_pell_height = 7;
+}

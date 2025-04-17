@@ -1,0 +1,52 @@
+syntax = "proto3";
+package relayer;
+
+import "gogoproto/gogo.proto";
+import "relayer/relayer.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// relayer vote type
+enum VoteType {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // success
+  SUCCESS_OBSERVATION = 0;
+  // Failure observation means , the the message that
+  // this voter is observing failed / reverted . It does
+  // not mean it was unable to observe.
+  FAILURE_OBSERVATION = 1;
+  // not yet voted
+  NOT_YET_VOTED = 2;
+}
+
+// ballot status
+enum BallotStatus {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // successful ballot
+  BALLOT_FINALIZED_SUCCESS_OBSERVATION = 0;
+  // failure ballot
+  BALLOT_FINALIZED_FAILURE_OBSERVATION = 1;
+  // progress ballot
+  BALLOT_IN_PROGRESS = 2;
+}
+
+// ballot
+message Ballot {
+  string index = 1;
+  string ballot_identifier = 2;
+  repeated string voter_list = 3;
+  repeated VoteType votes = 4;
+  ObservationType observation_type = 5;
+  string ballot_threshold = 6 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  BallotStatus ballot_status = 7;
+  int64 ballot_creation_height = 8;
+}
+
+// ballot list for block height
+message BallotListForHeight {
+  int64 height = 1;
+  repeated string ballots_index_list = 2;
+}

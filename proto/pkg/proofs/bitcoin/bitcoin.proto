@@ -1,0 +1,11 @@
+syntax = "proto3";
+package pkg.proofs.bitcoin;
+
+option go_package = "github.com/pell-chain/pellcore/pkg/proofs/bitcoin";
+
+// Proof represents the proof of a bitcoin transaction
+message Proof {
+  bytes tx_bytes = 1;
+  bytes path = 2;
+  uint32 index = 3;
+}

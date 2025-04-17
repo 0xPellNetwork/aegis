@@ -1,0 +1,24 @@
+syntax = "proto3";
+package lightclient;
+
+import "cosmos/msg/v1/msg.proto";
+import "gogoproto/gogo.proto";
+import "lightclient/verification_flags.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/lightclient/types";
+
+// Msg defines the Msg service.
+service Msg {
+  // update verification flags
+  rpc UpdateVerificationFlags(MsgUpdateVerificationFlags) returns (MsgUpdateVerificationFlagsResponse);
+}
+
+// message update verification flags
+message MsgUpdateVerificationFlags {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  VerificationFlags verification_flags = 2 [(gogoproto.nullable) = false];
+}
+
+// update verification flags response
+message MsgUpdateVerificationFlagsResponse {}

@@ -1,0 +1,15 @@
+services:
+
+  pellnode:
+    container_name: pellcore0
+    build:
+      context: ../../.
+      dockerfile: Dockerfile-upgrade
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        HTTP_PROXY: ${HTTP_PROXY}
+        HTTPS_PROXY: ${HTTPS_PROXY}
+        PREVIOUS_GIT_VERSION: ${PREVIOUS_GIT_VERSION}
+        UPGRADE_VERSION: ${UPGRADE_VERSION}
+      tags:
+        - "pellnode:${TAG:-latest}"

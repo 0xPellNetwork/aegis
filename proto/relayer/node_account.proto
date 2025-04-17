@@ -1,0 +1,32 @@
+syntax = "proto3";
+package relayer;
+
+import "gogoproto/gogo.proto";
+import "pkg/crypto/crypto.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// node status
+enum NodeStatus {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // unknown node status
+  UNKNOWN = 0;
+  // whitelisted node status
+  WHITELISTED = 1;
+  // standby node status
+  STANDBY = 2;
+  // ready node status
+  READY = 3;
+  // active node status
+  ACTIVE = 4;
+  // disabled node status
+  DISABLED = 5;
+}
+
+// node account
+message NodeAccount {
+  string operator = 1;
+  string grantee_address = 2;
+  pkg.crypto.PubKeySet grantee_pubkey = 3;
+  NodeStatus node_status = 4;
+}

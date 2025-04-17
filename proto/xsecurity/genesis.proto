@@ -1,0 +1,9 @@
+syntax = "proto3";
+package xsecurity;
+
+option go_package = "github.com/pell-chain/pellcore/x/xsecurity/types";
+
+// xsecurity genesis state
+message GenesisState {
+  repeated string vote_list = 1;
+}

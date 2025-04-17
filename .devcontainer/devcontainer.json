@@ -1,0 +1,49 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/go
+{
+    "name": "Go",
+    // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+    "image": "mcr.microsoft.com/devcontainers/go:1-1.23-bookworm",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "golang.go",
+                "visualstudioexptteam.vscodeintellicode",
+                "cursor.cursor"
+            ],
+            "settings": {
+                "go.toolsManagement.checkForUpdates": "local",
+                "go.useLanguageServer": true,
+                "go.gopath": "/go"
+            }
+        }
+    },
+    "forwardPorts": [
+        8080
+    ],
+    "remoteUser": "root",
+    // Mac environment proxy
+    "runArgs": [
+        "--env=HTTP_PROXY=http://host.docker.internal:7890",
+        "--env=HTTPS_PROXY=http://host.docker.internal:7890",
+        "--env=http_proxy=http://host.docker.internal:7890",
+        "--env=https_proxy=http://host.docker.internal:7890"
+    ],
+    "postCreateCommand": "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" && go mod tidy",
+    // Features to add to the dev container. More info: https://containers.dev/features.
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "configureZshAsDefaultShell": true,
+            "username": "root"
+        }
+    },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    // "postCreateCommand": "go version",
+    // Configure tool-specific properties.
+    // "customizations": {},
+    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+    // "remoteUser": "root"
+}

@@ -1,0 +1,20 @@
+{
+    "ballot_threshold": "0.660000000000000000",
+    "chain_id": 200810,
+    "confirmation_count": 6,
+    "erc20_custody_contract_address": "0x0000000000000000000000000000000000000000",
+    "gas_price_ticker": 30,
+    "in_tx_ticker": 5,
+    "is_supported": true,
+    "min_observer_delegation": "1000000000000000000000.000000000000000000",
+    "out_tx_ticker": 15,
+    "outbound_tx_schedule_interval": 30,
+    "outbound_tx_schedule_lookahead": 60,
+    "connector_contract_address": "0x494C62234d97cB98c69a0013b272134f2d2a222A",
+    "delegation_manager_contract_address": "0xB8109f80ebC04fA28C76f874E8e5b17eE5C9C82A",
+    "omni_operator_shares_manager_contract_address": "0x55F13fF385510804783d0AafAc101D18c0b3DCcc",
+    "strategy_manager_contract_address": "0x0D6f819F9D798DBe8F52E7C913b2309056A5639c",
+    "pell_token_contract_address": "0x0000000000000000000000000000000000000000", 
+    "gas_limit": 200000,
+    "start_block_height": 2844215
+}

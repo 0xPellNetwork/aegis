@@ -1,0 +1,12 @@
+syntax = "proto3";
+package authority;
+
+import "authority/policies.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/authority/types";
+
+// GenesisState defines the authority module's genesis state.
+message GenesisState {
+  Policies policies = 1 [(gogoproto.nullable) = false];
+}

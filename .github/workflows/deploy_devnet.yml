@@ -1,0 +1,35 @@
+name: build_and_publish_devnet
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy_pellnode0:
+    name: Build On X64
+    runs-on: [ "self-hosted", "Linux", "X64", "node2" ]
+    env:
+      GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      # TAG: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+      TAG: latest
+      DOCKER_REGISTRY: "docker.io"
+      DOCKER_USERNAME: "pellnetwork"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
+
+      - name: Log in to the Docker Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Run docker
+        working-directory: contrib/devnet
+        run: |
+          docker compose pull
+          docker compose up -d

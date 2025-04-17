@@ -1,0 +1,32 @@
+version: "3"
+
+# This docker-compose is similar to the docker-compose-upgrade.yml, but it uses a smaller height option for the upgrade (90)
+# By using 90, the orchestrator will automatically run setup only for the first e2e test execution.
+
+services:
+  pellcore0:
+    entrypoint: ["/root/start-pellcored.sh", "2", "upgrade", "90"]
+    build:
+      context: ../../.
+      dockerfile: Dockerfile-upgrade
+
+  pellcore1:
+    entrypoint: ["/root/start-pellcored.sh", "2", "upgrade", "90"]
+    build:
+      context: ../../.
+      dockerfile: Dockerfile-upgrade
+
+  pellclient0:
+    entrypoint: ["/root/start-pellclientd.sh", "background"]
+    build:
+      context: ../../.
+      dockerfile: Dockerfile-upgrade
+
+  pellclient1:
+    entrypoint: ["/root/start-pellclientd.sh", "background"]
+    build:
+      context: ../../.
+      dockerfile: Dockerfile-upgrade
+
+  orchestrator:
+    entrypoint: ["/work/start-pelle2e.sh", "local", "upgrade", "90"]

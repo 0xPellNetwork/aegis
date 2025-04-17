@@ -1,0 +1,19 @@
+syntax = "proto3";
+package xmsg;
+
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// transaction hash list
+message TxHashList {
+  string tx_hash = 1;
+  string tx_signer = 2;
+  bool proved = 3;
+}
+
+// outbound transaction tracker
+message OutTxTracker {
+  string index = 1; // format: "chain-nonce"
+  int64 chain_id = 2;
+  uint64 nonce = 3;
+  repeated TxHashList hash_lists = 4;
+}

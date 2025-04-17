@@ -1,0 +1,10 @@
+syntax = "proto3";
+package relayer;
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// tss fund migrate infomation
+message TssFundMigratorInfo {
+  int64 chain_id = 1;
+  string migration_xmsg_index = 2;
+}

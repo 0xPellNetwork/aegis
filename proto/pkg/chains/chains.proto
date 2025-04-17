@@ -1,0 +1,88 @@
+syntax = "proto3";
+package pkg.chains;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/pell-chain/pellcore/pkg/chains";
+
+// ReceiveStatus represent the status of a received transaction
+enum ReceiveStatus {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // some observer sees inbound tx
+  CREATED = 0;
+  // success
+  SUCCESS = 1;
+  // failed
+  FAILED = 2;
+}
+
+// NetWork represent chain type
+enum NetWork {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // ethereum
+  ETH = 0;
+  // pell
+  PELL = 1;
+  // bitcoin
+  BTC = 2;
+  // polygon
+  POLYGON = 3;
+  // bsc
+  BSC = 4;
+  // goerli
+  GOERLI = 5;
+  // mumbai
+  MUMBAI = 6;
+  // ganache
+  GANACHE = 7;
+  // baobab
+  BAOBAB = 8;
+  // sepolia
+  SEPOLIA = 9;
+  // amoy
+  AMOY = 10;
+  // optimism
+  OPTIMISM = 11;
+  // base
+  BASE = 12;
+  // core
+  CORE = 13;
+  // mantle
+  MANTLE = 14;
+  // arbitrum
+  ARBITRUM = 15;
+  // bitlayer
+  BITLAYER = 16;
+}
+
+// network represent chain network type
+enum NetWorkType {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // mainnet
+  MAINNET = 0;
+  // testnet
+  TESTNET = 1;
+  // privnet
+  PRIVNET = 2;
+  // devnet
+  DEVNET = 3;
+}
+
+// VMType represent the type of vm
+enum VMType {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // no vm
+  NO_VM = 0;
+  // ethereum vm
+  EVM = 1;
+  // solana vm
+  SVM = 2;
+}
+
+// Chain represent a chain
+message Chain {
+  int64 id = 1;
+  NetWork network = 2;
+  NetWorkType network_type = 3;
+  VMType vm_type = 4;
+}

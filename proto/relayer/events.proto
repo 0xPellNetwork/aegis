@@ -1,0 +1,42 @@
+syntax = "proto3";
+package relayer;
+
+import "relayer/crosschain_flags.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// ballot created event
+message EventBallotCreated {
+  string msg_type_url = 1;
+  string ballot_identifier = 2;
+  string observation_hash = 3;
+  string observation_chain = 4;
+  string ballot_type = 5;
+  uint64 event_type = 6;
+}
+
+// keygen block updated event
+message EventKeygenBlockUpdated {
+  string msg_type_url = 1;
+  string keygen_block = 2;
+  string keygen_pubkeys = 3;
+}
+
+// new relayer added event
+message EventNewRelayerAdded {
+  string msg_type_url = 1;
+  string observer_address = 2;
+  string pellclient_grantee_address = 3;
+  string pellclient_grantee_pubkey = 4;
+  uint64 observer_last_block_count = 5;
+}
+
+// crosschain flags updated event
+message EventCrosschainFlagsUpdated {
+  string msg_type_url = 1;
+  bool is_inbound_enabled = 2;
+  bool is_outbound_enabled = 3;
+  GasPriceIncreaseFlags gas_price_increase_flags = 4;
+  string signer = 5;
+  BlockHeaderVerificationFlags block_header_verification_flags = 6;
+}

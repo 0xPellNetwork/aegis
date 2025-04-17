@@ -1,0 +1,116 @@
+FROM golang:1.23 AS build-env
+
+# Version to build. Default is empty
+ARG PREVIOUS_GIT_VERSION
+
+ARG LEDGER_ENABLED="false"
+# Cosmos build options
+ARG COSMOS_BUILD_OPTIONS=""
+ARG BUILD_TAGS=""
+
+# Install cli tools for building and final image
+RUN apt-get update && apt-get install -y make git bash gcc curl jq
+
+RUN curl -L https://foundry.paradigm.xyz | bash
+RUN /root/.foundry/bin/foundryup
+
+RUN go env -w GOPROXY=https://goproxy.cn,direct
+
+# Build
+WORKDIR /go/delivery/pell-node
+# First cache dependencies
+ARG GITHUB_TOKEN
+RUN if [ -z "$GITHUB_TOKEN" ]; then echo "GITHUB_TOKEN is not set" && exit 1; fi
+RUN git config --global url."https://${GITHUB_TOKEN}:x-oauth-basic@github.com/0xPellNetwork".insteadOf "https://github.com/0xPellNetwork"
+COPY go.mod go.sum /go/delivery/pell-node/
+RUN --mount=type=cache,target="/go/pkg/mod" go mod download
+
+RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
+
+# 1) Clone and checkout old version
+RUN git clone https://github.com/0xPellNetwork/chain -b main chain
+RUN cd chain && git fetch
+RUN cd chain && git checkout ${PREVIOUS_GIT_VERSION}
+
+# 2) Build old version
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    cd chain && \
+    LEDGER_ENABLED=$LEDGER_ENABLED \
+    BUILD_TAGS=$BUILD_TAGS \
+    COSMOS_BUILD_OPTIONS=$COSMOS_BUILD_OPTIONS \
+    LINK_STATICALLY=false \
+    make install && \
+    make install-e2e
+
+# 3) Copy old binaries to new names
+RUN cp /go/bin/pellcored /go/bin/old_pellcored
+RUN cp /go/bin/pellclientd /go/bin/old_pellclientd
+
+# 4) Remove old code to avoid polluting new build
+RUN rm -rf /go/delivery/pell-node/chain
+
+# 5) Copy new code (the entire context) into image
+COPY ./ /go/delivery/pell-node/
+
+# 6) Build new version
+RUN --mount=type=cache,target="/go/pkg/mod" \
+    --mount=type=cache,target="/root/.cache/go-build" \
+    cd /go/delivery/pell-node && \
+    LEDGER_ENABLED=$LEDGER_ENABLED \
+    BUILD_TAGS=$BUILD_TAGS \
+    COSMOS_BUILD_OPTIONS=$COSMOS_BUILD_OPTIONS \
+    LINK_STATICALLY=false \
+    make install && \
+    make install-e2e
+
+RUN cp /go/bin/pellcored /go/bin/new_pellcored
+RUN cp /go/bin/pellclientd /go/bin/new_pellclientd
+
+FROM debian:bookworm-slim AS run
+RUN apt-get update && apt-get install -y bash curl jq wget openssh-server iproute2 git
+
+# Install libraries
+# Cosmwasm - Download correct libwasmvm version
+COPY --from=build-env /go/delivery/pell-node/go.mod /tmp
+RUN WASMVM_VERSION=$(grep github.com/CosmWasm/wasmvm /tmp/go.mod | cut -d' ' -f2) && \
+    wget https://github.com/CosmWasm/wasmvm/releases/download/$WASMVM_VERSION/libwasmvm.$(uname -m).so \
+    -O /lib/libwasmvm.$(uname -m).so && \
+    # verify checksum
+    wget https://github.com/CosmWasm/wasmvm/releases/download/$WASMVM_VERSION/checksums.txt -O /tmp/checksums.txt && \
+    sha256sum /lib/libwasmvm.$(uname -m).so | grep $(cat /tmp/checksums.txt | grep libwasmvm.$(uname -m) | cut -d ' ' -f 1)
+RUN rm -f /tmp/go.mod
+
+COPY --from=build-env /go/bin/old_pellcored /usr/local/bin/old_pellcored
+COPY --from=build-env /go/bin/new_pellcored /usr/local/bin/new_pellcored
+
+COPY --from=build-env /go/bin/pellcored /usr/local/bin/pellcored
+COPY --from=build-env /go/bin/pellclientd /usr/local/bin/pellclientd
+COPY --from=build-env /go/bin/cosmovisor /usr/local/bin/cosmovisor
+COPY --from=build-env /go/bin/pelle2e /usr/local/bin/pelle2e
+COPY --from=build-env /root/.foundry/bin/cast /usr/local/bin/cast
+
+
+COPY contrib/localnet/scripts /root
+COPY contrib/localnet/preparams /root/preparams
+COPY contrib/localnet/ssh_config /root/.ssh/config
+COPY contrib/localnet/pellcored /root/pellcored
+COPY contrib/localnet/tss /root/tss
+COPY contrib/multi-chain/setup.sh /root/setup.sh
+COPY contrib/multi-chain/chains_param/* /root
+COPY contrib/env/* /root/
+
+COPY contrib/localnet/ssh /root/.ssh
+RUN chmod 755 /root/*.sh
+RUN chmod 700 /root/.ssh
+RUN chmod 600 /root/.ssh/*
+
+# Set home directory and user
+WORKDIR /usr/local/bin
+EXPOSE 22
+
+RUN mkdir -p /run/sshd && chmod 0755 /run/sshd
+ENTRYPOINT ["/usr/sbin/sshd", "-D"]
+
+
+

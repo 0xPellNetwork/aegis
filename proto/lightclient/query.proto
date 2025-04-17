@@ -1,0 +1,103 @@
+syntax = "proto3";
+package lightclient;
+
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "lightclient/chain_state.proto";
+import "lightclient/verification_flags.proto";
+import "pkg/proofs/proofs.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/lightclient/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // query all block header
+  rpc BlockHeaderAll(QueryAllBlockHeaderRequest) returns (QueryBlockHeaderAllResponse) {
+    option (google.api.http).get = "/pell-chain/lightclient/block_headers";
+  }
+  // query block heder by given block hash
+  rpc BlockHeader(QueryGetBlockHeaderRequest) returns (QueryBlockHeaderResponse) {
+    option (google.api.http).get = "/pell-chain/lightclient/block_headers/{block_hash}";
+  }
+  // query all chain state
+  rpc ChainStateAll(QueryAllChainStateRequest) returns (QueryChainStateAllResponse) {
+    option (google.api.http).get = "/pell-chain/lightclient/chain_state";
+  }
+  // query chain state by given chain id
+  rpc ChainState(QueryGetChainStateRequest) returns (QueryChainStateResponse) {
+    option (google.api.http).get = "/pell-chain/lightclient/chain_state/{chain_id}";
+  }
+  // query valid prove
+  rpc Prove(QueryProveRequest) returns (QueryProveResponse) {
+    option (google.api.http).get = "/pell-chain/lightclient/prove";
+  }
+  // query verification flags
+  rpc VerificationFlags(QueryVerificationFlagsRequest) returns (QueryVerificationFlagsResponse) {
+    option (google.api.http).get = "/pell-chain/lightclient/verification_flags";
+  }
+}
+
+// query all block header request
+message QueryAllBlockHeaderRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// response of query all block header
+message QueryBlockHeaderAllResponse {
+  repeated pkg.proofs.BlockHeader block_headers = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// query block header request
+message QueryGetBlockHeaderRequest {
+  bytes block_hash = 1;
+}
+
+// response of query block header
+message QueryBlockHeaderResponse {
+  pkg.proofs.BlockHeader block_header = 1;
+}
+
+// query all chain state request
+message QueryAllChainStateRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// response of query all chain state
+message QueryChainStateAllResponse {
+  repeated ChainState chain_state = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// request of query chain state
+message QueryGetChainStateRequest {
+  int64 chain_id = 1;
+}
+
+// response of query chain state
+message QueryChainStateResponse {
+  ChainState chain_state = 1;
+}
+
+// request of query is valid prove
+message QueryProveRequest {
+  int64 chain_id = 1;
+  string tx_hash = 2;
+  pkg.proofs.Proof proof = 3;
+  string block_hash = 4;
+  int64 tx_index = 5;
+}
+
+// response of is valid prove
+message QueryProveResponse {
+  bool valid = 1;
+}
+
+// request of query verification flags
+message QueryVerificationFlagsRequest {}
+
+// response of query verification flags
+message QueryVerificationFlagsResponse {
+  VerificationFlags verification_flags = 1 [(gogoproto.nullable) = false];
+}

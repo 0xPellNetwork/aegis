@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  pellchain_mainnet_rpc:
+    platform: linux/amd64
+    #This will build the binary from the GIT_REF you are locally on.
+    # build:
+    #  context: ../../..
+    #  dockerfile: Dockerfile
+    image: pellchain/pellcored:${DOCKER_TAG:-ubuntu-v14.0.1}
+    container_name: pellchain_mainnet_rpc
+    environment:
+      DAEMON_HOME: "/root/.pellcored"
+      NETWORK: mainnet
+      #RESTORE_TYPE=snapshot/snapshot-archive/statesync
+      RESTORE_TYPE: "snapshot"
+      SNAPSHOT_API: https://snapshots.pellchain.com
+      TRUST_HEIGHT_DIFFERENCE_STATE_SYNC: 40000
+      CHAIN_ID: "pellchain_86-1"
+      VISOR_NAME: "cosmovisor"
+      DAEMON_NAME: "pellcored"
+      DAEMON_ALLOW_DOWNLOAD_BINARIES: "false"
+      DAEMON_RESTART_AFTER_UPGRADE: "true"
+      UNSAFE_SKIP_BACKUP: "true"
+      CLIENT_DAEMON_NAME: "pellclientd"
+      CLIENT_DAEMON_ARGS: ""
+      CLIENT_SKIP_UPGRADE: "true"
+      CLIENT_START_PROCESS: "false"
+      MONIKER: local-test
+      RE_DO_START_SEQUENCE: "false"
+    ports:
+      - "26656:26656"
+      - "1317:1317"
+      - "8545:8545"
+      - "8546:8546"
+      - "26657:26657"
+      - "9090:9090"
+      - "9091:9091"
+    volumes:
+      - pellcored_data_mainnet:/root/.pellcored/
+    entrypoint: bash /scripts/start.sh
+    #for debugging
+    #entrypoint: ["/bin/sh", "-c"]
+    #command: ["while true; do sleep 86400; done"]
+volumes:
+  pellcored_data_mainnet:

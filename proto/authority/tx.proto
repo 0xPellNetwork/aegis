@@ -1,0 +1,24 @@
+syntax = "proto3";
+package authority;
+
+import "authority/policies.proto";
+import "cosmos/msg/v1/msg.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/authority/types";
+
+// Msg defines the Msg service.
+service Msg {
+  // update policies
+  rpc UpdatePolicies(MsgUpdatePolicies) returns (MsgUpdatePoliciesResponse);
+}
+
+// MsgUpdatePolicies defines the MsgUpdatePolicies service.
+message MsgUpdatePolicies {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  Policies policies = 2 [(gogoproto.nullable) = false];
+}
+
+// MsgUpdatePoliciesResponse defines the MsgUpdatePoliciesResponse service.
+message MsgUpdatePoliciesResponse {}

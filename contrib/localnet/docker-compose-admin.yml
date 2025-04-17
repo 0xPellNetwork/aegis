@@ -1,0 +1,26 @@
+version: "3"
+
+# This docker-compose file overrides the orchestrator service to specify the flag to test the admin functions
+# and skip the regular tests
+# it also adds another local Ethereum network to test EVM chain migration and use the additional-evm flag
+
+services:
+  orchestrator:
+    entrypoint: ["/work/start-pelle2e.sh", "local --skip-regular --test-admin"]
+
+  eth2:
+    build:
+      context: ./anvil
+    container_name: eth2
+    hostname: eth2
+    ports:
+      - "8546:8545"
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.102
+
+  pellclient0:
+    entrypoint: [ "/root/start-pellclientd.sh", "additional-evm" ]
+
+  pellclient1:
+    entrypoint: [ "/root/start-pellclientd.sh", "additional-evm" ]

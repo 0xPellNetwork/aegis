@@ -1,0 +1,48 @@
+syntax = "proto3";
+package xmsg;
+
+import "xmsg/pell_event.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// chain_index represent inbound chain index
+message ChainIndex {
+  uint64 chain_id = 1;
+  uint64 curr_height = 2;
+}
+
+// block proof represent observer commit block info
+message BlockProof {
+  uint64 chain_id = 1;
+  uint64 prev_block_height = 2;
+  uint64 block_height = 3;
+  string block_hash = 4;
+
+  repeated Event events = 5;
+}
+
+// event process status
+enum EventStatus {
+  //  pending status
+  PENDING = 0;
+  // done status
+  DONE = 1;
+}
+
+// evm event log
+message Event {
+  uint64 index = 1;
+  string tx_hash = 2;
+  string digest = 3;
+  // vote inbound msg digest
+  InboundPellEvent pell_event = 4;
+}
+
+// evm event log
+message EventStatusNode {
+  string prev_event_index = 1;
+  string next_event_index = 2;
+
+  uint64 event_index_in_block = 3;
+  EventStatus status = 4;
+}

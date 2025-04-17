@@ -1,0 +1,81 @@
+syntax = "proto3";
+package pevm;
+
+import "cosmos/msg/v1/msg.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/pevm/types";
+
+// Msg defines the Msg service.
+service Msg {
+  // DeploySystemContracts deploys system contracts. This operation is restricted to admin users.
+  rpc DeploySystemContracts(MsgDeploySystemContracts) returns (MsgDeploySystemContractsResponse);
+  // UpgradeSystemContracts upgrades system contracts. This operation is also restricted to admin users.
+  rpc UpgradeSystemContracts(MsgUpgradeSystemContracts) returns (MsgUpgradeSystemContractsResponse);
+  // DeployGatewayContract deploys gateway contract. This operation is also restricted to admin users.
+  rpc DeployGatewayContract(MsgDeployGatewayContract) returns (MsgDeployGatewayContractResponse);
+  // DeployConnectorContract deploys connector contract. This operation is also restricted to admin users.
+  rpc DeployConnectorContract(MsgDeployConnectorContract) returns (MsgDeployConnectorContractResponse);
+}
+
+// message for deploy system contract
+message MsgDeploySystemContracts {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+}
+
+// response for deploy system contract
+message MsgDeploySystemContractsResponse {
+  string system_contract = 1;
+  string connector = 2;
+  string empty_contract = 3;
+  string proxy_admin = 4;
+  string delegation_manager_proxy = 5;
+  string strategy_manager_proxy = 6;
+  string slasher_proxy = 7;
+  string delegation_manager_impl = 8;
+  string delegation_manager_interactor_impl = 9;
+  string strategy_manager_impl = 10;
+  string slasher_impl = 11;
+  string dvs_directory_impl = 12;
+  string dvs_directory_proxy = 13;
+  string registry_router = 14;
+  string registry_router_factory = 15;
+  string wrapped_pell = 16;
+  string gateway = 17;
+  string gas_swap = 18;
+  string stake_registry_router = 19;
+}
+
+// message for upgrade system contract
+message MsgUpgradeSystemContracts {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1; // The signer of the message
+}
+
+// message for upgrade system contract response
+message MsgUpgradeSystemContractsResponse {
+  string registry_router = 1;
+  string stake_registry_router = 2;
+}
+
+// message for deploy gateway contract
+message MsgDeployGatewayContract {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+}
+
+// message for deploy gateway contract response
+message MsgDeployGatewayContractResponse {
+  string gateway = 1;
+}
+
+// message for deploy conenctor contract
+message MsgDeployConnectorContract {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+}
+
+// message for deploy conenctor contract response
+message MsgDeployConnectorContractResponse {
+  string connector = 1;
+}

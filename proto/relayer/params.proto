@@ -1,0 +1,112 @@
+syntax = "proto3";
+package relayer;
+
+import "gogoproto/gogo.proto";
+import "pkg/chains/chains.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// ChainParamsList represents the list of chain parameters
+message ChainParamsList {
+  repeated ChainParams chain_params = 1;
+}
+
+// ChainParams represents the parameters of a chain
+message ChainParams {
+  int64 chain_id = 1;
+  uint64 confirmation_count = 2;
+  uint64 gas_price_ticker = 3;
+  uint64 in_tx_ticker = 4;
+  uint64 out_tx_ticker = 5;
+  int64 outbound_tx_schedule_interval = 6;
+  int64 outbound_tx_schedule_lookahead = 7;
+  string ballot_threshold = 8 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  string min_observer_delegation = 9 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  bool is_supported = 10;
+
+  string strategy_manager_contract_address = 11;
+  string delegation_manager_contract_address = 12;
+  string omni_operator_shares_manager_contract_address = 13;
+  string connector_contract_address = 14;
+  uint64 start_block_height = 15;
+  uint64 gas_limit = 16;
+
+  uint64 watch_pell_token_ticker = 17;
+  uint64 watch_gas_token_ticker = 18;
+  string pell_token_recharge_threshold = 19 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+
+  string gas_token_recharge_threshold = 20 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+
+  string pell_token_recharge_amount = 21 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+  string gas_token_recharge_amount = 22 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+
+  string gateway_evm_contract_address = 23;
+  string pell_token_contract_address = 24;
+  string gas_swap_contract_address = 25;
+  uint64 pell_token_post_interval = 26;
+  uint64 gas_token_post_interval = 27;
+  bool pell_token_recharge_enabled = 28;
+  bool gas_token_recharge_enabled = 29;
+
+  string chain_registry_interactor_contract_address = 30;
+}
+
+// Deprecated(v13): Use ChainParamsList
+message RelayerParams {
+  pkg.chains.Chain chain = 1;
+  string ballot_threshold = 3 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  string min_relayer_delegation = 4 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  bool is_supported = 5;
+}
+
+// Deprecated(v14):Moved into the authority module
+enum PolicyType {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // group1 policy type
+  GROUP1 = 0;
+  // group2 policy type
+  GROUP2 = 1;
+}
+
+// Deprecated(v14):Moved into the authority module
+message AdminPolicy {
+  PolicyType policy_type = 1;
+  string address = 2;
+}
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+
+  // Deprecated(v13): Use ChainParamsList
+  repeated RelayerParams observer_params = 1;
+
+  // Deprecated(v14):Moved into the authority module
+  repeated AdminPolicy admin_policy = 2;
+
+  int64 ballot_maturity_blocks = 3;
+}

@@ -1,0 +1,394 @@
+syntax = "proto3";
+package relayer;
+
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "pkg/chains/chains.proto";
+import "relayer/ballot.proto";
+import "relayer/blame.proto";
+import "relayer/chain_nonces.proto";
+import "relayer/crosschain_flags.proto";
+import "relayer/keygen.proto";
+import "relayer/node_account.proto";
+import "relayer/params.proto";
+import "relayer/pending_nonces.proto";
+import "relayer/relayer.proto";
+import "relayer/tss.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/params";
+  }
+  // Query if a voter has voted for a ballot
+  rpc HasVoted(QueryHasVotedRequest) returns (QueryHasVotedResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/has_voted/{ballot_identifier}/{voter_address}";
+  }
+  // Queries a list of VoterByIdentifier items.
+  rpc BallotByIdentifier(QueryBallotByIdentifierRequest) returns (QueryBallotByIdentifierResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/ballot_by_identifier/{ballot_identifier}";
+  }
+
+  // Queries a list of ObserversByChainAndType items.
+  rpc ObserverSet(QueryObserverSet) returns (QueryObserverSetResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/observer_set";
+  }
+
+  // Queries a list of supported chains.
+  rpc SupportedChains(QuerySupportedChains) returns (QuerySupportedChainsResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/supportedChains";
+  }
+
+  // Queries a list of GetChainParamsForChain items.
+  rpc GetChainParamsForChain(QueryGetChainParamsForChainRequest) returns (QueryGetChainParamsForChainResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/get_chain_params_for_chain/{chain_id}";
+  }
+
+  // Queries a list of GetChainParams items.
+  rpc GetChainParams(QueryGetChainParamsRequest) returns (QueryGetChainParamsResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/get_chain_params";
+  }
+
+  // Queries a nodeAccount by index.
+  rpc NodeAccount(QueryGetNodeAccountRequest) returns (QueryNodeAccountResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/nodeAccount/{index}";
+  }
+
+  // Queries a list of nodeAccount items.
+  rpc NodeAccountAll(QueryAllNodeAccountRequest) returns (QueryNodeAccountAllResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/nodeAccount";
+  }
+
+  // Queries the crosschain flags.
+  rpc CrosschainFlags(QueryGetCrosschainFlagsRequest) returns (QueryCrosschainFlagsResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/crosschain_flags";
+  }
+
+  // Queries a keygen by index.
+  rpc Keygen(QueryGetKeygenRequest) returns (QueryKeygenResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/keygen";
+  }
+
+  // Queries a list of ShowObserverCount items.
+  rpc ShowObserverCount(QueryShowObserverCountRequest) returns (QueryShowObserverCountResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/observer/show_observer_count";
+  }
+
+  // Queries a list of VoterByIdentifier items.
+  rpc BlameByIdentifier(QueryBlameByIdentifierRequest) returns (QueryBlameByIdentifierResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/blame_by_identifier/{blame_identifier}";
+  }
+
+  // Queries a list of VoterByIdentifier items.
+  rpc GetAllBlameRecords(QueryAllBlameRecordsRequest) returns (QueryGetAllBlameRecordsResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/get_all_blame_records";
+  }
+
+  // Queries a list of VoterByIdentifier items.
+  rpc BlamesByChainAndNonce(QueryBlameByChainAndNonceRequest) returns (QueryBlamesByChainAndNonceResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/blame_by_chain_and_nonce/{chain_id}/{nonce}";
+  }
+
+  // Queries a list of GetTssAddress items.
+  rpc GetTssAddress(QueryGetTssAddressRequest) returns (QueryGetTssAddressResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/get_tss_address/{bitcoin_chain_id}";
+  }
+  // Queries the TSS address by finalized height.
+  rpc GetTssAddressByFinalizedHeight(QueryGetTssAddressByFinalizedHeightRequest) returns (QueryGetTssAddressByFinalizedHeightResponse) {
+    option (google.api.http).get =
+      "/pell-chain/relayer/get_tss_address_historical/"
+      "{finalized_pell_height}/{bitcoin_chain_id}";
+  }
+
+  // Queries a tSS by index.
+  rpc TSS(QueryGetTSSRequest) returns (QueryTSSResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/TSS";
+  }
+  // Queries a list of TSS items.
+  rpc TssHistory(QueryTssHistoryRequest) returns (QueryTssHistoryResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/tssHistory";
+  }
+
+  // Queries a list of pending nonces items.
+  rpc PendingNoncesAll(QueryAllPendingNoncesRequest) returns (QueryPendingNoncesAllResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/pendingNonces";
+  }
+
+  // Queries a list of pending nonces items by chain.
+  rpc PendingNoncesByChain(QueryPendingNoncesByChainRequest) returns (QueryPendingNoncesByChainResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/pendingNonces/{chain_id}";
+  }
+
+  // Queries a chainNonces by index.
+  rpc ChainNonces(QueryGetChainNoncesRequest) returns (QueryChainNoncesResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/chainNonces/{index}";
+  }
+
+  // Queries a list of chainNonces items.
+  rpc ChainNoncesAll(QueryAllChainNoncesRequest) returns (QueryChainNoncesAllResponse) {
+    option (google.api.http).get = "/pell-chain/relayer/chainNonces";
+  }
+}
+
+// QueryGetChainNoncesRequest is the request type for the Query/ChainNonces.
+message QueryGetChainNoncesRequest {
+  string index = 1;
+}
+
+// QueryChainNoncesResponse is the response type for the Query/ChainNonces.
+message QueryChainNoncesResponse {
+  ChainNonces chain_nonces = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryAllChainNoncesRequest is the request type for the Query/AllChainNonces.
+message QueryAllChainNoncesRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryChainNoncesAllResponse is the response type for the
+// Query/AllChainNonces.
+message QueryChainNoncesAllResponse {
+  repeated ChainNonces chain_nonces = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// QueryAllPendingNoncesRequest is the request type for the
+// Query/AllPendingNonces.
+message QueryAllPendingNoncesRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryPendingNoncesAllResponse is the response type for the
+// Query/AllPendingNonces.
+message QueryPendingNoncesAllResponse {
+  repeated PendingNonces pending_nonces = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// QueryPendingNoncesByChainRequest is the request type for the
+// Query/PendingNoncesByChain.
+message QueryPendingNoncesByChainRequest {
+  int64 chain_id = 1;
+}
+
+// QueryPendingNoncesByChainResponse is the response type for the
+// Query/PendingNoncesByChain.
+message QueryPendingNoncesByChainResponse {
+  PendingNonces pending_nonces = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryGetTSSRequest is the request type for the Query/TSS.
+message QueryGetTSSRequest {}
+
+// QueryTSSResponse is the response type for the Query/TSS.
+message QueryTSSResponse {
+  TSS tss = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryGetTssAddressRequest is the request type for the Query/GetTssAddress.
+message QueryGetTssAddressRequest {
+  int64 bitcoin_chain_id = 1;
+}
+
+// QueryGetTssAddressResponse is the response type for the Query/GetTssAddress.
+message QueryGetTssAddressResponse {
+  string eth = 1;
+}
+
+// QueryGetTssAddressByFinalizedHeightRequest is the request type for the
+// Query/GetTssAddressByFinalizedHeight.
+message QueryGetTssAddressByFinalizedHeightRequest {
+  int64 finalized_pell_height = 1;
+  int64 bitcoin_chain_id = 2;
+}
+
+// QueryGetTssAddressByFinalizedHeightResponse is the response type for the
+// Query/GetTssAddressByFinalizedHeight.
+message QueryGetTssAddressByFinalizedHeightResponse {
+  string eth = 1;
+}
+
+// QueryTssHistoryRequest is the request type for the Query/TssHistory.
+message QueryTssHistoryRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryTssHistoryResponse is the response type for the Query/TssHistory.
+message QueryTssHistoryResponse {
+  repeated TSS tss_list = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// QueryParamsRequest is the request type for the Query/Params.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryHasVotedRequest is the request type for the Query/HasVoted.
+message QueryHasVotedRequest {
+  string ballot_identifier = 1;
+  string voter_address = 2;
+}
+
+// QueryHasVotedResponse is the response type for the Query/HasVoted.
+message QueryHasVotedResponse {
+  bool has_voted = 1;
+}
+
+// QueryBallotByIdentifierRequest is the request type for the
+// Query/BallotByIdentifier.
+message QueryBallotByIdentifierRequest {
+  string ballot_identifier = 1;
+}
+
+// QueryBallotByIdentifierResponse is the response type for the
+// Query/BallotByIdentifier.
+message QueryBallotByIdentifierResponse {
+  string ballot_identifier = 1;
+  repeated VoterList voters = 2;
+  ObservationType observation_type = 3;
+  BallotStatus ballot_status = 4;
+}
+
+// VoterList is a list of voters for a ballot.
+message VoterList {
+  string voter_address = 1;
+  VoteType vote_type = 2;
+}
+
+// QueryObserverSet is the request type for the Query/ObserverSet.
+message QueryObserverSet {}
+
+// QueryObserverSetResponse is the response type for the Query/ObserverSet.
+message QueryObserverSetResponse {
+  repeated string observers = 1;
+}
+
+// QuerySupportedChains is the request type for the Query/SupportedChains.
+message QuerySupportedChains {}
+
+// QuerySupportedChainsResponse is the response type for the
+// Query/SupportedChains.
+message QuerySupportedChainsResponse {
+  repeated pkg.chains.Chain chains = 1;
+}
+
+// QueryGetChainParamsForChainRequest is the request type for the
+// Query/GetChainParamsForChain.
+message QueryGetChainParamsForChainRequest {
+  int64 chain_id = 1;
+}
+
+// QueryGetChainParamsForChainResponse is the response type for the
+// Query/GetChainParamsForChain.
+message QueryGetChainParamsForChainResponse {
+  ChainParams chain_params = 1;
+}
+
+// QueryGetChainParamsRequest is the request type for the Query/GetChainParams.
+message QueryGetChainParamsRequest {
+  int64 chain_id = 1;
+}
+
+// QueryGetChainParamsResponse is the response type for the
+// Query/GetChainParams.
+message QueryGetChainParamsResponse {
+  ChainParamsList chain_params = 1;
+}
+
+// QueryGetNodeAccountRequest is the request type for the Query/GetNodeAccount.
+message QueryGetNodeAccountRequest {
+  string index = 1;
+}
+
+// QueryNodeAccountResponse is the response type for the
+// Query/GetNodeAccount.
+message QueryNodeAccountResponse {
+  NodeAccount node_account = 1;
+}
+
+// QueryAllNodeAccountRequest is the request type for the Query/AllNodeAccount.
+message QueryAllNodeAccountRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryNodeAccountAllResponse is the response type for the
+// Query/AllNodeAccount.
+message QueryNodeAccountAllResponse {
+  repeated NodeAccount node_account = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// QueryGetCrosschainFlagsRequest is the request type for the
+// Query/GetCrosschainFlags.
+message QueryGetCrosschainFlagsRequest {}
+
+// QueryCrosschainFlagsResponse is the response type for the
+// Query/GetCrosschainFlags.
+message QueryCrosschainFlagsResponse {
+  CrosschainFlags crosschain_flags = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryGetKeygenRequest is the request type for the Query/GetKeygen.
+message QueryGetKeygenRequest {}
+
+// QueryKeygenResponse is the response type for the Query/GetKeygen.
+message QueryKeygenResponse {
+  Keygen keygen = 1;
+}
+
+// QueryShowObserverCountRequest is the request type for the
+// Query/ShowObserverCount.
+message QueryShowObserverCountRequest {}
+
+// QueryShowObserverCountResponse is the response type for the
+// Query/ShowObserverCount.
+message QueryShowObserverCountResponse {
+  LastRelayerCount last_observer_count = 1;
+}
+
+// QueryBlameByIdentifierRequest is the request type for the
+// Query/BlameByIdentifier.
+message QueryBlameByIdentifierRequest {
+  string blame_identifier = 1;
+}
+
+// QueryBlameByIdentifierResponse is the response type for the
+// Query/BlameByIdentifier.
+message QueryBlameByIdentifierResponse {
+  Blame blame_info = 1;
+}
+
+// QueryAllBlameRecordsRequest is the request type for the
+// Query/AllBlameRecords.
+message QueryAllBlameRecordsRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryGetAllBlameRecordsResponse is the response type for the
+// Query/AllBlameRecords.
+message QueryGetAllBlameRecordsResponse {
+  repeated Blame blame_info = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// QueryBlameByChainAndNonceRequest is the request type for the
+// Query/BlameByChainAndNonce.
+message QueryBlameByChainAndNonceRequest {
+  int64 chain_id = 1;
+  int64 nonce = 2;
+}
+
+// QueryBlamesByChainAndNonceResponse is the response type for the
+// Query/BlameByChainAndNonce.
+message QueryBlamesByChainAndNonceResponse {
+  repeated Blame blame_info = 1;
+}

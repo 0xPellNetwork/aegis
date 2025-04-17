@@ -1,0 +1,25 @@
+syntax = "proto3";
+package relayer;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// keygen status
+enum KeygenStatus {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // keygen pending
+  PENDING = 0;
+  // keygen success
+  SUCCESS = 1;
+  // keygen failed
+  FAILED = 3;
+}
+
+// keygen instant
+message Keygen {
+  KeygenStatus status = 1;
+  repeated string grantee_pubkeys = 2;
+  // the blocknum that the key needs to be generated
+  int64 block_number = 3;
+}

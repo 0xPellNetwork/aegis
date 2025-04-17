@@ -1,0 +1,24 @@
+syntax = "proto3";
+package restaking;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+
+// OperatorShares stores the delegation shares owned by a operator
+message OperatorShares {
+  uint64 chain_id = 1;
+  string operator = 2;
+  string strategy = 3;
+  string shares = 4 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// ChangedOperatorSharesSnapshot is the snapshot of changed operator shares in
+// an epoch
+message ChangedOperatorSharesSnapshot {
+  uint64 epoch_number = 1;
+  repeated OperatorShares operator_shares = 2;
+}

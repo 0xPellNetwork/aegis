@@ -1,0 +1,109 @@
+
+volumes:
+  pellcore0:
+  pellcore1:
+  pellclient0:
+  pellclient1:
+  pelltss0:
+  pelltss1:
+
+networks:
+  mynetwork:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+services:
+
+  pellcore0:
+    image: pellnode:${TAG:-latest}
+    hostname: pellcore0
+    entrypoint: ["/root/start-pellcored.sh", "2"]
+    environment:
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+    volumes:
+      - pellcore0:/root/.pellcored
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.11
+    ports:
+      - "1317:1317"
+      - "8545:8545"
+      - "8546:8546"
+      - "26657:26657"
+      - "6060:6060"
+      - "9090:9090"
+
+  pellcore1:
+    image: pellnode:${TAG:-latest}
+    hostname: pellcore1
+    entrypoint: ["/root/start-pellcored.sh", "2"]
+    volumes:
+      - pellcore1:/root/.pellcored
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.12
+    environment:
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+
+  pellclient0:
+    image: pellnode:${TAG:-latest}
+    hostname: pellclient0
+    entrypoint: /root/start-pellclientd.sh
+    volumes:
+      - pellcore0:/root/.pellcored
+      - pelltss0:/root/.tss
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.13
+    environment:
+      - ETHDEV_ENDPOINT=http://eth:8545
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+      - BSC_EXTERNAL_RPC_URL=$BSC_EXTERNAL_RPC_URL
+
+  pellclient1:
+    image: pellnode:${TAG:-latest}
+    hostname: pellclient1
+    entrypoint: /root/start-pellclientd.sh
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.14
+    volumes:
+      - pellclient1:/root/.pellcored
+      - pelltss1:/root/.tss
+    environment:
+      - ETHDEV_ENDPOINT=http://eth:8545
+      - HOTKEY_BACKEND=file
+      - HOTKEY_PASSWORD=password # test purposes only
+      - BSC_EXTERNAL_RPC_URL=$BSC_EXTERNAL_RPC_URL
+
+  hardhat:
+    image: pell-contracts:${TAG:-latest}
+    hostname: hardhat
+    networks:
+      mynetwork:
+    environment:
+      - LOCALHOST_URL=http://eth:8545
+      - PELL_URL=http://pellcore0:8545
+
+  eth:
+    image: geth:${TAG:-latest}
+    container_name: eth
+    networks:
+      mynetwork:
+    hostname: eth
+
+  orchestrator:
+    image: orchestrator:${TAG:-latest}
+    tty: true
+    entrypoint: bash
+    # volumes:
+    #   - ./deployments:/work/deployments
+    networks:
+      mynetwork:
+    depends_on:
+      - pellcore0
+      - eth

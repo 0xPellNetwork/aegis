@@ -1,0 +1,18 @@
+syntax = "proto3";
+package xmsg;
+
+import "cosmos/msg/v1/msg.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// update gas price message
+message GasPrice {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string index = 2;
+  int64 chain_id = 3;
+  repeated string signers = 4;
+  repeated uint64 block_nums = 5;
+  repeated uint64 prices = 6;
+  uint64 median_index = 7;
+}

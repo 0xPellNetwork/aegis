@@ -1,0 +1,46 @@
+services:
+
+  pellnode:
+    container_name: pellcore0
+    build:
+      context: ../../.
+      dockerfile: Dockerfile-localnet
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        HTTP_PROXY: ${HTTP_PROXY}
+        HTTPS_PROXY: ${HTTPS_PROXY}
+      tags:
+        - "pellnode:${TAG:-latest}"
+
+  pell-contracts:
+    container_name: pell-contracts
+    build:
+      context: ../../.
+      dockerfile: Dockerfile-contracts
+      args:
+        HTTP_PROXY: ${HTTP_PROXY}
+        HTTPS_PROXY: ${HTTPS_PROXY}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        TAG: ${TAG:-latest}
+      tags:
+        - "pell-contracts:${TAG:-latest}"
+
+  eth:
+    build:
+      context: ../../.
+      dockerfile: contrib/localnet/geth/Dockerfile
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        TAG: ${TAG:-latest}
+      tags:
+        - "geth:${TAG:-latest}"
+
+  orchestrator:
+    build:
+      context: ../../.
+      dockerfile: contrib/localnet/orchestrator/Dockerfile
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        TAG: ${TAG:-latest}
+      tags:
+        - "orchestrator:${TAG:-latest}"

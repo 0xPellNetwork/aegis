@@ -1,0 +1,49 @@
+
+set -x
+set -e
+set -o pipefail
+
+
+export STAKER_ADDRESS="0xFBA62EC06E98DDB0642560F24F983148DA3A16A6"
+export STAKER_ACCOUNT="0x8E18A4583487983A420007E780A3A33EAE3C71CA719AC1FE0396A475E80C542B" 
+
+# Deployer is also the operator
+export OPERATOR_PELL_ADDRESS="pell1uxy4pqygrw9h3s4zurdr4esrql8sr7y0cgpcsk"
+export OPERATOR_ADDRESS="0xE1895080881b8b78C2a2E0DA3Ae60307Cf01F88f"
+export OPERATOR_ACCOUNT="0xbac15b6be19355a801277f26cecf931af3f7325f25e67fdec1aac38b705baae4"
+## admin account
+export TSS_MANAGER_ACCOUNT="0x3EE2C833278B2CF9513A1918C4232E144D7AB3F9C92C655D4D968A760B944586"
+
+# Contracts addresses
+export BSC_CONNECTOR_ADDRESS="0x6B54fCC1Fce34058C6648C9Ed1c8Ac5fe8f1E36A"
+export STAKING_STRATEGY_ADDRESS="0xa8694C5b6EE0C53e57F77FB9e2E6A019D2787C6F"
+export STAKING_STRATEGY_MGR_ADDRESS="0x05946993d6260eb0b2131aF58d140649dcA643Bf"
+export STAKING_DELEGATION_MGR_ADDRESS="0x7b502746df19d64Cd824Ca0224287d06bae31DA3"
+export SERVICE_OMNI_OPERATOR_SHARES_MGR_ADDRESS="0x67A34CCF9c3B758706BE164a3e7fad5aF51C189A"
+# export EXTERNAL_RPC_URL="https://bsc-testnet.blockpi.network/v1/rpc/59aa318e08819c6d9e63e353af62757e4955d698"
+export EXTERNAL_RPC_URL="https://bsc-testnet-dataseed.bnbchain.org" # TODO: Must be an archive node's rpc
+export EXTERNAL_NETWORK="bsc-testnet"
+export EXTERNAL_CHAIN_ID="97"
+
+shopt -s expand_aliases
+
+export PELL_RPC_URL="http://pellcore0:26657"
+export PELL_EVM_URL="http://pellcore0:8545"
+export CHAIN_ID="ignite_186-1"
+alias pellcored="pellcored --chain-id $CHAIN_ID --node $PELL_RPC_URL"
+alias hardhat="ssh hardhat ACCOUNT_SECRETKEY=$OPERATOR_ACCOUNT STAKER_SECRETKEY=$STAKER_ACCOUNT npx hardhat"
+alias hardhat-mw="ssh hardhat \"cd ../.. && ACCOUNT_SECRETKEY=$OPERATOR_ACCOUNT STAKER_SECRETKEY=$STAKER_ACCOUNT npx hardhat\""
+alias cast="ssh hardhat cast"
+
+
+PELL_DELEGATION_ADDRESS=$(pellcored query fungible system-contract  |grep "pell_delegation_manager_proxy"| awk 'NR==1 {print $2}')
+PELL_DVS_DIRECTORY=$(pellcored query fungible system-contract  |grep "pell_dvs_directory_proxy"| awk 'NR==1 {print $2}')
+PELL_REGISTRY_ROUTER=$(pellcored query fungible system-contract  |grep "pell_registry_router"| awk 'NR==1 {print $2}')
+PELL_REGISTRY_ROUTER_FACTORY=$(pellcored query fungible system-contract |grep "pell_registry_router_factory"| awk 'NR==1 {print $2}')
+PELL_STRATEGY_MGR=$(pellcored query fungible system-contract  |grep "pell_strategy_manager_proxy"| awk 'NR==1 {print $2}')
+PELL_DELEGATION_MANAGER_INTERACTOR=$(pellcored query fungible system-contract  |grep "pell_delegation_manager_interactor_proxy"| awk 'NR==1 {print $2}')
+
+TSS_ADDRESS=$(pellcored query observer get-tss-address | awk 'NR==2 {print $2}')
+
+# source ./setup-pell.sh
+# source ./e2e.sh

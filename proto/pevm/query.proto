@@ -1,0 +1,24 @@
+syntax = "proto3";
+package pevm;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "pevm/system_contract.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/pevm/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Queries SystemContract
+  rpc SystemContract(QueryGetSystemContractRequest) returns (SystemContractResponse) {
+    option (google.api.http).get = "/pell-chain/pevm/system_contract";
+  }
+}
+
+// request of query system contract
+message QueryGetSystemContractRequest {}
+
+// response of query system contract
+message SystemContractResponse {
+  SystemContract system_contract = 1 [(gogoproto.nullable) = false];
+}

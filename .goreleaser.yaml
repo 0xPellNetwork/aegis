@@ -1,0 +1,134 @@
+version: 2
+
+# Make sure to check the documentation at https://goreleaser.com
+
+## Test locally with `make release-dry-run`
+
+## TODO
+# - Add SBOMs
+# - Add Docker Builds
+# - SLSA - https://github.com/goreleaser/goreleaser-example-slsa-provenance
+# - Add Code Signing
+
+env:
+  - CGO_ENABLED=1
+  - CC_darwin_arm64=oa64-clang
+  - CXX_darwin_arm64=oa64-clang++
+  - CC_darwin_amd64=o64-clang
+  - CXX_darwin_amd64=o64-clang+
+  - CC_linux_arm64=aarch64-linux-gnu-gcc
+  - CXX_linux_arm64=aarch64-linux-gnu-g++
+  - CC_linux_amd64=x86_64-linux-gnu-gcc
+  - CXX_linux_amd64=x86_64-linux-gnu-g++
+  # - CC_windows_amd64=x86_64-w64-mingw32-gcc
+  # - CXX_windows_amd64=x86_64-w64-mingw32-g++
+  - VERSION={{ .Version }}
+  - COMMIT={{ .Commit }}
+  - BUILDTIME={{ .Date }}
+  # - CC_windows_arm64= NOT_CREATING_WINDOWS_ARM64_BINARIES
+  # - CXX_windows_arm64= NOT_CREATING_WINDOWS_ARM64_BINARIES
+
+before:
+  hooks:
+    - go mod download
+    - go mod tidy
+
+builds:
+  - id: "pellcored"
+    main: ./cmd/pellcored
+    binary: "pellcored-{{ .Os }}-{{ .Arch }}"
+    env:
+      - 'CC={{ index .Env (print "CC_" .Os "_" .Arch) }}'
+      - 'CXX={{ index .Env (print "CXX_" .Os "_" .Arch) }}'
+    goos:
+      - linux
+      - darwin
+      # - windows  # Remove or comment out this line
+    goarch:
+      - arm64
+      - amd64
+    ignore:
+      # You can remove the ignore section for Windows if Windows is not in goos
+      # - goos: windows
+      #   goarch: arm64
+    flags: &default_flags
+      - -tags=goleveldb,ledger
+      - -buildvcs=false 
+    ldflags: &default_ldflags
+      - -X github.com/cosmos/cosmos-sdk/version.Name=pellcore
+      - -X github.com/cosmos/cosmos-sdk/version.ServerName=pellcored
+      - -X github.com/cosmos/cosmos-sdk/version.ClientName=pellclientd
+      - -X github.com/cosmos/cosmos-sdk/version.Version={{ .Version }}
+      - -X github.com/cosmos/cosmos-sdk/version.Commit={{ .Env.COMMIT }}
+      - -X github.com/pell-chain/pellcore/pkg/constant.Name=pellcored
+      - -X github.com/pell-chain/pellcore/pkg/constant.Version={{ .Version }}
+      - -X github.com/pell-chain/pellcore/pkg/constant.CommitHash={{ .Env.COMMIT }}
+      - -X github.com/pell-chain/pellcore/pkg/constant.BuildTime={{ .Env.BUILDTIME }}
+      - -X github.com/cosmos/cosmos-sdk/types.DBBackend=goleveldb
+
+  - id: "pellclientd"
+    main: ./cmd/pellclientd
+    binary: "pellclientd-{{ .Os }}-{{ .Arch }}"
+    env:
+      - 'CC={{ index .Env (print "CC_" .Os "_" .Arch) }}'
+      - 'CXX={{ index .Env (print "CXX_" .Os "_" .Arch) }}'
+    goos:
+      - linux
+      - darwin
+      # - windows  # Remove or comment out this line
+    goarch:
+      - arm64
+      - amd64
+    ignore:
+      # Remove the ignore section if Windows is not in goos
+      # - goos: windows
+      #   goarch: arm64
+    flags: *default_flags
+    ldflags: *default_ldflags
+
+archives:
+  - format: binary
+    name_template: "{{ .Binary }}"
+
+checksum:
+  name_template: "checksums.txt"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+snapshot:
+  name_template: "{{ .Tag }}-next"
+
+release:
+  # If set to true, will not auto-publish the release.
+  # Available only for GitHub and Gitea.
+  draft: false
+
+  target_commitish: "{{ .Commit }}"
+
+  # If set, will create a release discussion in the category specified.
+  #
+  # Warning: do not use categories in the 'Announcement' format.
+  #  Check https://github.com/goreleaser/goreleaser/issues/2304 for more info.
+  #
+  # Default is empty.
+  # discussion_category_name: General
+
+  # If set to auto, will mark the release as not ready for production
+  # in case there is an indicator for this in the tag e.g. v1.0.0-rc1
+  # If set to true, will mark the release as not ready for production.
+  # Default is false.
+  prerelease: auto
+
+  # What to do with the release notes in case there the release already exists.
+  #
+  # Valid options are:
+  # - `keep-existing`: keep the existing notes
+  # - `append`: append the current release notes to the existing notes
+  # - `prepend`: prepend the current release notes to the existing notes
+  # - `replace`: replace existing notes
+  #
+  # Default is `keep-existing`.
+  mode: append

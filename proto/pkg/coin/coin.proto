@@ -1,0 +1,19 @@
+syntax = "proto3";
+package pkg.coin;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/pell-chain/pellcore/pkg/coin";
+
+// CoinType represents the type of coin
+enum CoinType {
+  option (gogoproto.goproto_enum_stringer) = true;
+  // Pell coin
+  PELL = 0;
+  // Gas coin
+  GAS = 1; // Ether, BNB, Matic, Klay, BTC, etc
+  // ERC20 token
+  ERC20 = 2;
+  // not a real coin, rather a command
+  CMD = 3;
+}

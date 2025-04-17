@@ -1,0 +1,17 @@
+syntax = "proto3";
+package relayer;
+
+import "cosmos/msg/v1/msg.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+
+// chain nonces
+message ChainNonces {
+  option (cosmos.msg.v1.signer) = "signer";
+  string signer = 1;
+  string index = 2;
+  int64 chain_id = 3;
+  uint64 nonce = 4;
+  repeated string signers = 5;
+  uint64 finalized_height = 6;
+}

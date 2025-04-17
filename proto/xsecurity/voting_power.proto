@@ -1,0 +1,10 @@
+syntax = "proto3";
+package xsecurity;
+
+option go_package = "github.com/pell-chain/pellcore/x/xsecurity/types";
+
+// VotingPower represents the voting power of an operator
+message VotingPower {
+  string operator = 1;
+  uint64 voting_power = 2;
+}

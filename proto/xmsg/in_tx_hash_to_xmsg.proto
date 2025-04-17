@@ -1,0 +1,10 @@
+syntax = "proto3";
+package xmsg;
+
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// in tx hash to xmsg
+message InTxHashToXmsg {
+  string in_tx_hash = 1;
+  repeated string xmsg_indices = 2;
+}

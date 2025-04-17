@@ -1,0 +1,23 @@
+syntax = "proto3";
+package pevm;
+
+option go_package = "github.com/pell-chain/pellcore/x/pevm/types";
+
+// system contract infomation
+message SystemContract {
+  string system_contract = 1;
+  string connector = 2;
+  string delegation_manager_proxy = 3;
+  string delegation_manager_interactor_proxy = 4;
+  string strategy_manager_proxy = 5;
+  string slasher_proxy = 6;
+  string dvs_directory_proxy = 7;
+  string registry_router = 8;
+  string registry_router_beacon = 9;
+  string stake_registry_router = 10;
+  string stake_registry_router_beacon = 11;
+  string registry_router_factory = 12;
+  string wrapped_pell = 13;
+  string gateway = 14;
+  string gas_swap = 15;
+}

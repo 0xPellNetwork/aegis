@@ -1,0 +1,17 @@
+syntax = "proto3";
+package restaking;
+
+option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+
+// EpochNumber is the epoch number
+message EpochNumber {
+  uint64 epoch_number = 1;
+}
+
+// EpochOperatorSharesSyncTxs represents a collection of outbound transactions
+// that synchronize operator shares across chains during an epoch update. These
+// transactions contain the pending cross-chain message indexes for operator
+// shares synchronization.
+message EpochOperatorSharesSyncTxs {
+  repeated string pending_xmsg_indexes = 1;
+}

@@ -1,0 +1,43 @@
+syntax = "proto3";
+package xmsg;
+
+import "gogoproto/gogo.proto";
+import "xmsg/gas_price.proto";
+import "xmsg/in_tx_hash_to_xmsg.proto";
+import "xmsg/in_tx_tracker.proto";
+import "xmsg/last_block_height.proto";
+import "xmsg/out_tx_tracker.proto";
+import "xmsg/rate_limiter_flags.proto";
+import "xmsg/xmsg.proto";
+
+option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+
+// GenesisState defines the xmsg modules genesis state.
+message GenesisState {
+  repeated OutTxTracker out_tx_tracker_list = 1 [(gogoproto.nullable) = false];
+  repeated GasPrice gas_price_list = 2;
+  repeated Xmsg xmsgs = 3;
+  repeated LastBlockHeight last_block_height_list = 4;
+  repeated InTxHashToXmsg in_tx_hash_to_xmsg_list = 5 [(gogoproto.nullable) = false];
+  repeated InTxTracker in_tx_tracker_list = 6 [(gogoproto.nullable) = false];
+
+  repeated string finalized_inbounds = 7;
+  RateLimiterFlags rate_limiter_flags = 8 [(gogoproto.nullable) = false];
+}
+
+// Remove legacy types
+message GenesisStateLegacy {
+  Params params = 1;
+  repeated OutTxTracker out_tx_tracker_list = 2 [(gogoproto.nullable) = false];
+  repeated GasPrice gas_price_list = 3;
+  repeated Xmsg xmsgs = 4;
+  repeated LastBlockHeight last_block_height_list = 5;
+  repeated InTxHashToXmsg in_tx_hash_to_xmsg_list = 6 [(gogoproto.nullable) = false];
+  repeated InTxTracker in_tx_tracker_list = 7 [(gogoproto.nullable) = false];
+  repeated string finalized_inbounds = 8;
+}
+
+// enabled param
+message Params {
+  bool enabled = 1;
+}
