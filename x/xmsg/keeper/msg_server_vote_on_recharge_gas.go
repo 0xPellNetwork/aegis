@@ -10,7 +10,7 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -24,7 +24,7 @@ func (k msgServer) VoteOnGasRecharge(goCtx context.Context, msg *types.MsgVoteOn
 	}
 
 	if ok := k.relayerKeeper.IsNonTombstonedObserver(ctx, msg.Signer); !ok {
-		return nil, observertypes.ErrNotObserver
+		return nil, relayertypes.ErrNotObserver
 	}
 
 	ballotFinalized, err := k.processGasRechargeBallot(ctx, msg)
@@ -77,7 +77,7 @@ func (k msgServer) processGasRecharge(ctx sdk.Context, msg *types.MsgVoteOnGasRe
 	}
 
 	// get the tss address
-	tss, err := k.relayerKeeper.GetTssAddress(ctx, &observertypes.QueryGetTssAddressRequest{
+	tss, err := k.relayerKeeper.GetTssAddress(ctx, &relayertypes.QueryGetTssAddressRequest{
 		BitcoinChainId: msg.ChainId,
 	})
 	if err != nil {

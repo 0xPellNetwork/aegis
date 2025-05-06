@@ -10,7 +10,7 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -177,7 +177,7 @@ func TestXmsg_AddOutbound(t *testing.T) {
 			ObservedOutTxGasUsed:           100,
 			ObservedOutTxEffectiveGasPrice: sdkmath.NewInt(100),
 			ObservedOutTxEffectiveGasLimit: 20,
-		}, observertypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION)
+		}, relayertypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION)
 		require.NoError(t, err)
 		require.Equal(t, xmsg.GetCurrentOutTxParam().OutboundTxHash, hash)
 		require.Equal(t, xmsg.GetCurrentOutTxParam().OutboundTxGasUsed, uint64(100))
@@ -198,7 +198,7 @@ func TestXmsg_AddOutbound(t *testing.T) {
 			ObservedOutTxGasUsed:           100,
 			ObservedOutTxEffectiveGasPrice: sdkmath.NewInt(100),
 			ObservedOutTxEffectiveGasLimit: 20,
-		}, observertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION)
+		}, relayertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION)
 		require.NoError(t, err)
 		require.Equal(t, xmsg.GetCurrentOutTxParam().OutboundTxHash, hash)
 		require.Equal(t, xmsg.GetCurrentOutTxParam().OutboundTxGasUsed, uint64(100))

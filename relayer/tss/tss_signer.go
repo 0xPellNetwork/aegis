@@ -33,7 +33,7 @@ import (
 	pctx "github.com/0xPellNetwork/aegis/relayer/context"
 	"github.com/0xPellNetwork/aegis/relayer/keys"
 	"github.com/0xPellNetwork/aegis/relayer/metrics"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 const (
@@ -84,7 +84,7 @@ func NewTSS(
 	privkey tmcrypto.PrivKey,
 	preParams *keygen.LocalPreParams,
 	bridge interfaces.PellCoreBridger,
-	tssHistoricalList []observertypes.TSS,
+	tssHistoricalList []relayertypes.TSS,
 	tssPassword string,
 	hotkeyPassword string,
 ) (*TSS, error) {
@@ -224,7 +224,7 @@ func (tss *TSS) Sign(ctx context.Context, digest []byte, height uint64, nonce ui
 		// post blame data if enabled
 		if IsEnvFlagEnabled(envFlagPostBlame) {
 			digest := hex.EncodeToString(digest)
-			index := observertypes.GetBlameIndex(chain.Id, nonce, digest, height)
+			index := relayertypes.GetBlameIndex(chain.Id, nonce, digest, height)
 			pellHash, err := tss.CoreBridge.PostBlameData(ctx, &ksRes.Blame, chain.Id, index)
 			if err != nil {
 				log.Error().Err(err).Msg("error sending blame data to core")
@@ -298,7 +298,7 @@ func (tss *TSS) SignBatch(ctx context.Context, digests [][]byte, height uint64, 
 		// post blame data if enabled
 		if IsEnvFlagEnabled(envFlagPostBlame) {
 			digest := combineDigests(digestBase64)
-			index := observertypes.GetBlameIndex(chain.Id, nonce, hex.EncodeToString(digest), height)
+			index := relayertypes.GetBlameIndex(chain.Id, nonce, hex.EncodeToString(digest), height)
 			pellHash, err := tss.CoreBridge.PostBlameData(ctx, &ksRes.Blame, chain.Id, index)
 			if err != nil {
 				log.Error().Err(err).Msg("error sending blame data to core")
@@ -411,7 +411,7 @@ func (tss *TSS) InsertPubKey(pk string) error {
 	return nil
 }
 
-func (tss *TSS) VerifyKeysharesForPubkeys(tssList []observertypes.TSS, granteePubKey32 string) error {
+func (tss *TSS) VerifyKeysharesForPubkeys(tssList []relayertypes.TSS, granteePubKey32 string) error {
 	for _, t := range tssList {
 		if wasNodePartOfTss(granteePubKey32, t.TssParticipantList) {
 			if _, ok := tss.Keys[t.TssPubkey]; !ok {

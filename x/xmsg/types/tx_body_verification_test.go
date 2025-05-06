@@ -8,7 +8,7 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	"github.com/0xPellNetwork/aegis/pkg/coin"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -21,8 +21,8 @@ func TestVerifyInTxBody(t *testing.T) {
 		desc        string
 		msg         types.MsgAddToInTxTracker
 		txBytes     []byte
-		chainParams observertypes.ChainParams
-		tss         observertypes.QueryGetTssAddressResponse
+		chainParams relayertypes.ChainParams
+		tss         relayertypes.QueryGetTssAddressResponse
 		errContains string
 	}{
 
@@ -60,7 +60,7 @@ func TestVerifyInTxBody(t *testing.T) {
 				CoinType: coin.CoinType(1000),
 			},
 			txBytes:     sampleEthTxBytes,
-			chainParams: observertypes.ChainParams{StrategyManagerContractAddress: sample.EthAddress().Hex(), DelegationManagerContractAddress: sample.EthAddress().Hex()},
+			chainParams: relayertypes.ChainParams{StrategyManagerContractAddress: sample.EthAddress().Hex(), DelegationManagerContractAddress: sample.EthAddress().Hex()},
 			errContains: "tx event is not supported",
 		},
 		{
@@ -71,7 +71,7 @@ func TestVerifyInTxBody(t *testing.T) {
 				CoinType: coin.CoinType_PELL,
 			},
 			txBytes:     sampleEthTxBytes,
-			chainParams: observertypes.ChainParams{StrategyManagerContractAddress: sampleTo.Hex()},
+			chainParams: relayertypes.ChainParams{StrategyManagerContractAddress: sampleTo.Hex()},
 		},
 		{
 			desc: "tx event is stakerdelegated",
@@ -81,7 +81,7 @@ func TestVerifyInTxBody(t *testing.T) {
 				CoinType: coin.CoinType_PELL,
 			},
 			txBytes:     sampleEthTxBytes,
-			chainParams: observertypes.ChainParams{DelegationManagerContractAddress: sampleTo.Hex()},
+			chainParams: relayertypes.ChainParams{DelegationManagerContractAddress: sampleTo.Hex()},
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
@@ -106,7 +106,7 @@ func TestVerifyOutTxBody(t *testing.T) {
 		desc        string
 		msg         types.MsgAddToOutTxTracker
 		txBytes     []byte
-		tss         observertypes.QueryGetTssAddressResponse
+		tss         relayertypes.QueryGetTssAddressResponse
 		errContains string
 	}{
 		{
@@ -146,7 +146,7 @@ func TestVerifyOutTxBody(t *testing.T) {
 				Nonce:   42,
 				TxHash:  sampleEthTx.Hash().Hex(),
 			},
-			tss:         observertypes.QueryGetTssAddressResponse{},
+			tss:         relayertypes.QueryGetTssAddressResponse{},
 			txBytes:     sampleEthTxBytes,
 			errContains: "tss address not found",
 		},
@@ -157,7 +157,7 @@ func TestVerifyOutTxBody(t *testing.T) {
 				Nonce:   42,
 				TxHash:  sampleEthTx.Hash().Hex(),
 			},
-			tss:         observertypes.QueryGetTssAddressResponse{Eth: sample.EthAddress().Hex()},
+			tss:         relayertypes.QueryGetTssAddressResponse{Eth: sample.EthAddress().Hex()},
 			txBytes:     sampleEthTxBytes,
 			errContains: "sender is not tss address",
 		},
@@ -168,7 +168,7 @@ func TestVerifyOutTxBody(t *testing.T) {
 				Nonce:   42,
 				TxHash:  sampleEthTx.Hash().Hex(),
 			},
-			tss:         observertypes.QueryGetTssAddressResponse{Eth: sampleFrom.Hex()},
+			tss:         relayertypes.QueryGetTssAddressResponse{Eth: sampleFrom.Hex()},
 			txBytes:     sampleEthTxBytes,
 			errContains: "invalid chain id",
 		},
@@ -179,7 +179,7 @@ func TestVerifyOutTxBody(t *testing.T) {
 				Nonce:   100,
 				TxHash:  sampleEthTx.Hash().Hex(),
 			},
-			tss:         observertypes.QueryGetTssAddressResponse{Eth: sampleFrom.Hex()},
+			tss:         relayertypes.QueryGetTssAddressResponse{Eth: sampleFrom.Hex()},
 			txBytes:     sampleEthTxBytes,
 			errContains: "invalid nonce",
 		},
@@ -190,7 +190,7 @@ func TestVerifyOutTxBody(t *testing.T) {
 				Nonce:   42,
 				TxHash:  sample.Hash().Hex(),
 			},
-			tss:         observertypes.QueryGetTssAddressResponse{Eth: sampleFrom.Hex()},
+			tss:         relayertypes.QueryGetTssAddressResponse{Eth: sampleFrom.Hex()},
 			txBytes:     sampleEthTxBytes,
 			errContains: "invalid tx hash",
 		},
@@ -201,7 +201,7 @@ func TestVerifyOutTxBody(t *testing.T) {
 				Nonce:   42,
 				TxHash:  sampleEthTx.Hash().Hex(),
 			},
-			tss:     observertypes.QueryGetTssAddressResponse{Eth: sampleFrom.Hex()},
+			tss:     relayertypes.QueryGetTssAddressResponse{Eth: sampleFrom.Hex()},
 			txBytes: sampleEthTxBytes,
 		},
 		// TODO: Implement tests for verifyOutTxBodyBTC

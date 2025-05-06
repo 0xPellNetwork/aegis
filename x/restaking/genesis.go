@@ -24,12 +24,24 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 			registryRouterAddr,
 			common.HexToAddress(registryRouter.RegistryRouterSet.StakeRegistryRouterAddress),
 		}); err != nil {
+			ctx.Logger().Error(
+				"failed to add registry router address",
+				"address", registryRouterAddr.String(),
+				"error", err.Error(),
+			)
+
 			continue
 		}
 
 		// import all supported chain info by registry router
 		for _, dvs := range registryRouter.DvsInfoList.DvsInfos {
 			if err := k.AddDVSSupportedChain(ctx, registryRouterAddr, dvs); err != nil {
+				ctx.Logger().Error(
+					"failed to add dvs supported chain",
+					"address", registryRouterAddr.String(),
+					"error", err.Error(),
+				)
+
 				continue
 			}
 		}
@@ -37,6 +49,12 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		// import all group data by registry router
 		for _, group := range registryRouter.GroupList.Groups {
 			if err := k.AddGroupData(ctx, registryRouterAddr, group); err != nil {
+				ctx.Logger().Error(
+					"failed to add group data",
+					"address", registryRouterAddr.String(),
+					"error", err.Error(),
+				)
+
 				continue
 			}
 		}
@@ -44,6 +62,12 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		// import all group operator registration by registry router
 		for _, registration := range registryRouter.GroupOperatorRegistrationList.OperatorRegisteredInfos {
 			if err := k.AddGroupOperatorRegistration(ctx, registryRouterAddr, registration); err != nil {
+				ctx.Logger().Error(
+					"failed to add group operator registration",
+					"address", registryRouterAddr.String(),
+					"error", err.Error(),
+				)
+
 				continue
 			}
 		}

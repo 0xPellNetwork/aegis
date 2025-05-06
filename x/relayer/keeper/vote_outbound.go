@@ -4,7 +4,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/0xPellNetwork/aegis/pkg/chains"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // VoteOnOutboundBallot casts a vote on an outbound transaction observed on a connected chain (after
@@ -18,32 +18,32 @@ func (k Keeper) VoteOnOutboundBallot(
 	outTxChainID int64,
 	receiveStatus chains.ReceiveStatus,
 	voter string,
-) (isFinalized bool, isNew bool, ballot observertypes.Ballot, observationChainName string, err error) {
+) (isFinalized bool, isNew bool, ballot relayertypes.Ballot, observationChainName string, err error) {
 	// Observer Chain already checked then inbound is created
 	/* EDGE CASE : Params updated in during the finalization process
 	   i.e Inbound has been finalized but outbound is still pending
 	*/
 	observationChain := k.GetSupportedChainFromChainID(ctx, outTxChainID)
 	if observationChain == nil {
-		return false, false, ballot, "", observertypes.ErrSupportedChains
+		return false, false, ballot, "", relayertypes.ErrSupportedChains
 	}
-	if observertypes.CheckReceiveStatus(receiveStatus) != nil {
-		return false, false, ballot, "", observertypes.ErrInvalidStatus
+	if relayertypes.CheckReceiveStatus(receiveStatus) != nil {
+		return false, false, ballot, "", relayertypes.ErrInvalidStatus
 	}
 
 	// check if voter is authorized
 	if ok := k.IsNonTombstonedObserver(ctx, voter); !ok {
-		return false, false, ballot, "", observertypes.ErrNotObserver
+		return false, false, ballot, "", relayertypes.ErrNotObserver
 	}
 
 	// fetch or create ballot
-	ballot, isNew, err = k.FindBallot(ctx, ballotIndex, observationChain, observertypes.ObservationType_OUT_BOUND_TX)
+	ballot, isNew, err = k.FindBallot(ctx, ballotIndex, observationChain, relayertypes.ObservationType_OUT_BOUND_TX)
 	if err != nil {
 		return false, false, ballot, "", err
 	}
 
 	// add vote to ballot
-	ballot, err = k.AddVoteToBallot(ctx, ballot, voter, observertypes.ConvertReceiveStatusToVoteType(receiveStatus))
+	ballot, err = k.AddVoteToBallot(ctx, ballot, voter, relayertypes.ConvertReceiveStatusToVoteType(receiveStatus))
 	if err != nil {
 		return false, false, ballot, "", err
 	}

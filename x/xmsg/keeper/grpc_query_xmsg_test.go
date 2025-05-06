@@ -8,7 +8,7 @@ import (
 
 	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -173,7 +173,7 @@ func TestKeeper_XmsgByNonce(t *testing.T) {
 		nonce := 1000
 		xmsg := sample.Xmsg_pell(t, fmt.Sprintf("%d-%d", chainID, nonce))
 
-		zk.ObserverKeeper.SetNonceToXmsg(ctx, observertypes.NonceToXmsg{
+		zk.ObserverKeeper.SetNonceToXmsg(ctx, relayertypes.NonceToXmsg{
 			ChainId:   chainID,
 			Nonce:     int64(nonce),
 			XmsgIndex: xmsg.Index,
@@ -196,7 +196,7 @@ func TestKeeper_XmsgByNonce(t *testing.T) {
 		nonce := 1000
 		xmsg := sample.Xmsg_pell(t, fmt.Sprintf("%d-%d", chainID, nonce))
 
-		zk.ObserverKeeper.SetNonceToXmsg(ctx, observertypes.NonceToXmsg{
+		zk.ObserverKeeper.SetNonceToXmsg(ctx, relayertypes.NonceToXmsg{
 			ChainId:   chainID,
 			Nonce:     int64(nonce),
 			XmsgIndex: xmsg.Index,

@@ -6,7 +6,7 @@ import (
 	"github.com/rs/zerolog"
 
 	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -17,10 +17,10 @@ var _ interfaces.ChainClient = (*EVMClient)(nil)
 
 // EVMClient is a mock of evm chain client for testing
 type EVMClient struct {
-	ChainParams observertypes.ChainParams
+	ChainParams relayertypes.ChainParams
 }
 
-func NewEVMClient(chainParams *observertypes.ChainParams) *EVMClient {
+func NewEVMClient(chainParams *relayertypes.ChainParams) *EVMClient {
 	return &EVMClient{
 		ChainParams: *chainParams,
 	}
@@ -36,11 +36,11 @@ func (s *EVMClient) IsOutboundProcessed(_ context.Context, _ *xmsgtypes.Xmsg, _ 
 	return false, false, nil
 }
 
-func (s *EVMClient) SetChainParams(chainParams observertypes.ChainParams) {
+func (s *EVMClient) SetChainParams(chainParams relayertypes.ChainParams) {
 	s.ChainParams = chainParams
 }
 
-func (s *EVMClient) GetChainParams() observertypes.ChainParams {
+func (s *EVMClient) GetChainParams() relayertypes.ChainParams {
 	return s.ChainParams
 }
 

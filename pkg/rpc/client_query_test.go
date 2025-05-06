@@ -24,7 +24,7 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -83,15 +83,15 @@ func setupPellcoreClients(t *testing.T) Clients {
 func TestPellCoreBridge_GetBallot(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryBallotByIdentifierResponse{
+	expectedOutput := relayertypes.QueryBallotByIdentifierResponse{
 		BallotIdentifier: "123",
 		Voters:           nil,
 		ObservationType:  0,
 		BallotStatus:     0,
 	}
-	input := observertypes.QueryBallotByIdentifierRequest{BallotIdentifier: "123"}
+	input := relayertypes.QueryBallotByIdentifierRequest{BallotIdentifier: "123"}
 	method := "/relayer.Query/BallotByIdentifier"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -103,15 +103,15 @@ func TestPellCoreBridge_GetBallot(t *testing.T) {
 func TestPellCoreBridge_GetCrosschainFlags(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryCrosschainFlagsResponse{CrosschainFlags: observertypes.CrosschainFlags{
+	expectedOutput := relayertypes.QueryCrosschainFlagsResponse{CrosschainFlags: relayertypes.CrosschainFlags{
 		IsInboundEnabled:             true,
 		IsOutboundEnabled:            false,
 		GasPriceIncreaseFlags:        nil,
 		BlockHeaderVerificationFlags: nil,
 	}}
-	input := observertypes.QueryGetCrosschainFlagsRequest{}
+	input := relayertypes.QueryGetCrosschainFlagsRequest{}
 	method := "/relayer.Query/CrosschainFlags"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -163,14 +163,14 @@ func TestPellCoreBridge_GetVerificationFlags(t *testing.T) {
 func TestPellCoreBridge_GetChainParamsForChainID(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryGetChainParamsForChainResponse{ChainParams: &observertypes.ChainParams{
+	expectedOutput := relayertypes.QueryGetChainParamsForChainResponse{ChainParams: &relayertypes.ChainParams{
 		ChainId:               123,
 		BallotThreshold:       sdkmath.LegacyZeroDec(),
 		MinObserverDelegation: sdkmath.LegacyZeroDec(),
 	}}
-	input := observertypes.QueryGetChainParamsForChainRequest{ChainId: 123}
+	input := relayertypes.QueryGetChainParamsForChainRequest{ChainId: 123}
 	method := "/relayer.Query/GetChainParamsForChain"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -182,8 +182,8 @@ func TestPellCoreBridge_GetChainParamsForChainID(t *testing.T) {
 func TestPellCoreBridge_GetChainParams(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryGetChainParamsResponse{ChainParams: &observertypes.ChainParamsList{
-		ChainParams: []*observertypes.ChainParams{
+	expectedOutput := relayertypes.QueryGetChainParamsResponse{ChainParams: &relayertypes.ChainParamsList{
+		ChainParams: []*relayertypes.ChainParams{
 			{
 				ChainId:               123,
 				BallotThreshold:       sdkmath.LegacyZeroDec(),
@@ -191,9 +191,9 @@ func TestPellCoreBridge_GetChainParams(t *testing.T) {
 			},
 		},
 	}}
-	input := observertypes.QueryGetChainParamsRequest{}
+	input := relayertypes.QueryGetChainParamsRequest{}
 	method := "/relayer.Query/GetChainParams"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -284,16 +284,16 @@ func TestPellCoreBridge_GetXmsgByNonce(t *testing.T) {
 func TestPellCoreBridge_GetRelayerList(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryObserverSetResponse{
+	expectedOutput := relayertypes.QueryObserverSetResponse{
 		Observers: []string{
 			"pell1p6qlkxfss34lqwggak6nknygaaaxswvtjruevc",
 			"pell1e8z7yggs7zd48mc7qhncg285awzfxckutdasus",
 			"pell1pu5xy7wnwt7ukvt4yvvkldshhh0lhq6q6rhhxp",
 		},
 	}
-	input := observertypes.QueryObserverSet{}
+	input := relayertypes.QueryObserverSet{}
 	method := "/relayer.Query/ObserverSet"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -450,8 +450,8 @@ func TestPellCoreBridge_GetNonceByChain(t *testing.T) {
 	ctx := context.Background()
 
 	chain := chains.BscMainnetChain()
-	expectedOutput := observertypes.QueryChainNoncesResponse{
-		ChainNonces: observertypes.ChainNonces{
+	expectedOutput := relayertypes.QueryChainNoncesResponse{
+		ChainNonces: relayertypes.ChainNonces{
 			Signer:          "",
 			Index:           "",
 			ChainId:         chain.Id,
@@ -460,9 +460,9 @@ func TestPellCoreBridge_GetNonceByChain(t *testing.T) {
 			FinalizedHeight: 0,
 		},
 	}
-	input := observertypes.QueryGetChainNoncesRequest{Index: chain.ChainName()}
+	input := relayertypes.QueryGetChainNoncesRequest{Index: chain.ChainName()}
 	method := "/relayer.Query/ChainNonces"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -474,8 +474,8 @@ func TestPellCoreBridge_GetNonceByChain(t *testing.T) {
 func TestPellCoreBridge_GetAllNodeAccounts(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryNodeAccountAllResponse{
-		NodeAccount: []*observertypes.NodeAccount{
+	expectedOutput := relayertypes.QueryNodeAccountAllResponse{
+		NodeAccount: []*relayertypes.NodeAccount{
 			{
 				Operator:       "pell1p6qlkxfss34lqwggak6nknygaaaxswvtjruevc",
 				GranteeAddress: "pell1e8z7yggs7zd48mc7qhncg285awzfxckutdasus",
@@ -484,9 +484,9 @@ func TestPellCoreBridge_GetAllNodeAccounts(t *testing.T) {
 			},
 		},
 	}
-	input := observertypes.QueryAllNodeAccountRequest{}
+	input := relayertypes.QueryAllNodeAccountRequest{}
 	method := "/relayer.Query/NodeAccountAll"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -498,15 +498,15 @@ func TestPellCoreBridge_GetAllNodeAccounts(t *testing.T) {
 func TestPellCoreBridge_GetKeyGen(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryKeygenResponse{
-		Keygen: &observertypes.Keygen{
-			Status:         observertypes.KeygenStatus_SUCCESS,
+	expectedOutput := relayertypes.QueryKeygenResponse{
+		Keygen: &relayertypes.Keygen{
+			Status:         relayertypes.KeygenStatus_SUCCESS,
 			GranteePubkeys: nil,
 			BlockNumber:    5646,
 		}}
-	input := observertypes.QueryGetKeygenRequest{}
+	input := relayertypes.QueryGetKeygenRequest{}
 	method := "/relayer.Query/Keygen"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -518,12 +518,12 @@ func TestPellCoreBridge_GetKeyGen(t *testing.T) {
 func TestPellCoreBridge_GetBallotByID(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryBallotByIdentifierResponse{
+	expectedOutput := relayertypes.QueryBallotByIdentifierResponse{
 		BallotIdentifier: "ballot1235",
 	}
-	input := observertypes.QueryBallotByIdentifierRequest{BallotIdentifier: "ballot1235"}
+	input := relayertypes.QueryBallotByIdentifierRequest{BallotIdentifier: "ballot1235"}
 	method := "/relayer.Query/BallotByIdentifier"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -558,8 +558,8 @@ func TestPellCoreBridge_GetInboundTrackersForChain(t *testing.T) {
 func TestPellCoreBridge_GetCurrentTss(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryTSSResponse{
-		Tss: observertypes.TSS{
+	expectedOutput := relayertypes.QueryTSSResponse{
+		Tss: relayertypes.TSS{
 			TssPubkey:           "pellpub1addwnpepqtadxdyt037h86z60nl98t6zk56mw5zpnm79tsmvspln3hgt5phdc79kvfc",
 			TssParticipantList:  nil,
 			OperatorAddressList: nil,
@@ -567,9 +567,9 @@ func TestPellCoreBridge_GetCurrentTss(t *testing.T) {
 			KeygenPellHeight:    900,
 		},
 	}
-	input := observertypes.QueryGetTSSRequest{}
+	input := relayertypes.QueryGetTSSRequest{}
 	method := "/relayer.Query/TSS"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -581,12 +581,12 @@ func TestPellCoreBridge_GetCurrentTss(t *testing.T) {
 func TestPellCoreBridge_GetEthTssAddress(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryGetTssAddressResponse{
+	expectedOutput := relayertypes.QueryGetTssAddressResponse{
 		Eth: "0x70e967acfcc17c3941e87562161406d41676fd83",
 	}
-	input := observertypes.QueryGetTssAddressRequest{}
+	input := relayertypes.QueryGetTssAddressRequest{}
 	method := "/relayer.Query/GetTssAddress"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -598,8 +598,8 @@ func TestPellCoreBridge_GetEthTssAddress(t *testing.T) {
 func TestPellCoreBridge_GetTssHistory(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryTssHistoryResponse{
-		TssList: []observertypes.TSS{
+	expectedOutput := relayertypes.QueryTssHistoryResponse{
+		TssList: []relayertypes.TSS{
 			{
 				TssPubkey:           "pellpub1addwnpepqtadxdyt037h86z60nl98t6zk56mw5zpnm79tsmvspln3hgt5phdc79kvfc",
 				TssParticipantList:  nil,
@@ -609,9 +609,9 @@ func TestPellCoreBridge_GetTssHistory(t *testing.T) {
 			},
 		},
 	}
-	input := observertypes.QueryTssHistoryRequest{}
+	input := relayertypes.QueryTssHistoryRequest{}
 	method := "/relayer.Query/TssHistory"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -687,17 +687,17 @@ func TestPellCoreBridge_GetAllOutTxTrackerByChain(t *testing.T) {
 func TestPellCoreBridge_GetPendingNoncesByChain(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryPendingNoncesByChainResponse{
-		PendingNonces: observertypes.PendingNonces{
+	expectedOutput := relayertypes.QueryPendingNoncesByChainResponse{
+		PendingNonces: relayertypes.PendingNonces{
 			NonceLow:  0,
 			NonceHigh: 0,
 			ChainId:   chains.EthChain().Id,
 			Tss:       "",
 		},
 	}
-	input := observertypes.QueryPendingNoncesByChainRequest{ChainId: chains.EthChain().Id}
+	input := relayertypes.QueryPendingNoncesByChainRequest{ChainId: chains.EthChain().Id}
 	method := "/relayer.Query/PendingNoncesByChain"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -732,14 +732,14 @@ func TestPellCoreBridge_GetSupportedChains(t *testing.T) {
 
 	bscMainnet := chains.BscMainnetChain()
 	ethMainnet := chains.EthChain()
-	expectedOutput := observertypes.QuerySupportedChainsResponse{
+	expectedOutput := relayertypes.QuerySupportedChainsResponse{
 		Chains: []*chains.Chain{
 			&bscMainnet, &ethMainnet,
 		},
 	}
-	input := observertypes.QuerySupportedChains{}
+	input := relayertypes.QuerySupportedChains{}
 	method := "/relayer.Query/SupportedChains"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -751,8 +751,8 @@ func TestPellCoreBridge_GetSupportedChains(t *testing.T) {
 func TestPellCoreBridge_GetPendingNonces(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryPendingNoncesAllResponse{
-		PendingNonces: []observertypes.PendingNonces{
+	expectedOutput := relayertypes.QueryPendingNoncesAllResponse{
+		PendingNonces: []relayertypes.PendingNonces{
 			{
 				NonceLow:  225,
 				NonceHigh: 226,
@@ -761,9 +761,9 @@ func TestPellCoreBridge_GetPendingNonces(t *testing.T) {
 			},
 		},
 	}
-	input := observertypes.QueryAllPendingNoncesRequest{}
+	input := relayertypes.QueryAllPendingNoncesRequest{}
 	method := "/relayer.Query/PendingNoncesAll"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 
@@ -802,13 +802,13 @@ func TestPellCoreBridge_Prove(t *testing.T) {
 func TestPellCoreBridge_HasVoted(t *testing.T) {
 	ctx := context.Background()
 
-	expectedOutput := observertypes.QueryHasVotedResponse{HasVoted: true}
-	input := observertypes.QueryHasVotedRequest{
+	expectedOutput := relayertypes.QueryHasVotedResponse{HasVoted: true}
+	input := relayertypes.QueryHasVotedRequest{
 		BallotIdentifier: "123456asdf",
 		VoterAddress:     "pell1pu5xy7wnwt7ukvt4yvvkldshhh0lhq6q6rhhxp",
 	}
 	method := "/relayer.Query/HasVoted"
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput)
 
 	client := setupPellcoreClients(t)
 

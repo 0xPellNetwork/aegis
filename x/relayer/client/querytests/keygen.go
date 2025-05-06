@@ -9,7 +9,7 @@ import (
 
 	"github.com/0xPellNetwork/aegis/x/relayer/client/cli"
 	"github.com/0xPellNetwork/aegis/x/relayer/types"
-	observerTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func (s *CliTestSuite) TestShowKeygen() {
@@ -22,7 +22,7 @@ func (s *CliTestSuite) TestShowKeygen() {
 		desc string
 		args []string
 		err  error
-		obj  *observerTypes.Keygen
+		obj  *relayertypes.Keygen
 	}{
 		{
 			desc: "get",

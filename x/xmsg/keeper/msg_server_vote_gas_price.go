@@ -9,7 +9,7 @@ import (
 	cosmoserrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -26,7 +26,7 @@ func (k msgServer) VoteGasPrice(goCtx context.Context, msg *types.MsgVoteGasPric
 		return nil, cosmoserrors.Wrap(types.ErrUnsupportedChain, fmt.Sprintf("ChainID : %d ", msg.ChainId))
 	}
 	if ok := k.relayerKeeper.IsNonTombstonedObserver(ctx, msg.Signer); !ok {
-		return nil, observertypes.ErrNotObserver
+		return nil, relayertypes.ErrNotObserver
 	}
 
 	gasPrice, isFound := k.GetGasPrice(ctx, chain.Id)

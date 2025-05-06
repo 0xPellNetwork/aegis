@@ -21,7 +21,7 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/keys"
 	"github.com/0xPellNetwork/aegis/relayer/pellcore"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 var debugArgs = debugArguments{}
@@ -131,7 +131,7 @@ func debugCmd(_ *cobra.Command, args []string) error {
 
 		for _, chainParams := range chainParams {
 			if chainParams.ChainId == chainID {
-				ob.SetChainParams(observertypes.ChainParams{
+				ob.SetChainParams(relayertypes.ChainParams{
 					ChainId:                                  chainID,
 					ConnectorContractAddress:                 chainParams.ConnectorContractAddress,
 					DelegationManagerContractAddress:         chainParams.DelegationManagerContractAddress,

@@ -9,7 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -25,7 +25,7 @@ func (k msgServer) AddToOutTxTracker(goCtx context.Context, msg *types.MsgAddToO
 	// check the chain is supported
 	chain := k.GetRelayerKeeper().GetSupportedChainFromChainID(ctx, msg.ChainId)
 	if chain == nil {
-		return nil, observertypes.ErrSupportedChains
+		return nil, relayertypes.ErrSupportedChains
 	}
 
 	// the xmsg must exist
@@ -124,14 +124,14 @@ func verifyProofAndOutTxBody(ctx sdk.Context, k msgServer, msg *types.MsgAddToOu
 	// get tss address
 	var bitcoinChainID int64
 
-	tss, err := k.GetRelayerKeeper().GetTssAddress(ctx, &observertypes.QueryGetTssAddressRequest{
+	tss, err := k.GetRelayerKeeper().GetTssAddress(ctx, &relayertypes.QueryGetTssAddressRequest{
 		BitcoinChainId: bitcoinChainID,
 	})
 	if err != nil {
-		return observertypes.ErrTssNotFound.Wrapf(err.Error())
+		return relayertypes.ErrTssNotFound.Wrapf(err.Error())
 	}
 	if tss == nil {
-		return observertypes.ErrTssNotFound.Wrapf("tss address nil")
+		return relayertypes.ErrTssNotFound.Wrapf("tss address nil")
 	}
 
 	if err := types.VerifyOutTxBody(*msg, txBytes, *tss); err != nil {

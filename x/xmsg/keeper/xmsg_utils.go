@@ -8,7 +8,7 @@ import (
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	pellObserverTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	pellrelayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -17,7 +17,7 @@ import (
 func (k Keeper) UpdateNonce(ctx sdk.Context, receiveChainID int64, xmsg *types.Xmsg) error {
 	chain := k.GetRelayerKeeper().GetSupportedChainFromChainID(ctx, receiveChainID)
 	if chain == nil {
-		return pellObserverTypes.ErrSupportedChains
+		return pellrelayertypes.ErrSupportedChains
 	}
 
 	nonce, found := k.GetRelayerKeeper().GetChainNonces(ctx, chain.ChainName())

@@ -15,7 +15,7 @@ import (
 
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	evmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -52,7 +52,7 @@ func (k Keeper) ProcessPellSentEvent(
 	event *pellconnector.PellConnectorPellSent,
 	emittingContract ethcommon.Address,
 	txOrigin string,
-	tss observertypes.TSS,
+	tss relayertypes.TSS,
 ) error {
 	ctx.Logger().Info(fmt.Sprintf("ProcessPellSentEvent sent to %s to chain with chainId %d",
 		hex.EncodeToString(event.DestinationAddress), event.DestinationChainId))
@@ -60,11 +60,11 @@ func (k Keeper) ProcessPellSentEvent(
 	receiverChainID := event.DestinationChainId
 	receiverChain := k.relayerKeeper.GetSupportedChainFromChainID(ctx, receiverChainID.Int64())
 	if receiverChain == nil {
-		return errorsmod.Wrapf(observertypes.ErrSupportedChains, "chain with chainID %d not supported", receiverChainID)
+		return errorsmod.Wrapf(relayertypes.ErrSupportedChains, "chain with chainID %d not supported", receiverChainID)
 	}
 	chainParams, found := k.relayerKeeper.GetChainParamsByChainID(ctx, receiverChain.Id)
 	if !found {
-		return observertypes.ErrChainParamsNotFound
+		return relayertypes.ErrChainParamsNotFound
 	}
 	if receiverChain.IsExternalChain() &&
 		(chainParams.ConnectorContractAddress == "") {

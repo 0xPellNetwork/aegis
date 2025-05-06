@@ -20,7 +20,7 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/metrics"
 	"github.com/0xPellNetwork/aegis/relayer/pellcore"
 	mc "github.com/0xPellNetwork/aegis/relayer/tss"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func GenerateTss(
@@ -30,7 +30,7 @@ func GenerateTss(
 	peers p2p.AddrList,
 	priKey secp256k1.PrivKey,
 	ts *metrics.TelemetryServer,
-	tssHistoricalList []observertypes.TSS,
+	tssHistoricalList []relayertypes.TSS,
 	tssPassword string,
 	hotkeyPassword string,
 ) (*mc.TSS, error) {
@@ -72,16 +72,16 @@ func GenerateTss(
 		// If keygen is unsuccessful, it will reset the triedKeygenAtBlock flag and try again at a new keygen block.
 
 		keyGen := app.GetKeygen()
-		if keyGen.Status == observertypes.KeygenStatus_SUCCESS {
+		if keyGen.Status == relayertypes.KeygenStatus_SUCCESS {
 			return tss, nil
 		}
 		// Arrive at this stage only if keygen is unsuccessfully reported by every node . This will reset the flag and to try again at a new keygen block
-		if keyGen.Status == observertypes.KeygenStatus_FAILED {
+		if keyGen.Status == relayertypes.KeygenStatus_FAILED {
 			triedKeygenAtBlock = false
 			continue
 		}
 		// Try generating TSS at keygen block , only when status is pending keygen and generation has not been tried at the block
-		if keyGen.Status == observertypes.KeygenStatus_PENDING {
+		if keyGen.Status == relayertypes.KeygenStatus_PENDING {
 			// Return error if RPC is not working
 			currentBlock, err := pellBridge.GetBlockHeight(ctx)
 			if err != nil {
@@ -148,7 +148,7 @@ func GenerateTss(
 	return nil, errors.New("unexpected state for TSS generation")
 }
 
-func keygenTss(ctx context.Context, keyGen observertypes.Keygen, tss *mc.TSS, keygenLogger zerolog.Logger) error {
+func keygenTss(ctx context.Context, keyGen relayertypes.Keygen, tss *mc.TSS, keygenLogger zerolog.Logger) error {
 	keygenLogger.Info().Msgf("Keygen at blocknum %d , TSS signers %s ", keyGen.BlockNumber, keyGen.GranteePubkeys)
 	var req keygen.Request
 	req = keygen.NewRequest(keyGen.GranteePubkeys, keyGen.BlockNumber, "0.14.0")

@@ -44,7 +44,7 @@ import (
 	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
 	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
 	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 	xsecuritytypes "github.com/0xPellNetwork/aegis/x/xsecurity/types"
@@ -379,7 +379,7 @@ func newCodec() (*codec.ProtoCodec, codectypes.InterfaceRegistry) {
 	xmsgtypes.RegisterInterfaces(interfaceRegistry)
 	emissionstypes.RegisterInterfaces(interfaceRegistry)
 	pevmtypes.RegisterInterfaces(interfaceRegistry)
-	observertypes.RegisterInterfaces(interfaceRegistry)
+	relayertypes.RegisterInterfaces(interfaceRegistry)
 	lightclienttypes.RegisterInterfaces(interfaceRegistry)
 	authoritytypes.RegisterInterfaces(interfaceRegistry)
 	ethermintCryptoTypes.RegisterInterfaces(interfaceRegistry)

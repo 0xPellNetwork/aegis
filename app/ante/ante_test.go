@@ -12,7 +12,7 @@ import (
 	"github.com/0xPellNetwork/aegis/app"
 	"github.com/0xPellNetwork/aegis/app/ante"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -72,7 +72,7 @@ func TestIsSystemTx(t *testing.T) {
 	}{
 		{
 			"MsgVoteTSS",
-			buildTxFromMsg(&observertypes.MsgVoteTSS{
+			buildTxFromMsg(&relayertypes.MsgVoteTSS{
 				Signer:    sample.AccAddress(),
 				TssPubkey: "pubkey1234",
 			}),
@@ -81,7 +81,7 @@ func TestIsSystemTx(t *testing.T) {
 		},
 		{
 			"MsgVoteTSS",
-			buildTxFromMsg(&observertypes.MsgVoteTSS{
+			buildTxFromMsg(&relayertypes.MsgVoteTSS{
 				Signer:    sample.AccAddress(),
 				TssPubkey: "pubkey1234",
 			}),
@@ -90,7 +90,7 @@ func TestIsSystemTx(t *testing.T) {
 		},
 		{
 			"MsgExec{MsgVoteTSS}",
-			buildAuthzTxFromMsg(&observertypes.MsgVoteTSS{
+			buildAuthzTxFromMsg(&relayertypes.MsgVoteTSS{
 				Signer:    sample.AccAddress(),
 				TssPubkey: "pubkey1234",
 			}),
@@ -177,7 +177,7 @@ func TestIsSystemTx(t *testing.T) {
 		},
 		{
 			"MsgVoteTSS",
-			buildTxFromMsg(&observertypes.MsgVoteTSS{
+			buildTxFromMsg(&relayertypes.MsgVoteTSS{
 				Signer: sample.AccAddress(),
 			}),
 			isAuthorized,
@@ -186,7 +186,7 @@ func TestIsSystemTx(t *testing.T) {
 		},
 		{
 			"MsgExec{MsgVoteTSS}",
-			buildAuthzTxFromMsg(&observertypes.MsgVoteTSS{
+			buildAuthzTxFromMsg(&relayertypes.MsgVoteTSS{
 				Signer: sample.AccAddress(),
 			}),
 			isAuthorized,
@@ -195,7 +195,7 @@ func TestIsSystemTx(t *testing.T) {
 		},
 		{
 			"MsgVoteBlockHeader",
-			buildTxFromMsg(&observertypes.MsgVoteBlockHeader{
+			buildTxFromMsg(&relayertypes.MsgVoteBlockHeader{
 				Signer: sample.AccAddress(),
 			}),
 			isAuthorized,
@@ -204,7 +204,7 @@ func TestIsSystemTx(t *testing.T) {
 		},
 		{
 			"MsgExec{MsgVoteBlockHeader}",
-			buildAuthzTxFromMsg(&observertypes.MsgVoteBlockHeader{
+			buildAuthzTxFromMsg(&relayertypes.MsgVoteBlockHeader{
 				Signer: sample.AccAddress(),
 			}),
 			isAuthorized,
@@ -213,7 +213,7 @@ func TestIsSystemTx(t *testing.T) {
 		},
 		{
 			"MsgAddBlameVote",
-			buildTxFromMsg(&observertypes.MsgAddBlameVote{
+			buildTxFromMsg(&relayertypes.MsgAddBlameVote{
 				Signer: sample.AccAddress(),
 			}),
 			isAuthorized,
@@ -222,7 +222,7 @@ func TestIsSystemTx(t *testing.T) {
 		},
 		{
 			"MsgExec{MsgAddBlameVote}",
-			buildAuthzTxFromMsg(&observertypes.MsgAddBlameVote{
+			buildAuthzTxFromMsg(&relayertypes.MsgAddBlameVote{
 				Signer: sample.AccAddress(),
 			}),
 			isAuthorized,

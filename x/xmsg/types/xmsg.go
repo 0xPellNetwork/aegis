@@ -6,7 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func (m Xmsg) IsCrossChainPellTx() bool {
@@ -107,8 +107,8 @@ func (m *Xmsg) AddRevertOutbound(gasLimit uint64) error {
 }
 
 // AddOutbound adds a new outbound tx to the Xmsg.
-func (m *Xmsg) AddOutbound(ctx sdk.Context, msg MsgVoteOnObservedOutboundTx, ballotStatus observertypes.BallotStatus) error {
-	if ballotStatus != observertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION {
+func (m *Xmsg) AddOutbound(ctx sdk.Context, msg MsgVoteOnObservedOutboundTx, ballotStatus relayertypes.BallotStatus) error {
+	if ballotStatus != relayertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION {
 		// todo  result == expect?
 	}
 	// Update Xmsg values

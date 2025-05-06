@@ -8,7 +8,7 @@ import (
 	testkeeper "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -46,7 +46,7 @@ func TestKeeper_PayGasInPellAndUpdateXmsg(t *testing.T) {
 			InboundTxParams: &types.InboundTxParams{},
 		}
 		err := k.PayNativeGasAndUpdateXmsg(ctx, 999999, &xmsg)
-		require.ErrorIs(t, err, observertypes.ErrSupportedChains)
+		require.ErrorIs(t, err, relayertypes.ErrSupportedChains)
 	})
 
 	t.Run("should fail if can't query the gas price", func(t *testing.T) {

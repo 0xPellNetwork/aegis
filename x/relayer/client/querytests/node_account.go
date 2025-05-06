@@ -10,7 +10,7 @@ import (
 
 	"github.com/0xPellNetwork/aegis/x/relayer/client/cli"
 	"github.com/0xPellNetwork/aegis/x/relayer/types"
-	pellObserverTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	pellrelayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func (s *CliTestSuite) TestShowNodeAccount() {
@@ -24,7 +24,7 @@ func (s *CliTestSuite) TestShowNodeAccount() {
 		id   string
 		args []string
 		err  error
-		obj  *pellObserverTypes.NodeAccount
+		obj  *pellrelayertypes.NodeAccount
 	}{
 		{
 			desc: "found",

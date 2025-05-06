@@ -1,4 +1,4 @@
-package observer_test
+package relayer_test
 
 import (
 	"testing"

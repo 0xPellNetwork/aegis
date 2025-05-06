@@ -12,7 +12,7 @@ import (
 
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -188,13 +188,13 @@ func (k Keeper) processFailedOutboundForPEVMTx(ctx sdk.Context, xmsg *types.Xmsg
 
 // ProcessOutbound processes the finalization of an outbound transaction based on the ballot status
 // The state is committed only if the individual steps are successful
-func (k Keeper) ProcessOutbound(ctx sdk.Context, xmsg *types.Xmsg, ballotStatus observertypes.BallotStatus) error {
+func (k Keeper) ProcessOutbound(ctx sdk.Context, xmsg *types.Xmsg, ballotStatus relayertypes.BallotStatus) error {
 	tmpCtx, commit := ctx.CacheContext()
 	err := func() error {
 		switch ballotStatus {
-		case observertypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION:
+		case relayertypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION:
 			k.ProcessSuccessfulOutbound(tmpCtx, xmsg)
-		case observertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION:
+		case relayertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION:
 			err := k.ProcessFailedOutbound(tmpCtx, xmsg)
 			if err != nil {
 				return err
@@ -214,7 +214,7 @@ func (k Keeper) ProcessOutbound(ctx sdk.Context, xmsg *types.Xmsg, ballotStatus 
 }
 
 // processXmsgOutboundResult processes the outbound result of a xmsg. XmsgOutboundResultHook hooks are called here
-func (k Keeper) processXmsgOutboundResult(ctx sdk.Context, xmsg *types.Xmsg, ballotStatus observertypes.BallotStatus) error {
+func (k Keeper) processXmsgOutboundResult(ctx sdk.Context, xmsg *types.Xmsg, ballotStatus relayertypes.BallotStatus) error {
 	for _, hook := range k.xmsgResultHooks {
 		hook.ProcessXmsgOutboundResult(ctx, xmsg, ballotStatus)
 	}

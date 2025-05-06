@@ -19,7 +19,7 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	"github.com/0xPellNetwork/aegis/relayer/keys"
 	"github.com/0xPellNetwork/aegis/relayer/testutils/stub"
-	observerTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -87,7 +87,7 @@ func TestBroadcast(t *testing.T) {
 
 		blockHash, err := hex.DecodeString(ethBlockHash)
 		require.NoError(t, err)
-		msg := observerTypes.NewMsgVoteBlockHeader(
+		msg := relayertypes.NewMsgVoteBlockHeader(
 			address.String(),
 			chains.EthChain().Id,
 			blockHash,
@@ -110,7 +110,7 @@ func TestBroadcast(t *testing.T) {
 
 		blockHash, err := hex.DecodeString(ethBlockHash)
 		require.NoError(t, err)
-		msg := observerTypes.NewMsgVoteBlockHeader(
+		msg := relayertypes.NewMsgVoteBlockHeader(
 			address.String(),
 			chains.EthChain().Id,
 			blockHash,

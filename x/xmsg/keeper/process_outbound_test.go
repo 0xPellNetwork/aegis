@@ -14,7 +14,7 @@ import (
 	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -158,7 +158,7 @@ func TestKeeper_ProcessOutbound(t *testing.T) {
 		k, ctx, _, _ := keepertest.XmsgKeeper(t)
 		xmsg := buildXmsg(t, sample.EthAddress(), chains.GoerliChain())
 		xmsg.XmsgStatus.Status = types.XmsgStatus_PENDING_OUTBOUND
-		err := k.ProcessOutbound(ctx, xmsg, observertypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION)
+		err := k.ProcessOutbound(ctx, xmsg, relayertypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION)
 		require.NoError(t, err)
 		require.Equal(t, xmsg.XmsgStatus.Status, types.XmsgStatus_OUTBOUND_MINED)
 	})
@@ -167,7 +167,7 @@ func TestKeeper_ProcessOutbound(t *testing.T) {
 		k, ctx, _, _ := keepertest.XmsgKeeper(t)
 		xmsg := buildXmsg(t, sample.EthAddress(), chains.GoerliChain())
 		xmsg.XmsgStatus.Status = types.XmsgStatus_PENDING_REVERT
-		err := k.ProcessOutbound(ctx, xmsg, observertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION)
+		err := k.ProcessOutbound(ctx, xmsg, relayertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION)
 		require.NoError(t, err)
 		require.Equal(t, xmsg.XmsgStatus.Status, types.XmsgStatus_ABORTED)
 		require.Equal(t, xmsg.GetCurrentOutTxParam().TxFinalizationStatus, types.TxFinalizationStatus_EXECUTED)
@@ -178,7 +178,7 @@ func TestKeeper_ProcessOutbound(t *testing.T) {
 		xmsg := buildXmsg(t, sample.EthAddress(), chains.GoerliChain())
 		xmsg.XmsgStatus.Status = types.XmsgStatus_PENDING_OUTBOUND
 		xmsg.InboundTxParams = nil
-		err := k.ProcessOutbound(ctx, xmsg, observertypes.BallotStatus_BALLOT_IN_PROGRESS)
+		err := k.ProcessOutbound(ctx, xmsg, relayertypes.BallotStatus_BALLOT_IN_PROGRESS)
 		require.Error(t, err)
 	})
 }

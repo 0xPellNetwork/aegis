@@ -10,7 +10,7 @@ import (
 
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgkeeper "github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -75,7 +75,7 @@ func TestKeeper_UpdateNonce(t *testing.T) {
 		observerMock.On("GetSupportedChainFromChainID", mock.Anything, mock.Anything).Return(&chains.Chain{
 			Id: 5,
 		})
-		observerMock.On("GetChainNonces", mock.Anything, mock.Anything).Return(observertypes.ChainNonces{}, false)
+		observerMock.On("GetChainNonces", mock.Anything, mock.Anything).Return(relayertypes.ChainNonces{}, false)
 		xmsg := types.Xmsg{
 			InboundTxParams:  &types.InboundTxParams{},
 			OutboundTxParams: []*types.OutboundTxParams{{}},
@@ -93,10 +93,10 @@ func TestKeeper_UpdateNonce(t *testing.T) {
 		observerMock.On("GetSupportedChainFromChainID", mock.Anything, mock.Anything).Return(&chains.Chain{
 			Id: 5,
 		})
-		observerMock.On("GetChainNonces", mock.Anything, mock.Anything).Return(observertypes.ChainNonces{
+		observerMock.On("GetChainNonces", mock.Anything, mock.Anything).Return(relayertypes.ChainNonces{
 			Nonce: 100,
 		}, true)
-		observerMock.On("GetTSS", mock.Anything).Return(observertypes.TSS{}, false)
+		observerMock.On("GetTSS", mock.Anything).Return(relayertypes.TSS{}, false)
 		xmsg := types.Xmsg{
 			InboundTxParams:  &types.InboundTxParams{},
 			OutboundTxParams: []*types.OutboundTxParams{{}},
@@ -115,11 +115,11 @@ func TestKeeper_UpdateNonce(t *testing.T) {
 		observerMock.On("GetSupportedChainFromChainID", mock.Anything, mock.Anything).Return(&chains.Chain{
 			Id: 5,
 		})
-		observerMock.On("GetChainNonces", mock.Anything, mock.Anything).Return(observertypes.ChainNonces{
+		observerMock.On("GetChainNonces", mock.Anything, mock.Anything).Return(relayertypes.ChainNonces{
 			Nonce: 100,
 		}, true)
-		observerMock.On("GetTSS", mock.Anything).Return(observertypes.TSS{}, true)
-		observerMock.On("GetPendingNonces", mock.Anything, mock.Anything, mock.Anything).Return(observertypes.PendingNonces{}, false)
+		observerMock.On("GetTSS", mock.Anything).Return(relayertypes.TSS{}, true)
+		observerMock.On("GetPendingNonces", mock.Anything, mock.Anything, mock.Anything).Return(relayertypes.PendingNonces{}, false)
 
 		xmsg := types.Xmsg{
 			InboundTxParams:  &types.InboundTxParams{},
@@ -139,11 +139,11 @@ func TestKeeper_UpdateNonce(t *testing.T) {
 
 			Id: 5,
 		})
-		observerMock.On("GetChainNonces", mock.Anything, mock.Anything).Return(observertypes.ChainNonces{
+		observerMock.On("GetChainNonces", mock.Anything, mock.Anything).Return(relayertypes.ChainNonces{
 			Nonce: 100,
 		}, true)
-		observerMock.On("GetTSS", mock.Anything).Return(observertypes.TSS{}, true)
-		observerMock.On("GetPendingNonces", mock.Anything, mock.Anything, mock.Anything).Return(observertypes.PendingNonces{
+		observerMock.On("GetTSS", mock.Anything).Return(relayertypes.TSS{}, true)
+		observerMock.On("GetPendingNonces", mock.Anything, mock.Anything, mock.Anything).Return(relayertypes.PendingNonces{
 			NonceHigh: 99,
 		}, true)
 
@@ -165,11 +165,11 @@ func TestKeeper_UpdateNonce(t *testing.T) {
 
 			Id: 5,
 		})
-		observerMock.On("GetChainNonces", mock.Anything, mock.Anything).Return(observertypes.ChainNonces{
+		observerMock.On("GetChainNonces", mock.Anything, mock.Anything).Return(relayertypes.ChainNonces{
 			Nonce: 100,
 		}, true)
-		observerMock.On("GetTSS", mock.Anything).Return(observertypes.TSS{}, true)
-		observerMock.On("GetPendingNonces", mock.Anything, mock.Anything, mock.Anything).Return(observertypes.PendingNonces{
+		observerMock.On("GetTSS", mock.Anything).Return(relayertypes.TSS{}, true)
+		observerMock.On("GetPendingNonces", mock.Anything, mock.Anything, mock.Anything).Return(relayertypes.PendingNonces{
 			NonceHigh: 100,
 		}, true)
 

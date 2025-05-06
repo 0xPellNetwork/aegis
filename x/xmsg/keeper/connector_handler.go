@@ -10,7 +10,7 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -48,7 +48,7 @@ func (h ConnectorEventHandler) HandleEvent(ctx sdk.Context, _ uint64, toAddress 
 
 			// Do not process withdrawal events if inbound is disabled
 			if !h.k.relayerKeeper.IsInboundEnabled(ctx) {
-				return nil, observertypes.ErrInboundDisabled
+				return nil, relayertypes.ErrInboundDisabled
 			}
 
 			// check if the sender is a xmsg builder

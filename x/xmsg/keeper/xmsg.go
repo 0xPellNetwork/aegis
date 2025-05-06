@@ -4,7 +4,7 @@ import (
 	"cosmossdk.io/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	observerTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -20,7 +20,7 @@ func (k Keeper) SetXmsgAndNonceToXmsgAndInTxHashToXmsg(ctx sdk.Context, xmsg typ
 	}
 	// set mapping nonce => xmsgIndex
 	if xmsg.XmsgStatus.Status == types.XmsgStatus_PENDING_OUTBOUND || xmsg.XmsgStatus.Status == types.XmsgStatus_PENDING_REVERT {
-		k.GetRelayerKeeper().SetNonceToXmsg(ctx, observerTypes.NonceToXmsg{
+		k.GetRelayerKeeper().SetNonceToXmsg(ctx, relayertypes.NonceToXmsg{
 			ChainId: xmsg.GetCurrentOutTxParam().ReceiverChainId,
 			// #nosec G701 always in range
 			Nonce:     int64(xmsg.GetCurrentOutTxParam().OutboundTxTssNonce),

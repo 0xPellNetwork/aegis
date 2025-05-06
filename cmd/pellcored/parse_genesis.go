@@ -30,7 +30,7 @@ import (
 	"github.com/0xPellNetwork/aegis/app"
 	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
 	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -77,8 +77,8 @@ var Skip = map[string]bool{
 
 // Modify represents a set of modules for which, the state is modified before importing. Each Module should have a corresponding Modify function
 var Modify = map[string]bool{
-	xmsgtypes.ModuleName:     true,
-	observertypes.ModuleName: true,
+	xmsgtypes.ModuleName:    true,
+	relayertypes.ModuleName: true,
 }
 
 func CmdParseGenesisFile() *cobra.Command {
@@ -166,7 +166,7 @@ func ImportDataIntoFile(
 				if err != nil {
 					return err
 				}
-			case observertypes.ModuleName:
+			case relayertypes.ModuleName:
 				err := ModifyObserverState(appState, importAppState, cdc)
 				if err != nil {
 					return err
@@ -206,11 +206,11 @@ func ModifyCrosschainState(appState map[string]json.RawMessage, importAppState m
 // ModifyObserverState modifies the observer state before importing
 // It truncates the ballots and nonce to xmsg list to MaxItemsForList
 func ModifyObserverState(appState map[string]json.RawMessage, importAppState map[string]json.RawMessage, cdc codec.Codec) error {
-	importedObserverGenState := observertypes.GetGenesisStateFromAppState(cdc, importAppState)
+	importedObserverGenState := relayertypes.GetGenesisStateFromAppState(cdc, importAppState)
 	importedObserverGenState.Ballots = importedObserverGenState.Ballots[:math.Min(MaxItemsForList, len(importedObserverGenState.Ballots))]
 	importedObserverGenState.NonceToXmsg = importedObserverGenState.NonceToXmsg[:math.Min(MaxItemsForList, len(importedObserverGenState.NonceToXmsg))]
 
-	currentGenState := observertypes.GetGenesisStateFromAppState(cdc, appState)
+	currentGenState := relayertypes.GetGenesisStateFromAppState(cdc, appState)
 	currentGenState.Ballots = importedObserverGenState.Ballots
 	currentGenState.NonceToXmsg = importedObserverGenState.NonceToXmsg
 
@@ -219,6 +219,6 @@ func ModifyObserverState(appState map[string]json.RawMessage, importAppState map
 		return fmt.Errorf("failed to marshal observer genesis state: %w", err)
 	}
 
-	appState[observertypes.ModuleName] = currentGenStateBz
+	appState[relayertypes.ModuleName] = currentGenStateBz
 	return nil
 }

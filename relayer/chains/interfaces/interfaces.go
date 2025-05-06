@@ -23,7 +23,7 @@ import (
 	keyinterfaces "github.com/0xPellNetwork/aegis/relayer/keys/interfaces"
 	"github.com/0xPellNetwork/aegis/relayer/outtxprocessor"
 	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -40,8 +40,8 @@ type ChainClient interface {
 	Start(ctx context.Context)
 	Stop()
 	IsOutboundProcessed(ctx context.Context, xmsg *xmsgtypes.Xmsg, logger zerolog.Logger) (bool, bool, error)
-	SetChainParams(observertypes.ChainParams)
-	GetChainParams() observertypes.ChainParams
+	SetChainParams(relayertypes.ChainParams)
+	GetChainParams() relayertypes.ChainParams
 	OutboundID(nonce uint64) string
 	WatchIntxTracker(ctx context.Context) error
 }
@@ -136,7 +136,7 @@ type PellCoreBridger interface {
 	GetLogger() *zerolog.Logger
 	GetKeys() keyinterfaces.ObserverKeys
 
-	GetKeyGen(ctx context.Context) (observertypes.Keygen, error)
+	GetKeyGen(ctx context.Context) (relayertypes.Keygen, error)
 
 	GetBlockHeight(ctx context.Context) (int64, error)
 	GetLastBlockHeightByChain(ctx context.Context, chain chains.Chain) (*xmsgtypes.LastBlockHeight, error)
@@ -145,12 +145,12 @@ type PellCoreBridger interface {
 	ListPendingXmsg(ctx context.Context, chainID int64) ([]*xmsgtypes.Xmsg, uint64, error)
 	ListPendingXmsgWithinRatelimit(ctx context.Context) (*xmsgtypes.QueryListPendingXmsgWithinRateLimitResponse, error)
 	GetRateLimiterInput(ctx context.Context, window int64) (*xmsgtypes.QueryRateLimiterInputResponse, error)
-	GetPendingNoncesByChain(ctx context.Context, chainID int64) (observertypes.PendingNonces, error)
+	GetPendingNoncesByChain(ctx context.Context, chainID int64) (relayertypes.PendingNonces, error)
 
 	GetXmsgByNonce(ctx context.Context, chainID int64, nonce uint64) (*xmsgtypes.Xmsg, error)
 	GetOutTxTracker(ctx context.Context, chain chains.Chain, nonce uint64) (*xmsgtypes.OutTxTracker, error)
 	GetAllOutTxTrackerByChain(ctx context.Context, chainID int64, order Order) ([]xmsgtypes.OutTxTracker, error)
-	GetCrosschainFlags(ctx context.Context) (observertypes.CrosschainFlags, error)
+	GetCrosschainFlags(ctx context.Context) (relayertypes.CrosschainFlags, error)
 	GetRateLimiterFlags(ctx context.Context) (xmsgtypes.RateLimiterFlags, error)
 	GetObserverList(ctx context.Context) ([]string, error)
 	GetPellHotKeyBalance(ctx context.Context) (sdkmath.Int, error)

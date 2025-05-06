@@ -18,7 +18,7 @@ import (
 
 	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
 	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -40,7 +40,7 @@ func NewCodec() *codec.ProtoCodec {
 	xmsgtypes.RegisterInterfaces(registry)
 	emissionstypes.RegisterInterfaces(registry)
 	pevmtypes.RegisterInterfaces(registry)
-	observertypes.RegisterInterfaces(registry)
+	relayertypes.RegisterInterfaces(registry)
 
 	cdc := codec.NewProtoCodec(registry)
 	return cdc

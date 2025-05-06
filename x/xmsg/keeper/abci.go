@@ -9,12 +9,14 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	pellchains "github.com/0xPellNetwork/aegis/pkg/chains"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 const (
-	// RemainingFeesToStabilityPoolPercent is the percentage of remaining fees used to fund the gas stability pool
+	// RemainingFeesToStabilityPoolPercent is the percentage of remaining fees used to fund the gas stability pool.
+	// When a transaction is processed, this percentage of the fees is allocated to ensure gas price stability
+	// across different chains. This helps in maintaining consistent cross-chain message delivery.
 	RemainingFeesToStabilityPoolPercent = 95
 )
 
@@ -23,7 +25,7 @@ type CheckAndUpdateXmsgGasPriceFunc func(
 	ctx sdk.Context,
 	k Keeper,
 	xmsg types.Xmsg,
-	flags observertypes.GasPriceIncreaseFlags,
+	flags relayertypes.GasPriceIncreaseFlags,
 ) (math.Uint, math.Uint, error)
 
 // IterateAndUpdateXmsgGasPrice iterates through all xmsg and updates the gas price if pending for too long
@@ -32,9 +34,9 @@ func (k Keeper) IterateAndUpdateXmsgGasPrice(
 	ctx sdk.Context,
 	chains []*pellchains.Chain,
 	updateFunc CheckAndUpdateXmsgGasPriceFunc,
-) (int, observertypes.GasPriceIncreaseFlags) {
+) (int, relayertypes.GasPriceIncreaseFlags) {
 	// fetch the gas price increase flags or use default
-	gasPriceIncreaseFlags := observertypes.DefaultGasPriceIncreaseFlags
+	gasPriceIncreaseFlags := relayertypes.DefaultGasPriceIncreaseFlags
 	crosschainFlags, found := k.relayerKeeper.GetCrosschainFlags(ctx)
 	if found && crosschainFlags.GasPriceIncreaseFlags != nil {
 		gasPriceIncreaseFlags = *crosschainFlags.GasPriceIncreaseFlags
@@ -103,7 +105,7 @@ func CheckAndUpdateXmsgGasPrice(
 	ctx sdk.Context,
 	k Keeper,
 	xmsg types.Xmsg,
-	flags observertypes.GasPriceIncreaseFlags,
+	gasPriceFlags relayertypes.GasPriceIncreaseFlags,
 ) (math.Uint, math.Uint, error) {
 	// skip if gas price or gas limit is not set
 	if xmsg.GetCurrentOutTxParam().OutboundTxGasPrice == "" || xmsg.GetCurrentOutTxParam().OutboundTxGasLimit == 0 {
@@ -112,7 +114,7 @@ func CheckAndUpdateXmsgGasPrice(
 
 	// skip if retry interval is not reached
 	lastUpdated := time.Unix(xmsg.XmsgStatus.LastUpdateTimestamp, 0)
-	if ctx.BlockTime().Before(lastUpdated.Add(flags.RetryInterval)) {
+	if ctx.BlockTime().Before(lastUpdated.Add(gasPriceFlags.RetryInterval)) {
 		return math.ZeroUint(), math.ZeroUint(), nil
 	}
 
@@ -125,7 +127,7 @@ func CheckAndUpdateXmsgGasPrice(
 			fmt.Sprintf("cannot get gas price for chain %d", chainID),
 		)
 	}
-	gasPriceIncrease := medianGasPrice.MulUint64(uint64(flags.GasPriceIncreasePercent)).QuoUint64(100)
+	gasPriceIncrease := medianGasPrice.MulUint64(uint64(gasPriceFlags.GasPriceIncreasePercent)).QuoUint64(100)
 
 	// compute new gas price
 	currentGasPrice, err := xmsg.GetCurrentOutTxParam().GetGasPrice()
@@ -135,9 +137,9 @@ func CheckAndUpdateXmsgGasPrice(
 	newGasPrice := math.NewUint(currentGasPrice).Add(gasPriceIncrease)
 
 	// check limit -- use default limit if not set
-	gasPriceIncreaseMax := flags.GasPriceIncreaseMax
+	gasPriceIncreaseMax := gasPriceFlags.GasPriceIncreaseMax
 	if gasPriceIncreaseMax == 0 {
-		gasPriceIncreaseMax = observertypes.DefaultGasPriceIncreaseFlags.GasPriceIncreaseMax
+		gasPriceIncreaseMax = relayertypes.DefaultGasPriceIncreaseFlags.GasPriceIncreaseMax
 	}
 	limit := medianGasPrice.MulUint64(uint64(gasPriceIncreaseMax)).QuoUint64(100)
 	if newGasPrice.GT(limit) {

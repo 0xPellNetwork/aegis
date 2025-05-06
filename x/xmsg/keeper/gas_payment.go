@@ -6,7 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -46,7 +46,7 @@ func (k Keeper) PayNativeGasAndUpdateXmsg(
 	xmsg *types.Xmsg,
 ) error {
 	if chain := k.relayerKeeper.GetSupportedChainFromChainID(ctx, chainID); chain == nil {
-		return observertypes.ErrSupportedChains
+		return relayertypes.ErrSupportedChains
 	}
 
 	// get gas params

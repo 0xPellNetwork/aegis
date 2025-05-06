@@ -45,7 +45,7 @@ func Load(path string) (Config, error) {
 	file := filepath.Join(path, folder, filename)
 	file, err := filepath.Abs(file)
 	if err != nil {
-		return Config{}, err
+		return Config{}, fmt.Errorf("failed to get absolute path: %w", err)
 	}
 	file = filepath.Clean(file)
 
@@ -53,11 +53,11 @@ func Load(path string) (Config, error) {
 	cfg := NewConfig()
 	input, err := os.ReadFile(file)
 	if err != nil {
-		return Config{}, err
+		return Config{}, fmt.Errorf("failed to read config file %s: %w", file, err)
 	}
 	err = json.Unmarshal(input, &cfg)
 	if err != nil {
-		return Config{}, err
+		return Config{}, fmt.Errorf("failed to unmarshal config: %w", err)
 	}
 
 	// read keyring backend and use test by default

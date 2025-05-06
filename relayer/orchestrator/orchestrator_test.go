@@ -15,13 +15,13 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/testutils"
 	"github.com/0xPellNetwork/aegis/relayer/testutils/stub"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func MockCoreObserver(
 	t *testing.T,
 	evmChain chains.Chain,
-	evmChainParams *observertypes.ChainParams,
+	evmChainParams *relayertypes.ChainParams,
 ) *Orchestrator {
 	// create mock signers and clients
 	evmSigner := stub.NewEVMSigner(
@@ -44,7 +44,7 @@ func MockCoreObserver(
 
 func CreateCoreContext(
 	evmChain chains.Chain,
-	evmChainParams *observertypes.ChainParams,
+	evmChainParams *relayertypes.ChainParams,
 ) *corecontext.PellCoreContext {
 	// new config
 	cfg := config.NewConfig()
@@ -56,14 +56,14 @@ func CreateCoreContext(
 	}
 	// new core context
 	coreContext := corecontext.NewPellCoreContext(cfg)
-	evmChainParamsMap := make(map[int64]*observertypes.ChainParams)
+	evmChainParamsMap := make(map[int64]*relayertypes.ChainParams)
 	evmChainParamsMap[evmChain.Id] = evmChainParams
 	ccFlags := sample.CrosschainFlags_pell()
 	verificationFlags := sample.VerificationFlags()
 
 	// feed chain params
 	coreContext.Update(
-		observertypes.Keygen{},
+		relayertypes.Keygen{},
 		[]chains.Chain{evmChain},
 		evmChainParamsMap,
 		"",
@@ -78,14 +78,14 @@ func CreateCoreContext(
 func Test_GetUpdatedSigner(t *testing.T) {
 	// initial parameters for core observer creation
 	evmChain := chains.EthChain()
-	evmChainParams := &observertypes.ChainParams{
+	evmChainParams := &relayertypes.ChainParams{
 		ChainId:                          evmChain.Id,
 		ConnectorContractAddress:         testutils.StrategyManagerAddresses[evmChain.Id].Hex(),
 		DelegationManagerContractAddress: testutils.DelegationManagerAddresses[evmChain.Id].Hex(),
 	}
 
 	// new chain params in core context
-	evmChainParamsNew := &observertypes.ChainParams{
+	evmChainParamsNew := &relayertypes.ChainParams{
 		ChainId:                          evmChain.Id,
 		ConnectorContractAddress:         testutils.OtherAddress1,
 		DelegationManagerContractAddress: testutils.OtherAddress2,
@@ -103,7 +103,7 @@ func Test_GetUpdatedSigner(t *testing.T) {
 func Test_GetUpdatedChainClient(t *testing.T) {
 	// initial parameters for core observer creation
 	evmChain := chains.EthChain()
-	evmChainParams := &observertypes.ChainParams{
+	evmChainParams := &relayertypes.ChainParams{
 		ChainId:                          evmChain.Id,
 		ConnectorContractAddress:         testutils.StrategyManagerAddresses[evmChain.Id].Hex(),
 		DelegationManagerContractAddress: testutils.DelegationManagerAddresses[evmChain.Id].Hex(),
@@ -116,7 +116,7 @@ func Test_GetUpdatedChainClient(t *testing.T) {
 	}
 
 	// new chain params in core context
-	evmChainParamsNew := &observertypes.ChainParams{
+	evmChainParamsNew := &relayertypes.ChainParams{
 		ChainId:                          evmChain.Id,
 		ConfirmationCount:                10,
 		GasPriceTicker:                   11,

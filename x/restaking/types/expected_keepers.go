@@ -14,7 +14,6 @@ import (
 
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -93,7 +92,7 @@ type XmsgKeeper interface {
 		event *pellconnector.PellConnectorPellSent,
 		emittingContract ethcommon.Address,
 		txOrigin string,
-		tss observertypes.TSS,
+		tss relayertypes.TSS,
 	) error
 	IsAllowedXmsgSender(ctx sdk.Context, builder string) bool
 	XmsgAll(c context.Context, req *xmsgtypes.QueryAllXmsgRequest) (*xmsgtypes.QueryXmsgAllResponse, error)

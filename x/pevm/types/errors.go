@@ -8,9 +8,9 @@ import (
 
 // x/pevm module sentinel errors
 var (
-	ErrABIPack                = cosmoserrors.Register(ModuleName, 1101, "abi pack error")
-	ErrABIGet                 = cosmoserrors.Register(ModuleName, 1102, "abi get error")
-	ErrABIUnpack              = cosmoserrors.Register(ModuleName, 1104, "abi unpack error")
+	ErrABIPack                = cosmoserrors.Register(ModuleName, 1101, "failed to pack abi")
+	ErrABIGet                 = cosmoserrors.Register(ModuleName, 1102, "failed to get abi")
+	ErrABIUnpack              = cosmoserrors.Register(ModuleName, 1104, "failed to unpack abi")
 	ErrContractNotFound       = cosmoserrors.Register(ModuleName, 1107, "contract not found")
 	ErrContractCall           = cosmoserrors.Register(ModuleName, 1109, "contract call error")
 	ErrSystemContractNotFound = cosmoserrors.Register(ModuleName, 1110, "system contract not found")

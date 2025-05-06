@@ -18,7 +18,7 @@ import (
 	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -75,7 +75,7 @@ func Test_ModifyObserverState(t *testing.T) {
 		err := pellcored.ModifyObserverState(appState, importData, cdc)
 		require.NoError(t, err)
 
-		modifiedObserverAppState := observertypes.GetGenesisStateFromAppState(cdc, appState)
+		modifiedObserverAppState := relayertypes.GetGenesisStateFromAppState(cdc, appState)
 		require.Len(t, modifiedObserverAppState.Ballots, pellcored.MaxItemsForList)
 		require.Len(t, modifiedObserverAppState.NonceToXmsg, pellcored.MaxItemsForList)
 	})
@@ -87,7 +87,7 @@ func Test_ModifyObserverState(t *testing.T) {
 		err := pellcored.ModifyObserverState(appState, importData, cdc)
 		require.NoError(t, err)
 
-		modifiedObserverAppState := observertypes.GetGenesisStateFromAppState(cdc, appState)
+		modifiedObserverAppState := relayertypes.GetGenesisStateFromAppState(cdc, appState)
 		require.Len(t, modifiedObserverAppState.Ballots, 8)
 		require.Len(t, modifiedObserverAppState.NonceToXmsg, 8)
 	})
@@ -171,9 +171,9 @@ func GetImportData(t *testing.T, cdc *codec.ProtoCodec, n int) map[string]json.R
 	importData[xmsgtypes.ModuleName] = importedCrossChainStateBz
 
 	// Add observer data to genesis state
-	importedObserverGenState := observertypes.GetGenesisStateFromAppState(cdc, importData)
-	ballots := make([]*observertypes.Ballot, n)
-	nonceToXmsg := make([]observertypes.NonceToXmsg, n)
+	importedObserverGenState := relayertypes.GetGenesisStateFromAppState(cdc, importData)
+	ballots := make([]*relayertypes.Ballot, n)
+	nonceToXmsg := make([]relayertypes.NonceToXmsg, n)
 	for i := 0; i < n; i++ {
 		ballots[i] = sample.Ballot_pell(t, fmt.Sprintf("ballots-%d", i))
 		nonceToXmsg[i] = sample.NonceToXmsg_pell(t, fmt.Sprintf("nonceToXmsg-%d", i))
@@ -182,7 +182,7 @@ func GetImportData(t *testing.T, cdc *codec.ProtoCodec, n int) map[string]json.R
 	importedObserverGenState.NonceToXmsg = nonceToXmsg
 	importedObserverStateBz, err := cdc.MarshalJSON(&importedObserverGenState)
 	require.NoError(t, err)
-	importData[observertypes.ModuleName] = importedObserverStateBz
+	importData[relayertypes.ModuleName] = importedObserverStateBz
 
 	// Add emission data to genesis state
 	var importedEmissionGenesis emissionstypes.GenesisState

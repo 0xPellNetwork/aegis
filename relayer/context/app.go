@@ -9,7 +9,7 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	"github.com/0xPellNetwork/aegis/relayer/config"
 	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 type appContextKey struct{}
@@ -49,16 +49,16 @@ func (a *AppContext) GetEnabledChains() []chains.Chain {
 	return a.coreContext.GetEnabledChains()
 }
 
-func (a *AppContext) GetKeygen() observertypes.Keygen {
+func (a *AppContext) GetKeygen() relayertypes.Keygen {
 	return a.coreContext.GetKeygen()
 }
 
 func (a *AppContext) Update(
-	keygen observertypes.Keygen,
+	keygen relayertypes.Keygen,
 	newChains []chains.Chain,
-	evmChainParams map[int64]*observertypes.ChainParams,
+	evmChainParams map[int64]*relayertypes.ChainParams,
 	tssPubKey string,
-	crosschainFlags observertypes.CrosschainFlags,
+	crosschainFlags relayertypes.CrosschainFlags,
 	verificationFlags lightclienttypes.VerificationFlags,
 	init bool,
 	logger zerolog.Logger,
