@@ -26,7 +26,7 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	"github.com/pkg/errors"
 
-	rpctypes "github.com/pell-chain/pellcore/rpc/types"
+	rpctypes "github.com/0xPellNetwork/aegis/rpc/types"
 )
 
 // TraceTransaction returns the structured logs created during the execution of EVM

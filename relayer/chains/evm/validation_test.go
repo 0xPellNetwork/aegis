@@ -10,8 +10,8 @@ import (
 	"github.com/onrik/ethrpc"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/coin"
-	"github.com/pell-chain/pellcore/relayer/testutils"
+	"github.com/0xPellNetwork/aegis/pkg/coin"
+	"github.com/0xPellNetwork/aegis/relayer/testutils"
 )
 
 var TestDataDir = "../../"

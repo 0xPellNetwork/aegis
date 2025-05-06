@@ -15,9 +15,9 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/x/restaking/client/cli"
-	"github.com/pell-chain/pellcore/x/restaking/keeper"
-	"github.com/pell-chain/pellcore/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/x/restaking/client/cli"
+	"github.com/0xPellNetwork/aegis/x/restaking/keeper"
+	"github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 var (

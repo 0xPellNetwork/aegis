@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/pkg/crypto/bls"
+	"github.com/0xPellNetwork/aegis/pkg/crypto/bls"
 )
 
 func NewBLSCmd() *cobra.Command {

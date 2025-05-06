@@ -10,14 +10,14 @@ import (
 	"github.com/rs/zerolog"
 	"golang.org/x/net/context"
 
-	"github.com/pell-chain/pellcore/pkg/bg"
-	"github.com/pell-chain/pellcore/pkg/ticker"
-	"github.com/pell-chain/pellcore/relayer/config"
-	pctx "github.com/pell-chain/pellcore/relayer/context"
-	"github.com/pell-chain/pellcore/relayer/metrics"
-	"github.com/pell-chain/pellcore/relayer/pellcore"
-	clienttypes "github.com/pell-chain/pellcore/relayer/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/bg"
+	"github.com/0xPellNetwork/aegis/pkg/ticker"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	pctx "github.com/0xPellNetwork/aegis/relayer/context"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
+	"github.com/0xPellNetwork/aegis/relayer/pellcore"
+	clienttypes "github.com/0xPellNetwork/aegis/relayer/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // WatchInbound watches evm chain for incoming txs and post votes to pellcore

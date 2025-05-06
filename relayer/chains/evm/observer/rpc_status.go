@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/pell-chain/pellcore/relayer/chains/evm/rpc"
-	"github.com/pell-chain/pellcore/relayer/common"
-	"github.com/pell-chain/pellcore/relayer/metrics"
+	"github.com/0xPellNetwork/aegis/relayer/chains/evm/rpc"
+	"github.com/0xPellNetwork/aegis/relayer/common"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
 )
 
 // WatchRPCStatus watches the RPC status of the EVM chain

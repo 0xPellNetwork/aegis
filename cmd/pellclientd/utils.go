@@ -4,10 +4,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/rs/zerolog"
 
-	"github.com/pell-chain/pellcore/relayer/authz"
-	"github.com/pell-chain/pellcore/relayer/config"
-	"github.com/pell-chain/pellcore/relayer/keys"
-	"github.com/pell-chain/pellcore/relayer/pellcore"
+	"github.com/0xPellNetwork/aegis/relayer/authz"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	"github.com/0xPellNetwork/aegis/relayer/keys"
+	"github.com/0xPellNetwork/aegis/relayer/pellcore"
 )
 
 func CreateAuthzSigner(granter string, grantee sdk.AccAddress) {

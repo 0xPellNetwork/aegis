@@ -17,10 +17,10 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/pell-chain/pellcore/e2e/runner"
-	"github.com/pell-chain/pellcore/e2e/utils"
-	"github.com/pell-chain/pellcore/x/restaking/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/e2e/runner"
+	"github.com/0xPellNetwork/aegis/e2e/utils"
+	"github.com/0xPellNetwork/aegis/x/restaking/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func TestDVSCreateRegistryRouter(r *runner.Runner, _ []string) {

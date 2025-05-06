@@ -8,10 +8,10 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
-	types "github.com/pell-chain/pellcore/x/xsecurity/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
+	types "github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 // createSetGroupParamMsg creates a standard test message for setting group parameters

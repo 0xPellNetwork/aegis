@@ -4,7 +4,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ethcfg "github.com/evmos/ethermint/cmd/config"
 
-	cmdcfg "github.com/pell-chain/pellcore/cmd/pellcored/config"
+	cmdcfg "github.com/0xPellNetwork/aegis/cmd/pellcored/config"
 )
 
 func SetConfig() {

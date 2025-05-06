@@ -8,8 +8,8 @@ import (
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	"github.com/pell-chain/pellcore/pkg/proofs"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
+	"github.com/0xPellNetwork/aegis/pkg/proofs"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
 )
 
 type StakingKeeper interface {

@@ -16,8 +16,8 @@ import (
 	ethcrypto "github.com/ethereum/go-ethereum/crypto"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/cosmos"
-	"github.com/pell-chain/pellcore/pkg/crypto"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
+	"github.com/0xPellNetwork/aegis/pkg/crypto"
 )
 
 func PubKeySet() *crypto.PubKeySet {

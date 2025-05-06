@@ -1,4 +1,4 @@
-module github.com/pell-chain/pellcore
+module github.com/0xPellNetwork/aegis
 
 go 1.23
 

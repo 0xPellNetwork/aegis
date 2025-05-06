@@ -3,8 +3,8 @@ package xmsg
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/xmsg/keeper"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // InitGenesis initializes the xmsg module's state from a provided genesis

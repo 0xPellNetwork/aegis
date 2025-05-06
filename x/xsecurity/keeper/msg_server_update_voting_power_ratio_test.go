@@ -7,9 +7,9 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	types "github.com/pell-chain/pellcore/x/xsecurity/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	types "github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 func TestUpdateVotingPowerRatio(t *testing.T) {

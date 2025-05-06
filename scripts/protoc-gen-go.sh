@@ -35,7 +35,7 @@ done
 cd ..
 
 # Move proto files to the right places.
-cp -r github.com/pell-chain/pellcore/* ./
+cp -r github.com/0xPellNetwork/aegis/* ./
 rm -rf github.com
 
 # Format proto go imports.

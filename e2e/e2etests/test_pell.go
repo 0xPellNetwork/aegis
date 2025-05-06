@@ -16,8 +16,8 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/pell-chain/pellcore/e2e/runner"
-	"github.com/pell-chain/pellcore/e2e/utils"
+	"github.com/0xPellNetwork/aegis/e2e/runner"
+	"github.com/0xPellNetwork/aegis/e2e/utils"
 )
 
 // TODO: support multi chain test case

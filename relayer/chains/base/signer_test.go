@@ -5,11 +5,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/relayer/chains/base"
-	"github.com/pell-chain/pellcore/relayer/logs"
-	"github.com/pell-chain/pellcore/relayer/metrics"
-	"github.com/pell-chain/pellcore/relayer/testutils/stub"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/relayer/chains/base"
+	"github.com/0xPellNetwork/aegis/relayer/logs"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
+	"github.com/0xPellNetwork/aegis/relayer/testutils/stub"
 )
 
 // createSigner creates a new signer for testing

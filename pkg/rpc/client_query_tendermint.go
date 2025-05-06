@@ -6,7 +6,7 @@ import (
 	"cosmossdk.io/errors"
 	"github.com/cosmos/cosmos-sdk/client/grpc/cmtservice"
 
-	"github.com/pell-chain/pellcore/pkg/retry"
+	"github.com/0xPellNetwork/aegis/pkg/retry"
 )
 
 // GetLatestPellBlock returns the latest pell block

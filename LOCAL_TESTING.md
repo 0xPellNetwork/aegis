@@ -208,13 +208,10 @@ The test can interact with the different networks using the runned object:
 type E2ERunner struct {
  PEVMClient   *ethclient.Client
  EVMClient *ethclient.Client
- BtcRPCClient *rpcclient.Client
 
  XmsgClient     crosschaintypes.QueryClient
- FungibleClient fungibletypes.QueryClient
  AuthClient     authtypes.QueryClient
  BankClient     banktypes.QueryClient
- ObserverClient observertypes.QueryClient
  PellTxServer   txserver.PellTxServer
  
  EVMAuth *bind.TransactOpts

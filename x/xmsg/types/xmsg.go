@@ -6,7 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func (m Xmsg) IsCrossChainPellTx() bool {

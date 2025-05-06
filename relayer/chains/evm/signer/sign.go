@@ -9,9 +9,9 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/pell-chain/pellcore/relayer/chains/evm"
-	"github.com/pell-chain/pellcore/x/pevm/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/relayer/chains/evm"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func (signer *Signer) SignConnectorTx(ctx context.Context, txData *OutBoundTransactionData) (*ethtypes.Transaction, error) {

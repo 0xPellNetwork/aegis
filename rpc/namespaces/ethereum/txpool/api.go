@@ -19,7 +19,7 @@ import (
 	"cosmossdk.io/log"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 
-	"github.com/pell-chain/pellcore/rpc/types"
+	"github.com/0xPellNetwork/aegis/rpc/types"
 )
 
 // PublicAPI offers and API for the transaction pool. It only operates on data that is non-confidential.

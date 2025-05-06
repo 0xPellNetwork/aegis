@@ -3,7 +3,7 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
 )
 
 func ConvertReceiveStatusToVoteType(status chains.ReceiveStatus) VoteType {

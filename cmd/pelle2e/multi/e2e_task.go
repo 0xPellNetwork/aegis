@@ -6,8 +6,8 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
-	"github.com/pell-chain/pellcore/e2e/e2etests"
-	"github.com/pell-chain/pellcore/e2e/runner"
+	"github.com/0xPellNetwork/aegis/e2e/e2etests"
+	"github.com/0xPellNetwork/aegis/e2e/runner"
 )
 
 // define all pell e2e task

@@ -6,9 +6,9 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/relayer/config"
-	"github.com/pell-chain/pellcore/relayer/testutils"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	"github.com/0xPellNetwork/aegis/relayer/testutils"
 )
 
 func TestXmsgRestricted(t *testing.T) {

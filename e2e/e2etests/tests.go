@@ -1,6 +1,6 @@
 package e2etests
 
-import "github.com/pell-chain/pellcore/e2e/runner"
+import "github.com/0xPellNetwork/aegis/e2e/runner"
 
 const (
 	// pell contract

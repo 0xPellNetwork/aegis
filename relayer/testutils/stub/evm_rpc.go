@@ -9,7 +9,7 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"golang.org/x/net/context"
 
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
 )
 
 const EVMRPCEnabled = "MockEVMRPCEnabled"

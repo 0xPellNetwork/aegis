@@ -5,7 +5,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
 )
 
 // KeyringBackend is the type of keyring backend to use for the hotkey

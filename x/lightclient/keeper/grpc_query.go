@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/pell-chain/pellcore/x/lightclient/types"
+	"github.com/0xPellNetwork/aegis/x/lightclient/types"
 )
 
 var _ types.QueryServer = Keeper{}

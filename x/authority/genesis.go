@@ -3,8 +3,8 @@ package authority
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/authority/keeper"
-	"github.com/pell-chain/pellcore/x/authority/types"
+	"github.com/0xPellNetwork/aegis/x/authority/keeper"
+	"github.com/0xPellNetwork/aegis/x/authority/types"
 )
 
 // InitGenesis initializes the authority module's state from a provided genesis state

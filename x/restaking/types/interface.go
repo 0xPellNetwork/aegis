@@ -6,7 +6,7 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // // EventHandler is an interface for handling pell evm events. internal handlers are

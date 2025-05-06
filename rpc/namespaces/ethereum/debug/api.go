@@ -37,8 +37,8 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	stderrors "github.com/pkg/errors"
 
-	"github.com/pell-chain/pellcore/rpc/backend"
-	rpctypes "github.com/pell-chain/pellcore/rpc/types"
+	"github.com/0xPellNetwork/aegis/rpc/backend"
+	rpctypes "github.com/0xPellNetwork/aegis/rpc/types"
 )
 
 // HandlerT keeps track of the cpu profiler and trace execution

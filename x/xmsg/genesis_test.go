@@ -5,11 +5,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/nullify"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	xmsg "github.com/pell-chain/pellcore/x/xmsg"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/nullify"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	xmsg "github.com/0xPellNetwork/aegis/x/xmsg"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func TestGenesis(t *testing.T) {

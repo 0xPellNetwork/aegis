@@ -3,7 +3,7 @@ package testutils
 import (
 	"fmt"
 
-	"github.com/pell-chain/pellcore/pkg/coin"
+	"github.com/0xPellNetwork/aegis/pkg/coin"
 )
 
 // FileNameEVMBlock returns unified archive file name for block

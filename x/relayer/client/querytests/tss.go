@@ -7,8 +7,8 @@ import (
 	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
 	"google.golang.org/grpc/status"
 
-	"github.com/pell-chain/pellcore/x/relayer/client/cli"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/client/cli"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func (s *CliTestSuite) TestShowTSS() {

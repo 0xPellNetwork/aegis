@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 	"gitlab.com/thorchain/tss/go-tss/blame"
 
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func CmdAddBlameVote() *cobra.Command {

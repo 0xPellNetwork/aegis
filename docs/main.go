@@ -16,7 +16,7 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/pell-chain/pellcore/docs/openapi"
+	"github.com/0xPellNetwork/aegis/docs/openapi"
 )
 
 func main() {

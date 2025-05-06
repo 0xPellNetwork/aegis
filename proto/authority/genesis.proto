@@ -4,7 +4,7 @@ package authority;
 import "authority/policies.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/authority/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/authority/types";
 
 // GenesisState defines the authority module's genesis state.
 message GenesisState {

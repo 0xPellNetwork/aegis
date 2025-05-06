@@ -32,7 +32,7 @@ import (
 	ethermint "github.com/evmos/ethermint/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	relayerkeeper "github.com/pell-chain/pellcore/x/relayer/keeper"
+	relayerkeeper "github.com/0xPellNetwork/aegis/x/relayer/keeper"
 )
 
 type HandlerOptions struct {

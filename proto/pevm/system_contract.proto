@@ -1,7 +1,7 @@
 syntax = "proto3";
 package pevm;
 
-option go_package = "github.com/pell-chain/pellcore/x/pevm/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/pevm/types";
 
 // system contract infomation
 message SystemContract {

@@ -11,7 +11,7 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/pkg/errors"
 
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
 )
 
 // GetGenesisSupply returns the genesis supply.

@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/pell-chain/pellcore/pkg/proofs"
-	"github.com/pell-chain/pellcore/x/lightclient/types"
+	"github.com/0xPellNetwork/aegis/pkg/proofs"
+	"github.com/0xPellNetwork/aegis/x/lightclient/types"
 )
 
 // BlockHeaderAll queries all block headers

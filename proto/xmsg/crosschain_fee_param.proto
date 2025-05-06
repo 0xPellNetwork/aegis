@@ -3,7 +3,7 @@ package xmsg;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/xmsg/types";
 
 // Fee charged when constructing cross-chain xmsg from PEVM events
 message CrosschainFeeParam {

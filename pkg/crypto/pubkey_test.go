@@ -14,8 +14,8 @@ import (
 	"github.com/stretchr/testify/require"
 	. "gopkg.in/check.v1"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/cosmos"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
 )
 
 type KeyDataAddr struct {

@@ -6,7 +6,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/testdata"
+	"github.com/0xPellNetwork/aegis/pkg/testdata"
 )
 
 func TestProofGeneration(t *testing.T) {

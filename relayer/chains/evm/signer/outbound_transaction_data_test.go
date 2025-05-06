@@ -7,8 +7,8 @@ package signer
 // 	ethcommon "github.com/ethereum/go-ethereum/common"
 // 	"github.com/rs/zerolog"
 // 	"github.com/stretchr/testify/require"
-// 	"github.com/pell-chain/pellcore/pkg/chains"
-// 	"github.com/pell-chain/pellcore/x/xmsg/types"
+// 	"github.com/0xPellNetwork/aegis/pkg/chains"
+// 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 // )
 
 // func TestSigner_SetChainAndSender(t *testing.T) {

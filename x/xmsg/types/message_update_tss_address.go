@@ -5,7 +5,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/pell-chain/pellcore/pkg/cosmos"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
 )
 
 const TypeMsgUpdateTssAddress = "UpdateTssAddress"

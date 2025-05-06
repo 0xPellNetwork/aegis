@@ -19,17 +19,17 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	"github.com/pell-chain/pellcore/app"
-	"github.com/pell-chain/pellcore/pkg/authz"
-	"github.com/pell-chain/pellcore/pkg/chains"
-	pellcore_rpc "github.com/pell-chain/pellcore/pkg/rpc"
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	"github.com/pell-chain/pellcore/relayer/config"
-	pctx "github.com/pell-chain/pellcore/relayer/context"
-	keyinterfaces "github.com/pell-chain/pellcore/relayer/keys/interfaces"
-	lightclienttypes "github.com/pell-chain/pellcore/x/lightclient/types"
-	relayertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/app"
+	"github.com/0xPellNetwork/aegis/pkg/authz"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	pellcore_rpc "github.com/0xPellNetwork/aegis/pkg/rpc"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	pctx "github.com/0xPellNetwork/aegis/relayer/context"
+	keyinterfaces "github.com/0xPellNetwork/aegis/relayer/keys/interfaces"
+	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 var _ interfaces.PellCoreBridger = &PellCoreBridge{}

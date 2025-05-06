@@ -9,11 +9,11 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/app"
-	"github.com/pell-chain/pellcore/app/ante"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/app"
+	"github.com/0xPellNetwork/aegis/app/ante"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 var _ sdk.AnteHandler = (&MockAnteHandler{}).AnteHandle

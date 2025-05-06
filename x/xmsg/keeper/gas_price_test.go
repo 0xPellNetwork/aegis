@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
 )
 
 // Keeper Tests

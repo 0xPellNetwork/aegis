@@ -8,14 +8,14 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/proofs"
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	mocks "github.com/pell-chain/pellcore/testutil/keeper/mocks/relayer"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	lightclienttypes "github.com/pell-chain/pellcore/x/lightclient/types"
-	"github.com/pell-chain/pellcore/x/relayer/keeper"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/proofs"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	mocks "github.com/0xPellNetwork/aegis/testutil/keeper/mocks/relayer"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/keeper"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func mockCheckNewBlockHeader(m *mocks.RelayerLightclientKeeper, err error) {

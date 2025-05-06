@@ -3,9 +3,9 @@ package observer
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/x/relayer/keeper"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/x/relayer/keeper"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // InitGenesis initializes the observer module's state from a provided genesis

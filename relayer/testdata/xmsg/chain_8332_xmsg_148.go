@@ -3,7 +3,7 @@ package xmsg
 import (
 	sdkmath "cosmossdk.io/math"
 
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 var chain_8332_xmsg_148 = &xmsgtypes.Xmsg{

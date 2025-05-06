@@ -21,9 +21,9 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/app"
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
-	types2 "github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/app"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	types2 "github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 func Setup(isCheckTx bool) *app.PellApp {

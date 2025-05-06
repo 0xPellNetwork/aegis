@@ -9,8 +9,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/pkg/coin"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/coin"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func CmdAddToInTxTracker() *cobra.Command {

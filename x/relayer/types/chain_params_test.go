@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/suite"
 	. "gopkg.in/check.v1"
 
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func TestChainParamsList_Validate(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/btcsuite/btcutil"
 
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
 )
 
 // EvmClient interface

@@ -8,14 +8,14 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	"github.com/pell-chain/pellcore/relayer/config"
-	corecontext "github.com/pell-chain/pellcore/relayer/context"
-	"github.com/pell-chain/pellcore/relayer/testutils"
-	"github.com/pell-chain/pellcore/relayer/testutils/stub"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	corecontext "github.com/0xPellNetwork/aegis/relayer/context"
+	"github.com/0xPellNetwork/aegis/relayer/testutils"
+	"github.com/0xPellNetwork/aegis/relayer/testutils/stub"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func MockCoreObserver(

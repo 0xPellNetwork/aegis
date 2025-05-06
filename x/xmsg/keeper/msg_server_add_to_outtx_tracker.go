@@ -8,9 +8,9 @@ import (
 	cosmoserrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // MaxOutTxTrackerHashes is the maximum number of hashes that can be stored in the outbound transaction tracker

@@ -6,7 +6,7 @@ import "gogoproto/gogo.proto";
 import "xmsg/pell_event.proto";
 
 // TODO : fix the descriptor numbers for the fields
-option go_package = "github.com/pell-chain/pellcore/x/xmsg/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/xmsg/types";
 
 // XmsgStatus represent the status of a xmsg
 enum XmsgStatus {

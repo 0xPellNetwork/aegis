@@ -8,10 +8,10 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/rs/zerolog"
 
-	"github.com/pell-chain/pellcore/relayer/chains/evm"
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	"github.com/pell-chain/pellcore/relayer/logs"
-	xmsgkeeper "github.com/pell-chain/pellcore/x/xmsg/keeper"
+	"github.com/0xPellNetwork/aegis/relayer/chains/evm"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/logs"
+	xmsgkeeper "github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 )
 
 // reportToOutTxTracker reports outTxHash to tracker only when tx receipt is available

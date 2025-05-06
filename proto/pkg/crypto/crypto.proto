@@ -3,7 +3,7 @@ package pkg.crypto;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/pell-chain/pellcore/pkg/crypto";
+option go_package = "github.com/0xPellNetwork/aegis/pkg/crypto";
 
 // PubKeySet contains two pub keys , secp256k1 and ed25519
 message PubKeySet {

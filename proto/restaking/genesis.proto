@@ -5,7 +5,7 @@ import "gogoproto/gogo.proto";
 import "restaking/delegation.proto";
 import "restaking/group.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/restaking/types";
 
 // GenesisState defines the pevm module's genesis state.
 message GenesisState {

@@ -15,9 +15,9 @@ import (
 	"github.com/nanmu42/etherscan-api"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/cmd/pelltool/config"
-	"github.com/pell-chain/pellcore/pkg/constant"
-	"github.com/pell-chain/pellcore/relayer/chains/evm"
+	"github.com/0xPellNetwork/aegis/cmd/pelltool/config"
+	"github.com/0xPellNetwork/aegis/pkg/constant"
+	"github.com/0xPellNetwork/aegis/relayer/chains/evm"
 )
 
 const (

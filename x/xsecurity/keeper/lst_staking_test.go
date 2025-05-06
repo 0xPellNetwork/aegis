@@ -12,11 +12,11 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	mocks "github.com/pell-chain/pellcore/testutil/keeper/mocks/xsecurity"
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
-	"github.com/pell-chain/pellcore/x/xsecurity/keeper"
-	"github.com/pell-chain/pellcore/x/xsecurity/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	mocks "github.com/0xPellNetwork/aegis/testutil/keeper/mocks/xsecurity"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/keeper"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 const (

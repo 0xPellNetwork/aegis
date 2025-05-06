@@ -10,7 +10,7 @@ import "relayer/crosschain_flags.proto";
 import "relayer/params.proto";
 import "relayer/relayer.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/relayer/types";
 
 // Msg defines the Msg service.
 service Msg {

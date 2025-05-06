@@ -15,9 +15,9 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	"github.com/pkg/errors"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	pevmtypes "github.com/pell-chain/pellcore/x/pevm/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // HandleEVMEvents handles all events from an inbound tx

@@ -9,10 +9,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/testutil/testdata"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/cosmos"
-	pellcrypto "github.com/pell-chain/pellcore/pkg/crypto"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
+	pellcrypto "github.com/0xPellNetwork/aegis/pkg/crypto"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func Ballot_pell(t *testing.T, index string) *types.Ballot {

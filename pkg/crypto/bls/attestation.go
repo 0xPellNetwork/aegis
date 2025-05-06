@@ -13,7 +13,7 @@ import (
 	"github.com/consensys/gnark-crypto/ecc/bn254/fr"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 
-	bn254utils "github.com/pell-chain/pellcore/pkg/crypto/bn254"
+	bn254utils "github.com/0xPellNetwork/aegis/pkg/crypto/bn254"
 )
 
 // We are using similar structure for saving bls keys as ethereum keystore

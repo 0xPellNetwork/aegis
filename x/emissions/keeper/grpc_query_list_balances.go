@@ -6,7 +6,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/pell-chain/pellcore/x/emissions/types"
+	"github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 func (k Keeper) ListPoolAddresses(_ context.Context, req *types.QueryListPoolAddressesRequest) (*types.QueryListPoolAddressesResponse, error) {

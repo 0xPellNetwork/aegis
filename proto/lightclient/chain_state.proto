@@ -1,7 +1,7 @@
 syntax = "proto3";
 package lightclient;
 
-option go_package = "github.com/pell-chain/pellcore/x/lightclient/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/lightclient/types";
 
 // ChainState defines the overall state of the block headers for a given chain
 message ChainState {

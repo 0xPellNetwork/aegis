@@ -3,8 +3,8 @@ package pevm
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/pevm/keeper"
-	"github.com/pell-chain/pellcore/x/pevm/types"
+	"github.com/0xPellNetwork/aegis/x/pevm/keeper"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
 )
 
 // InitGenesis initializes the pevm module's state from a provided genesis

@@ -4,7 +4,7 @@ package pevm;
 import "gogoproto/gogo.proto";
 import "pevm/system_contract.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/pevm/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/pevm/types";
 
 // GenesisState defines the pevm module's genesis state.
 message GenesisState {

@@ -11,10 +11,10 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	"github.com/pell-chain/pellcore/x/xmsg/keeper"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func createNXmsgWithStatus(keeper *keeper.Keeper, ctx sdk.Context, n int, status types.XmsgStatus) []types.Xmsg {

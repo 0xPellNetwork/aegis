@@ -16,7 +16,7 @@ import "relayer/pending_nonces.proto";
 import "relayer/relayer.proto";
 import "relayer/tss.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/relayer/types";
 
 // Query defines the gRPC querier service.
 service Query {

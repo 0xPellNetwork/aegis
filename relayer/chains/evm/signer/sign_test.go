@@ -5,7 +5,7 @@ package signer
 // 	"github.com/rs/zerolog"
 // 	"github.com/stretchr/testify/assert"
 // 	"github.com/stretchr/testify/require"
-// 	"github.com/pell-chain/pellcore/relayer/testutils/mocks"
+// 	"github.com/0xPellNetwork/aegis/relayer/testutils/mocks"
 // 	"math/big"
 // 	"testing"
 // )

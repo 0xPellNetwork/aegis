@@ -21,9 +21,9 @@ import (
 	"github.com/rs/zerolog"
 	"gitlab.com/thorchain/tss/go-tss/p2p"
 
-	"github.com/pell-chain/pellcore/pkg/cosmos"
-	"github.com/pell-chain/pellcore/relayer/config"
-	"github.com/pell-chain/pellcore/relayer/metrics"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
 )
 
 func RunDiagnostics(startLogger zerolog.Logger, peers p2p.AddrList, bridgePk cryptotypes.PrivKey, cfg config.Config) error {

@@ -40,7 +40,7 @@ import (
 	ethermint "github.com/evmos/ethermint/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	rpctypes "github.com/pell-chain/pellcore/rpc/types"
+	rpctypes "github.com/0xPellNetwork/aegis/rpc/types"
 )
 
 // Accounts returns the list of accounts available to this node.

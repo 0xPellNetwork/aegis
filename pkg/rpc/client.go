@@ -13,12 +13,12 @@ import (
 	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
 	"google.golang.org/grpc"
 
-	etherminttypes "github.com/pell-chain/pellcore/rpc/types"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	lightclienttypes "github.com/pell-chain/pellcore/x/lightclient/types"
-	pevmtypes "github.com/pell-chain/pellcore/x/pevm/types"
-	relayertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	etherminttypes "github.com/0xPellNetwork/aegis/rpc/types"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
+	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // Clients contains RPC client interfaces to interact with PellCore
@@ -38,20 +38,20 @@ type Clients struct {
 
 	// PellCore specific clients
 
-	// Authority is a github.com/pell-chain/pellcore/x/authority/types QueryClient
+	// Authority is a github.com/0xPellNetwork/aegis/x/authority/types QueryClient
 	Authority authoritytypes.QueryClient
-	// Xmsg is a github.com/pell-chain/pellcore/x/xmsg/types QueryClient
+	// Xmsg is a github.com/0xPellNetwork/aegis/x/xmsg/types QueryClient
 	Xmsg xmsgtypes.QueryClient
-	// Pevm is a github.com/pell-chain/pellcore/x/pevm/types QueryClient
+	// Pevm is a github.com/0xPellNetwork/aegis/x/pevm/types QueryClient
 	Pevm pevmtypes.QueryClient
-	// Relayer is a github.com/pell-chain/pellcore/x/relayer/types QueryClient
+	// Relayer is a github.com/0xPellNetwork/aegis/x/relayer/types QueryClient
 	Relayer relayertypes.QueryClient
-	// Lightclient is a github.com/pell-chain/pellcore/x/lightclient/types QueryClient
+	// Lightclient is a github.com/0xPellNetwork/aegis/x/lightclient/types QueryClient
 	Lightclient lightclienttypes.QueryClient
 
 	// Ethermint specific clients
 
-	// Ethermint is a github.com/pell-chain/pellcore/rpc/types QueryClient
+	// Ethermint is a github.com/0xPellNetwork/aegis/rpc/types QueryClient
 	Ethermint *etherminttypes.QueryClient
 	// EthermintFeeMarket is a github.com/pell-chain/ethermint/x/feemarket/types QueryClient
 	EthermintFeeMarket feemarkettypes.QueryClient

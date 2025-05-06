@@ -3,7 +3,7 @@ package pkg.chains;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/pell-chain/pellcore/pkg/chains";
+option go_package = "github.com/0xPellNetwork/aegis/pkg/chains";
 
 // ReceiveStatus represent the status of a received transaction
 enum ReceiveStatus {

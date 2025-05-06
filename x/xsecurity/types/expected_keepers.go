@@ -12,9 +12,9 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/pell-chain/pellcore/pkg/proofs"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/pkg/proofs"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 type StakingKeeper interface {

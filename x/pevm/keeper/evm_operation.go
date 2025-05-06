@@ -23,12 +23,12 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/server/config"
-	"github.com/pell-chain/pellcore/x/pevm/types"
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
-	xmsgType "github.com/pell-chain/pellcore/x/xmsg/types"
-	xsecuritytypes "github.com/pell-chain/pellcore/x/xsecurity/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/server/config"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
+	xmsgType "github.com/0xPellNetwork/aegis/x/xmsg/types"
+	xsecuritytypes "github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 func (k Keeper) CallMethodOnSystemContract(ctx sdk.Context, systemContractAddr common.Address, method string, args ...interface{}) (*evmtypes.MsgEthereumTxResponse, error) {

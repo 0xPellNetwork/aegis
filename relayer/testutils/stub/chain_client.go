@@ -5,9 +5,9 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // ----------------------------------------------------------------------------

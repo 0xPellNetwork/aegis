@@ -4,7 +4,7 @@ import (
 	"github.com/cometbft/cometbft/abci/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/xsecurity/keeper"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/keeper"
 )
 
 func BeginBlocker(ctx sdk.Context, keeper keeper.Keeper) {

@@ -3,7 +3,7 @@ package relayer;
 
 import "cosmos/msg/v1/msg.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/relayer/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/relayer/types";
 
 // chain nonces
 message ChainNonces {

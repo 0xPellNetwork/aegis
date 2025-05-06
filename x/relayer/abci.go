@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/relayer/keeper"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/relayer/keeper"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func BeginBlocker(ctx sdk.Context, k keeper.Keeper) {

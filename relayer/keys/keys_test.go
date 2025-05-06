@@ -18,8 +18,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	. "gopkg.in/check.v1"
 
-	"github.com/pell-chain/pellcore/cmd"
-	"github.com/pell-chain/pellcore/relayer/config"
+	"github.com/0xPellNetwork/aegis/cmd"
+	"github.com/0xPellNetwork/aegis/relayer/config"
 )
 
 type KeysSuite struct{}

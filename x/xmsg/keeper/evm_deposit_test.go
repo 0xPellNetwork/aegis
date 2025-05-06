@@ -11,10 +11,10 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	pevmtypes "github.com/pell-chain/pellcore/x/pevm/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 func TestMsgServer_HandleEVMEvents(t *testing.T) {

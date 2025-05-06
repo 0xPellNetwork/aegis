@@ -12,10 +12,10 @@ import (
 	"github.com/onrik/ethrpc"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/coin"
-	"github.com/pell-chain/pellcore/relayer/config"
-	testxmsg "github.com/pell-chain/pellcore/relayer/testdata/xmsg"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/coin"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	testxmsg "github.com/0xPellNetwork/aegis/relayer/testdata/xmsg"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 const (

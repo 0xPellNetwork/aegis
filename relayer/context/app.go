@@ -6,10 +6,10 @@ import (
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/relayer/config"
-	lightclienttypes "github.com/pell-chain/pellcore/x/lightclient/types"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 type appContextKey struct{}

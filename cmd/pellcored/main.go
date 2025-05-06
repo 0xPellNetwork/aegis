@@ -7,8 +7,8 @@ import (
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"github.com/pell-chain/pellcore/app"
-	cmdcfg "github.com/pell-chain/pellcore/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/app"
+	cmdcfg "github.com/0xPellNetwork/aegis/cmd/pellcored/config"
 )
 
 func main() {

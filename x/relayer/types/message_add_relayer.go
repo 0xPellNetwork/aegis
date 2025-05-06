@@ -5,7 +5,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/pell-chain/pellcore/pkg/crypto"
+	"github.com/0xPellNetwork/aegis/pkg/crypto"
 )
 
 const TypeMsgAddObserver = "add_observer"

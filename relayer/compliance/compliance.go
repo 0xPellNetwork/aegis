@@ -3,8 +3,8 @@ package compliance
 import (
 	"github.com/rs/zerolog"
 
-	"github.com/pell-chain/pellcore/relayer/config"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // IsXmsgRestricted returns true if the xmsg involves restricted addresses

@@ -6,9 +6,9 @@ import (
 	sdkmath "cosmossdk.io/math"
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	emissionstypes "github.com/pell-chain/pellcore/x/emissions/types"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 func Test_WithdrawableEmissions(t *testing.T) {

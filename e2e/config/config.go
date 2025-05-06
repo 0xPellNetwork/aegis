@@ -7,7 +7,7 @@ import (
 
 	"gopkg.in/yaml.v2"
 
-	"github.com/pell-chain/pellcore/e2e/utils"
+	"github.com/0xPellNetwork/aegis/e2e/utils"
 )
 
 const (

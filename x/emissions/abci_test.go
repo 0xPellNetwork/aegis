@@ -9,13 +9,13 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
-	"github.com/pell-chain/pellcore/pkg/coin"
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	emissionsModule "github.com/pell-chain/pellcore/x/emissions"
-	emissionstypes "github.com/pell-chain/pellcore/x/emissions/types"
-	observerTypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/pkg/coin"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	emissionsModule "github.com/0xPellNetwork/aegis/x/emissions"
+	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
+	observerTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func TestBeginBlocker(t *testing.T) {

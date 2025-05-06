@@ -16,10 +16,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/rs/zerolog/log"
 
-	"github.com/pell-chain/pellcore/cmd"
-	"github.com/pell-chain/pellcore/pkg/cosmos"
-	pellcrypto "github.com/pell-chain/pellcore/pkg/crypto"
-	"github.com/pell-chain/pellcore/relayer/config"
+	"github.com/0xPellNetwork/aegis/cmd"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
+	pellcrypto "github.com/0xPellNetwork/aegis/pkg/crypto"
+	"github.com/0xPellNetwork/aegis/relayer/config"
 )
 
 var (

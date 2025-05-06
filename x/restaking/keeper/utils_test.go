@@ -12,12 +12,12 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	keepertest "github.com/pell-chain/pellcore/testutil/keeper"
-	testkeeper "github.com/pell-chain/pellcore/testutil/keeper"
-	"github.com/pell-chain/pellcore/x/pevm/keeper"
-	pevmkeeper "github.com/pell-chain/pellcore/x/pevm/keeper"
-	"github.com/pell-chain/pellcore/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
+	testkeeper "github.com/0xPellNetwork/aegis/testutil/keeper"
+	"github.com/0xPellNetwork/aegis/x/pevm/keeper"
+	pevmkeeper "github.com/0xPellNetwork/aegis/x/pevm/keeper"
+	"github.com/0xPellNetwork/aegis/x/restaking/types"
 )
 
 // get a valid chain id independently of the build flag

@@ -6,7 +6,7 @@ import (
 
 	"github.com/rs/zerolog"
 
-	pctx "github.com/pell-chain/pellcore/relayer/context"
+	pctx "github.com/0xPellNetwork/aegis/relayer/context"
 )
 
 var logSampler = &zerolog.BasicSampler{N: 10}

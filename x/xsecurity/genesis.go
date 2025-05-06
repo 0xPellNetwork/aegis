@@ -3,8 +3,8 @@ package observer
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/pell-chain/pellcore/x/xsecurity/keeper"
-	"github.com/pell-chain/pellcore/x/xsecurity/types"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/keeper"
+	"github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 // InitGenesis initializes the xsecurity module's state from a provided genesis

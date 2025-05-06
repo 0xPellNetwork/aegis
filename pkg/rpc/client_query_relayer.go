@@ -6,9 +6,9 @@ import (
 
 	"cosmossdk.io/errors"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/retry"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/retry"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // GetCrosschainFlags returns the crosschain flags

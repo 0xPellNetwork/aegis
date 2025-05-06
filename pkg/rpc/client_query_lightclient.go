@@ -5,8 +5,8 @@ import (
 
 	"cosmossdk.io/errors"
 
-	"github.com/pell-chain/pellcore/pkg/proofs"
-	"github.com/pell-chain/pellcore/x/lightclient/types"
+	"github.com/0xPellNetwork/aegis/pkg/proofs"
+	"github.com/0xPellNetwork/aegis/x/lightclient/types"
 )
 
 // GetVerificationFlags returns the enabled chains for block headers

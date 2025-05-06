@@ -15,13 +15,13 @@ import (
 	"github.com/rs/zerolog/log"
 	"golang.org/x/net/context"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
-	pctx "github.com/pell-chain/pellcore/relayer/context"
-	"github.com/pell-chain/pellcore/relayer/logs"
-	clienttypes "github.com/pell-chain/pellcore/relayer/types"
-	xmsgkeeper "github.com/pell-chain/pellcore/x/xmsg/keeper"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
+	pctx "github.com/0xPellNetwork/aegis/relayer/context"
+	"github.com/0xPellNetwork/aegis/relayer/logs"
+	clienttypes "github.com/0xPellNetwork/aegis/relayer/types"
+	xmsgkeeper "github.com/0xPellNetwork/aegis/x/xmsg/keeper"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // WatchOutbound watches evm chain for outgoing txs status

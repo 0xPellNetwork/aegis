@@ -6,7 +6,7 @@ import (
 
 	"github.com/onrik/ethrpc"
 
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
 )
 
 // EvmClient interface

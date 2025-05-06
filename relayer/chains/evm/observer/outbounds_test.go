@@ -9,13 +9,13 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/net/context"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/coin"
-	"github.com/pell-chain/pellcore/relayer/config"
-	"github.com/pell-chain/pellcore/relayer/testutils"
-	"github.com/pell-chain/pellcore/relayer/testutils/stub"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/coin"
+	"github.com/0xPellNetwork/aegis/relayer/config"
+	"github.com/0xPellNetwork/aegis/relayer/testutils"
+	"github.com/0xPellNetwork/aegis/relayer/testutils/stub"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // getContractsByChainID is a helper func to get contracts and addresses by chainID

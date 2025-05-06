@@ -5,7 +5,7 @@ import "cosmos/msg/v1/msg.proto";
 import "gogoproto/gogo.proto";
 import "lightclient/verification_flags.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/lightclient/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/lightclient/types";
 
 // Msg defines the Msg service.
 service Msg {

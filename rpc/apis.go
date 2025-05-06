@@ -24,15 +24,15 @@ import (
 	"github.com/ethereum/go-ethereum/rpc"
 	ethermint "github.com/evmos/ethermint/types"
 
-	"github.com/pell-chain/pellcore/rpc/backend"
-	"github.com/pell-chain/pellcore/rpc/namespaces/ethereum/debug"
-	"github.com/pell-chain/pellcore/rpc/namespaces/ethereum/eth"
-	"github.com/pell-chain/pellcore/rpc/namespaces/ethereum/eth/filters"
-	"github.com/pell-chain/pellcore/rpc/namespaces/ethereum/miner"
-	"github.com/pell-chain/pellcore/rpc/namespaces/ethereum/net"
-	"github.com/pell-chain/pellcore/rpc/namespaces/ethereum/personal"
-	"github.com/pell-chain/pellcore/rpc/namespaces/ethereum/txpool"
-	"github.com/pell-chain/pellcore/rpc/namespaces/ethereum/web3"
+	"github.com/0xPellNetwork/aegis/rpc/backend"
+	"github.com/0xPellNetwork/aegis/rpc/namespaces/ethereum/debug"
+	"github.com/0xPellNetwork/aegis/rpc/namespaces/ethereum/eth"
+	"github.com/0xPellNetwork/aegis/rpc/namespaces/ethereum/eth/filters"
+	"github.com/0xPellNetwork/aegis/rpc/namespaces/ethereum/miner"
+	"github.com/0xPellNetwork/aegis/rpc/namespaces/ethereum/net"
+	"github.com/0xPellNetwork/aegis/rpc/namespaces/ethereum/personal"
+	"github.com/0xPellNetwork/aegis/rpc/namespaces/ethereum/txpool"
+	"github.com/0xPellNetwork/aegis/rpc/namespaces/ethereum/web3"
 )
 
 // RPC namespaces and API version

@@ -8,9 +8,9 @@ import (
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/e2e/config"
-	"github.com/pell-chain/pellcore/e2e/runner"
-	"github.com/pell-chain/pellcore/e2e/utils"
+	"github.com/0xPellNetwork/aegis/e2e/config"
+	"github.com/0xPellNetwork/aegis/e2e/runner"
+	"github.com/0xPellNetwork/aegis/e2e/utils"
 )
 
 const (

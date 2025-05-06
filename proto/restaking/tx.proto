@@ -4,7 +4,7 @@ package restaking;
 import "cosmos/msg/v1/msg.proto";
 import "restaking/epoch_outbound_state.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/restaking/types";
 
 // Msg defines the Msg service.
 service Msg {

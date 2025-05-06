@@ -7,7 +7,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/pell-chain/pellcore/app"
+	"github.com/0xPellNetwork/aegis/app"
 )
 
 func CollectObserverInfoCmd() *cobra.Command {

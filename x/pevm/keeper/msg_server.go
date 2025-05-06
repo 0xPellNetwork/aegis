@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/pell-chain/pellcore/x/pevm/types"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
 )
 
 type msgServer struct {

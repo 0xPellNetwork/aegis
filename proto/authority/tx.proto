@@ -5,7 +5,7 @@ import "authority/policies.proto";
 import "cosmos/msg/v1/msg.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/authority/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/authority/types";
 
 // Msg defines the Msg service.
 service Msg {

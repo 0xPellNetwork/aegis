@@ -13,9 +13,9 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/stretchr/testify/require"
 
-	emissionsmocks "github.com/pell-chain/pellcore/testutil/keeper/mocks/emissions"
-	"github.com/pell-chain/pellcore/x/emissions/keeper"
-	"github.com/pell-chain/pellcore/x/emissions/types"
+	emissionsmocks "github.com/0xPellNetwork/aegis/testutil/keeper/mocks/emissions"
+	"github.com/0xPellNetwork/aegis/x/emissions/keeper"
+	"github.com/0xPellNetwork/aegis/x/emissions/types"
 )
 
 type EmissionMockOptions struct {

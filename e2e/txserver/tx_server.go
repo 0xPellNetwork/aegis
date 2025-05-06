@@ -38,16 +38,16 @@ import (
 	etherminttypes "github.com/evmos/ethermint/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/pell-chain/pellcore/cmd/pellcored/config"
-	"github.com/pell-chain/pellcore/e2e/utils"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	emissionstypes "github.com/pell-chain/pellcore/x/emissions/types"
-	lightclienttypes "github.com/pell-chain/pellcore/x/lightclient/types"
-	pevmtypes "github.com/pell-chain/pellcore/x/pevm/types"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
-	xmsgtypes "github.com/pell-chain/pellcore/x/xmsg/types"
-	xsecuritytypes "github.com/pell-chain/pellcore/x/xsecurity/types"
+	"github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/e2e/utils"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
+	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
+	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
+	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
+	xsecuritytypes "github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 // EmissionsPoolAddress is the address of the emissions pool

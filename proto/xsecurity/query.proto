@@ -5,7 +5,7 @@ import "google/api/annotations.proto";
 import "restaking/group.proto";
 import "xsecurity/store.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/xsecurity/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/xsecurity/types";
 
 // Query defines the gRPC querier service.
 service Query {

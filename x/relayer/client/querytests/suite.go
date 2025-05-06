@@ -6,11 +6,11 @@ import (
 	ethcfg "github.com/evmos/ethermint/cmd/config"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/pell-chain/pellcore/app"
-	cmdcfg "github.com/pell-chain/pellcore/cmd/pellcored/config"
-	"github.com/pell-chain/pellcore/testutil/network"
-	observerTypes "github.com/pell-chain/pellcore/x/relayer/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/app"
+	cmdcfg "github.com/0xPellNetwork/aegis/cmd/pellcored/config"
+	"github.com/0xPellNetwork/aegis/testutil/network"
+	observerTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 type CliTestSuite struct {

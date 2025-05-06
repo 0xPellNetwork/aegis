@@ -9,9 +9,9 @@ import (
 	eth "github.com/ethereum/go-ethereum/common"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	restakingtypes "github.com/pell-chain/pellcore/x/restaking/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
-	xsecuritytypes "github.com/pell-chain/pellcore/x/xsecurity/types"
+	restakingtypes "github.com/0xPellNetwork/aegis/x/restaking/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
+	xsecuritytypes "github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
 
 // CallSyncDepositStateOnPellStrategyManager calls the contract

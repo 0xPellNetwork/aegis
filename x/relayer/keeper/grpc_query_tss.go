@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/pell-chain/pellcore/pkg/crypto"
-	"github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/pkg/crypto"
+	"github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // TSS returns the tss address for the current tss only

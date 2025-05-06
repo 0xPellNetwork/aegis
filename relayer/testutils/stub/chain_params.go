@@ -6,8 +6,8 @@ import (
 	"github.com/0xPellNetwork/contracts/pkg/contracts/staking_evm/core/v3/delegationmanager.sol"
 	"github.com/ethereum/go-ethereum/ethclient"
 
-	"github.com/pell-chain/pellcore/relayer/testutils"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/relayer/testutils"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func MockChainParams(chainID int64, confirmation uint64) observertypes.ChainParams {

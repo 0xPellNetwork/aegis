@@ -16,11 +16,11 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	pevmmocks "github.com/pell-chain/pellcore/testutil/keeper/mocks/pevm"
-	"github.com/pell-chain/pellcore/testutil/sample"
-	pevmmodule "github.com/pell-chain/pellcore/x/pevm"
-	"github.com/pell-chain/pellcore/x/pevm/keeper"
-	"github.com/pell-chain/pellcore/x/pevm/types"
+	pevmmocks "github.com/0xPellNetwork/aegis/testutil/keeper/mocks/pevm"
+	"github.com/0xPellNetwork/aegis/testutil/sample"
+	pevmmodule "github.com/0xPellNetwork/aegis/x/pevm"
+	"github.com/0xPellNetwork/aegis/x/pevm/keeper"
+	"github.com/0xPellNetwork/aegis/x/pevm/types"
 )
 
 type PevmMockOptions struct {

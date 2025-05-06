@@ -8,7 +8,7 @@ import (
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 
-	"github.com/pell-chain/pellcore/relayer/chains/interfaces"
+	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
 )
 
 const (

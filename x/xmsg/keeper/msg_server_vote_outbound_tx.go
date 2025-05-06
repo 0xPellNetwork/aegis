@@ -8,8 +8,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	relayerkeeper "github.com/pell-chain/pellcore/x/relayer/keeper"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	relayerkeeper "github.com/0xPellNetwork/aegis/x/relayer/keeper"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // VoteOnObservedOutboundTx casts a vote on an outbound transaction observed on a connected chain (after

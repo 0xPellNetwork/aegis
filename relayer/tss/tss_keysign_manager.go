@@ -5,7 +5,7 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"github.com/pell-chain/pellcore/relayer/metrics"
+	"github.com/0xPellNetwork/aegis/relayer/metrics"
 )
 
 // ConcurrentKeysignsTracker keeps track of concurrent keysigns performed by go-tss

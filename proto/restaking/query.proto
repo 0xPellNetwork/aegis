@@ -8,7 +8,7 @@ import "restaking/epoch_outbound_state.proto";
 import "restaking/group.proto";
 import "xmsg/xmsg.proto";
 
-option go_package = "github.com/pell-chain/pellcore/x/restaking/types";
+option go_package = "github.com/0xPellNetwork/aegis/x/restaking/types";
 
 // Query defines the gRPC querier service.
 service Query {

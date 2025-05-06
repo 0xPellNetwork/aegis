@@ -11,15 +11,15 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/pell-chain/pellcore/pkg/chains"
-	"github.com/pell-chain/pellcore/pkg/cosmos"
-	pellcrypto "github.com/pell-chain/pellcore/pkg/crypto"
-	"github.com/pell-chain/pellcore/pkg/gas"
-	"github.com/pell-chain/pellcore/relayer/tss"
-	authoritytypes "github.com/pell-chain/pellcore/x/authority/types"
-	pevmtypes "github.com/pell-chain/pellcore/x/pevm/types"
-	observertypes "github.com/pell-chain/pellcore/x/relayer/types"
-	"github.com/pell-chain/pellcore/x/xmsg/types"
+	"github.com/0xPellNetwork/aegis/pkg/chains"
+	"github.com/0xPellNetwork/aegis/pkg/cosmos"
+	pellcrypto "github.com/0xPellNetwork/aegis/pkg/crypto"
+	"github.com/0xPellNetwork/aegis/pkg/gas"
+	"github.com/0xPellNetwork/aegis/relayer/tss"
+	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
+	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
+	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 // MigrateTssFunds migrates the funds from the current TSS to the new TSS
