@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"cosmossdk.io/core/appmodule"
+	cosmoserrors "cosmossdk.io/errors"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
@@ -15,7 +16,6 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
 
-	cosmoserrors "cosmossdk.io/errors"
 	"github.com/0xPellNetwork/aegis/x/pevm/client/cli"
 	"github.com/0xPellNetwork/aegis/x/pevm/keeper"
 	"github.com/0xPellNetwork/aegis/x/pevm/types"

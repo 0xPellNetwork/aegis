@@ -395,5 +395,5 @@ filter-missed-eth: install-pelltool
 
 lint-imports:
 	@find . -name "*.go" -not -path "./vendor/*" -not -path "./.git/*" | while read -r file; do \
-		goimports-reviser -company-prefixes github.com/pell-chain -rm-unused -format "$$file"; \
+		goimports-reviser -company-prefixes github.com/0xPellNetwork/aegis -rm-unused -format "$$file"; \
 	done
