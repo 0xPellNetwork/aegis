@@ -7,7 +7,7 @@ on:
 jobs:
   deploy_browser:
     name: Build On X64
-    runs-on: [ "self-hosted", "Linux", "X64", "browser" ]
+    runs-on: [ "Linux", "X64", "browser" ]
     permissions:
       # Need this to be allowed to publish image to registry
       # see https://docs.github.com/en/actions/publishing-packages/publishing-docker-images

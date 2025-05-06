@@ -9,7 +9,7 @@ on:
 jobs:
   build_docker_images:
     name: Build On X64
-    runs-on: [ "self-hosted", "Linux", "X64", "node2" ]
+    runs-on: [ "Linux", "X64", "node2" ]
     permissions:
       # Need this to be allowed to publish image to registry
       # see https://docs.github.com/en/actions/publishing-packages/publishing-docker-images
@@ -37,7 +37,7 @@ jobs:
 
   deploy_docker_images:
     name: Deploy On X64
-    runs-on: [ "self-hosted", "Linux", "X64", "node2" ]
+    runs-on: [ "Linux", "X64", "node2" ]
     env:
       TAG: ${{ github.event.pull_request.head.sha || github.workflow_sha }}
       BSC_EXTERNAL_RPC_URL: ${{ secrets.BSC_EXTERNAL_RPC_URL }}
