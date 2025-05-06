@@ -12,7 +12,7 @@ import (
 	clientlogs "github.com/0xPellNetwork/aegis/relayer/logs"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func assertPanic(t *testing.T, f func(), errorLog string) {
@@ -27,8 +27,8 @@ func assertPanic(t *testing.T, f func(), errorLog string) {
 
 func getTestCoreContext(
 	evmChain chains.Chain,
-	evmChainParams *observertypes.ChainParams,
-	ccFlags observertypes.CrosschainFlags,
+	evmChainParams *relayertypes.ChainParams,
+	ccFlags relayertypes.CrosschainFlags,
 	verificationFlags lightclienttypes.VerificationFlags,
 ) *corecontext.PellCoreContext {
 	// create config
@@ -38,12 +38,12 @@ func getTestCoreContext(
 	}
 	// create core context
 	coreContext := corecontext.NewPellCoreContext(cfg)
-	evmChainParamsMap := make(map[int64]*observertypes.ChainParams)
+	evmChainParamsMap := make(map[int64]*relayertypes.ChainParams)
 	evmChainParamsMap[evmChain.Id] = evmChainParams
 
 	// feed chain params
 	coreContext.Update(
-		observertypes.Keygen{},
+		relayertypes.Keygen{},
 		[]chains.Chain{evmChain},
 		evmChainParamsMap,
 		"",
@@ -64,7 +64,7 @@ func TestNewPellCoreContext(t *testing.T) {
 
 		// assert keygen
 		keyGen := pellContext.GetKeygen()
-		require.Equal(t, observertypes.Keygen{}, keyGen)
+		require.Equal(t, relayertypes.Keygen{}, keyGen)
 
 		// assert enabled chains
 		require.Empty(t, len(pellContext.GetEnabledChains()))
@@ -97,16 +97,16 @@ func TestNewPellCoreContext(t *testing.T) {
 		// assert evm chain params
 		allEVMChainParams := pellContext.GetAllEVMChainParams()
 		require.Equal(t, 2, len(allEVMChainParams))
-		require.Equal(t, &observertypes.ChainParams{}, allEVMChainParams[1])
-		require.Equal(t, &observertypes.ChainParams{}, allEVMChainParams[2])
+		require.Equal(t, &relayertypes.ChainParams{}, allEVMChainParams[1])
+		require.Equal(t, &relayertypes.ChainParams{}, allEVMChainParams[2])
 
 		evmChainParams1, found := pellContext.GetEVMChainParams(1)
 		require.True(t, found)
-		require.Equal(t, &observertypes.ChainParams{}, evmChainParams1)
+		require.Equal(t, &relayertypes.ChainParams{}, evmChainParams1)
 
 		evmChainParams2, found := pellContext.GetEVMChainParams(2)
 		require.True(t, found)
-		require.Equal(t, &observertypes.ChainParams{}, evmChainParams2)
+		require.Equal(t, &relayertypes.ChainParams{}, evmChainParams2)
 	})
 
 }
@@ -118,8 +118,8 @@ func TestUpdatePellCoreContext(t *testing.T) {
 		pellContext := corecontext.NewPellCoreContext(testCfg)
 		require.NotNil(t, pellContext)
 
-		keyGenToUpdate := observertypes.Keygen{
-			Status:         observertypes.KeygenStatus_SUCCESS,
+		keyGenToUpdate := relayertypes.Keygen{
+			Status:         relayertypes.KeygenStatus_SUCCESS,
 			GranteePubkeys: []string{"testpubkey1"},
 		}
 		enabledChainsToUpdate := []chains.Chain{
@@ -130,7 +130,7 @@ func TestUpdatePellCoreContext(t *testing.T) {
 				Id: 2,
 			},
 		}
-		evmChainParamsToUpdate := map[int64]*observertypes.ChainParams{
+		evmChainParamsToUpdate := map[int64]*relayertypes.ChainParams{
 			1: {
 				ChainId: 1,
 			},
@@ -201,8 +201,8 @@ func TestUpdatePellCoreContext(t *testing.T) {
 		pellContext := corecontext.NewPellCoreContext(testCfg)
 		require.NotNil(t, pellContext)
 
-		keyGenToUpdate := observertypes.Keygen{
-			Status:         observertypes.KeygenStatus_SUCCESS,
+		keyGenToUpdate := relayertypes.Keygen{
+			Status:         relayertypes.KeygenStatus_SUCCESS,
 			GranteePubkeys: []string{"testpubkey1"},
 		}
 		enabledChainsToUpdate := []chains.Chain{
@@ -213,7 +213,7 @@ func TestUpdatePellCoreContext(t *testing.T) {
 				Id: 2,
 			},
 		}
-		evmChainParamsToUpdate := map[int64]*observertypes.ChainParams{
+		evmChainParamsToUpdate := map[int64]*relayertypes.ChainParams{
 			1: {
 				ChainId: 1,
 			},
@@ -273,7 +273,7 @@ func TestIsOutboundObservationEnabled(t *testing.T) {
 	evmChain := chains.EthChain()
 	ccFlags := *sample.CrosschainFlags_pell()
 	verificationFlags := sample.VerificationFlags()
-	chainParams := &observertypes.ChainParams{
+	chainParams := &relayertypes.ChainParams{
 		ChainId:     evmChain.Id,
 		IsSupported: true,
 	}
@@ -283,7 +283,7 @@ func TestIsOutboundObservationEnabled(t *testing.T) {
 		require.True(t, coreCTX.IsOutboundObservationEnabled(*chainParams))
 	})
 	t.Run("should return false if chain is not supported yet", func(t *testing.T) {
-		paramsUnsupported := &observertypes.ChainParams{
+		paramsUnsupported := &relayertypes.ChainParams{
 			ChainId:     evmChain.Id,
 			IsSupported: false,
 		}
@@ -303,7 +303,7 @@ func TestIsInboundObservationEnabled(t *testing.T) {
 	evmChain := chains.EthChain()
 	ccFlags := *sample.CrosschainFlags_pell()
 	verificationFlags := sample.VerificationFlags()
-	chainParams := &observertypes.ChainParams{
+	chainParams := &relayertypes.ChainParams{
 		ChainId:     evmChain.Id,
 		IsSupported: true,
 	}
@@ -313,7 +313,7 @@ func TestIsInboundObservationEnabled(t *testing.T) {
 		require.True(t, coreCTX.IsInboundObservationEnabled(*chainParams))
 	})
 	t.Run("should return false if chain is not supported yet", func(t *testing.T) {
-		paramsUnsupported := &observertypes.ChainParams{
+		paramsUnsupported := &relayertypes.ChainParams{
 			ChainId:     evmChain.Id,
 			IsSupported: false,
 		}

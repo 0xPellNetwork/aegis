@@ -15,13 +15,13 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	"github.com/0xPellNetwork/aegis/relayer/chains/base"
 	"github.com/0xPellNetwork/aegis/relayer/chains/interfaces"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
 type EVMEventReactor struct {
 	eventRegistry []interfaces.ChainEventHandler
-	chainParams   observertypes.ChainParams
+	chainParams   relayertypes.ChainParams
 	evmClient     interfaces.EVMRPCClient
 	logger        *base.ObserverLogger
 }
@@ -105,7 +105,7 @@ func (r *EVMEventReactor) getConnectorContract() (common.Address, *pellconnector
 }
 
 func NewEVMEventReactor(
-	evmClient interfaces.EVMRPCClient, jsonRPC interfaces.EVMJSONRPCClient, chainParams observertypes.ChainParams,
+	evmClient interfaces.EVMRPCClient, jsonRPC interfaces.EVMJSONRPCClient, chainParams relayertypes.ChainParams,
 	chain chains.Chain, coreClient interfaces.PellCoreBridger, logger *base.ObserverLogger) interfaces.IEVMEventReactor {
 
 	reactor := &EVMEventReactor{}

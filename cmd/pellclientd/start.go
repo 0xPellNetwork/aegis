@@ -30,7 +30,7 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/metrics"
 	orchestrator "github.com/0xPellNetwork/aegis/relayer/orchestrator"
 	"github.com/0xPellNetwork/aegis/relayer/pellcore"
-	observerTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 type Multiaddr = core.Multiaddr
@@ -234,7 +234,7 @@ func start(_ *cobra.Command, _ []string) error {
 	ticker := time.NewTicker(time.Second * 1)
 	for range ticker.C {
 		keyGen := appContext.GetKeygen()
-		if keyGen.Status != observerTypes.KeygenStatus_SUCCESS {
+		if keyGen.Status != relayertypes.KeygenStatus_SUCCESS {
 			startLogger.Info().Msgf("Waiting for TSS Keygen to be a success, current status %s", keyGen.Status)
 			continue
 		}

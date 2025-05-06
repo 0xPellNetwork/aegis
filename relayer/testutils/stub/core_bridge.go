@@ -17,7 +17,7 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/testutils"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
-	observerTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -192,11 +192,11 @@ func (z *MockPellCoreBridge) ListPendingXmsgWithinRatelimit(ctx context.Context)
 	return &xmsgtypes.QueryListPendingXmsgWithinRateLimitResponse{}, nil
 }
 
-func (z *MockPellCoreBridge) GetPendingNoncesByChain(ctx context.Context, _ int64) (observerTypes.PendingNonces, error) {
+func (z *MockPellCoreBridge) GetPendingNoncesByChain(ctx context.Context, _ int64) (relayertypes.PendingNonces, error) {
 	if z.paused {
-		return observerTypes.PendingNonces{}, errors.New(ErrMsgPaused)
+		return relayertypes.PendingNonces{}, errors.New(ErrMsgPaused)
 	}
-	return observerTypes.PendingNonces{}, nil
+	return relayertypes.PendingNonces{}, nil
 }
 
 func (z *MockPellCoreBridge) GetXmsgByNonce(ctx context.Context, _ int64, _ uint64) (*xmsgtypes.Xmsg, error) {
@@ -220,11 +220,11 @@ func (z *MockPellCoreBridge) GetAllOutTxTrackerByChain(ctx context.Context, _ in
 	return []xmsgtypes.OutTxTracker{}, nil
 }
 
-func (z *MockPellCoreBridge) GetCrosschainFlags(ctx context.Context) (observerTypes.CrosschainFlags, error) {
+func (z *MockPellCoreBridge) GetCrosschainFlags(ctx context.Context) (relayertypes.CrosschainFlags, error) {
 	if z.paused {
-		return observerTypes.CrosschainFlags{}, errors.New(ErrMsgPaused)
+		return relayertypes.CrosschainFlags{}, errors.New(ErrMsgPaused)
 	}
-	return observerTypes.CrosschainFlags{}, nil
+	return relayertypes.CrosschainFlags{}, nil
 }
 
 func (z *MockPellCoreBridge) GetObserverList(ctx context.Context) ([]string, error) {
@@ -234,11 +234,11 @@ func (z *MockPellCoreBridge) GetObserverList(ctx context.Context) ([]string, err
 	return []string{}, nil
 }
 
-func (z *MockPellCoreBridge) GetKeyGen(ctx context.Context) (observerTypes.Keygen, error) {
+func (z *MockPellCoreBridge) GetKeyGen(ctx context.Context) (relayertypes.Keygen, error) {
 	if z.paused {
-		return observerTypes.Keygen{}, errors.New(ErrMsgPaused)
+		return relayertypes.Keygen{}, errors.New(ErrMsgPaused)
 	}
-	return observerTypes.Keygen{}, nil
+	return relayertypes.Keygen{}, nil
 }
 
 func (z *MockPellCoreBridge) GetBTCTSSAddress(ctx context.Context, _ int64) (string, error) {

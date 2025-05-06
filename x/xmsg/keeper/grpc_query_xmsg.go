@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -97,7 +97,7 @@ func (k Keeper) ListPendingXmsg(c context.Context, req *types.QueryListPendingXm
 	// query the nonces that are pending
 	tss, found := k.relayerKeeper.GetTSS(ctx)
 	if !found {
-		return nil, observertypes.ErrTssNotFound
+		return nil, relayertypes.ErrTssNotFound
 	}
 	pendingNonces, found := k.GetRelayerKeeper().GetPendingNonces(ctx, tss.TssPubkey, req.ChainId)
 	if !found {

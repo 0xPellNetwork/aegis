@@ -6,10 +6,12 @@ import (
 
 const (
 	// LastBlockNumID is the identifier to access the last block number in the database
-	LastBlockNumID = 0xBEEF
+	// Using a specific hex value as a unique identifier
+	LastBlockNumID uint = 0xBEEF
 
 	// LastTxHashID is the identifier to access the last transaction hash in the database
-	LastTxHashID = 0xBEF0
+	// Using a specific hex value as a unique identifier
+	LastTxHashID uint = 0xBEF0
 )
 
 // LastBlockSQLType is a model for storing the last block number

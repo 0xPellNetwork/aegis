@@ -12,7 +12,7 @@ import (
 	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -199,7 +199,7 @@ func TestMsgServer_AddToOutTxTracker(t *testing.T) {
 			TxIndex:   0,
 			Nonce:     0,
 		})
-		require.ErrorIs(t, err, observertypes.ErrSupportedChains)
+		require.ErrorIs(t, err, relayertypes.ErrSupportedChains)
 	})
 
 	t.Run("should error if no XmsgByNonce", func(t *testing.T) {
@@ -342,7 +342,7 @@ func TestMsgServer_AddToOutTxTracker(t *testing.T) {
 		observerMock.On("GetSupportedChainFromChainID", mock.Anything, mock.Anything).Return(&chains.Chain{})
 		observerMock.On("IsNonTombstonedObserver", mock.Anything, mock.Anything).Return(false)
 		keepertest.MockXmsgByNonce_pell(t, ctx, *k, observerMock, types.XmsgStatus_PENDING_OUTBOUND, false)
-		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&observertypes.QueryGetTssAddressResponse{
+		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&relayertypes.QueryGetTssAddressResponse{
 			Eth: tssAddress.Hex(),
 		}, nil)
 		lightclientMock.On("VerifyProof", mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(ethTxBytes, nil)
@@ -384,7 +384,7 @@ func TestMsgServer_AddToOutTxTracker(t *testing.T) {
 		observerMock.On("GetSupportedChainFromChainID", mock.Anything, mock.Anything).Return(&chains.Chain{})
 		observerMock.On("IsNonTombstonedObserver", mock.Anything, mock.Anything).Return(false)
 		keepertest.MockXmsgByNonce_pell(t, ctx, *k, observerMock, types.XmsgStatus_PENDING_OUTBOUND, false)
-		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&observertypes.QueryGetTssAddressResponse{
+		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&relayertypes.QueryGetTssAddressResponse{
 			Eth: tssAddress.Hex(),
 		}, nil)
 		lightclientMock.On("VerifyProof", mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(ethTxBytes, nil)
@@ -478,7 +478,7 @@ func TestMsgServer_AddToOutTxTracker(t *testing.T) {
 		observerMock.On("IsNonTombstonedObserver", mock.Anything, mock.Anything).Return(false)
 		keepertest.MockXmsgByNonce_pell(t, ctx, *k, observerMock, types.XmsgStatus_PENDING_OUTBOUND, false)
 		lightclientMock.On("VerifyProof", mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(ethTxBytes, nil)
-		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&observertypes.QueryGetTssAddressResponse{
+		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&relayertypes.QueryGetTssAddressResponse{
 			Eth: tssAddress.Hex(),
 		}, errors.New("error"))
 
@@ -491,7 +491,7 @@ func TestMsgServer_AddToOutTxTracker(t *testing.T) {
 			TxIndex:   0,
 			Nonce:     42,
 		})
-		require.ErrorIs(t, err, observertypes.ErrTssNotFound)
+		require.ErrorIs(t, err, relayertypes.ErrTssNotFound)
 	})
 
 	t.Run("should fail if body verification fail with proof", func(t *testing.T) {
@@ -515,7 +515,7 @@ func TestMsgServer_AddToOutTxTracker(t *testing.T) {
 		observerMock.On("GetSupportedChainFromChainID", mock.Anything, mock.Anything).Return(&chains.Chain{})
 		observerMock.On("IsNonTombstonedObserver", mock.Anything, mock.Anything).Return(false)
 		keepertest.MockXmsgByNonce_pell(t, ctx, *k, observerMock, types.XmsgStatus_PENDING_OUTBOUND, false)
-		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&observertypes.QueryGetTssAddressResponse{
+		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&relayertypes.QueryGetTssAddressResponse{
 			Eth: tssAddress.Hex(),
 		}, nil)
 

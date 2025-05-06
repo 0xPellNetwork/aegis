@@ -14,7 +14,7 @@ import (
 	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -31,12 +31,12 @@ func TestKeeper_VoteOnObservedOutboundTx(t *testing.T) {
 		senderChain := getValidPellChain()
 		observer := sample.AccAddress()
 		tss := sample.Tss_pell()
-		zk.ObserverKeeper.SetObserverSet(ctx, observertypes.RelayerSet{RelayerList: []string{observer}})
+		zk.ObserverKeeper.SetObserverSet(ctx, relayertypes.RelayerSet{RelayerList: []string{observer}})
 		xmsg := buildXmsg(t, receiver, *senderChain)
 		xmsg.GetCurrentOutTxParam().TssPubkey = tss.TssPubkey
 		xmsg.XmsgStatus.Status = types.XmsgStatus_PENDING_OUTBOUND
 		k.SetXmsg(ctx, *xmsg)
-		observerMock.On("GetTSS", ctx).Return(observertypes.TSS{}, true).Once()
+		observerMock.On("GetTSS", ctx).Return(relayertypes.TSS{}, true).Once()
 
 		// Successfully mock VoteOnOutboundBallot
 		keepertest.MockVoteOnOutboundSuccessBallot_pell(observerMock, ctx, xmsg, *senderChain, observer)
@@ -80,7 +80,7 @@ func TestKeeper_VoteOnObservedOutboundTx(t *testing.T) {
 		observer := sample.AccAddress()
 		tss := sample.Tss_pell()
 
-		zk.ObserverKeeper.SetObserverSet(ctx, observertypes.RelayerSet{RelayerList: []string{observer}})
+		zk.ObserverKeeper.SetObserverSet(ctx, relayertypes.RelayerSet{RelayerList: []string{observer}})
 		xmsg := buildXmsg(t, receiver, *senderChain)
 		xmsg.GetCurrentOutTxParam().TssPubkey = tss.TssPubkey
 		xmsg.XmsgStatus.Status = types.XmsgStatus_PENDING_OUTBOUND
@@ -98,7 +98,7 @@ func TestKeeper_VoteOnObservedOutboundTx(t *testing.T) {
 		}
 		k.SetXmsg(ctx, *xmsg)
 
-		observerMock.On("GetTSS", ctx).Return(observertypes.TSS{}, true).Once()
+		observerMock.On("GetTSS", ctx).Return(relayertypes.TSS{}, true).Once()
 		observerMock.On("RemoveFromPendingNonces", ctx, tss.TssPubkey, xmsg.GetCurrentOutTxParam().ReceiverChainId, mock.Anything).Return().Once()
 
 		// Successfully mock VoteOnOutboundBallot
@@ -147,9 +147,9 @@ func TestKeeper_VoteOnObservedOutboundTx(t *testing.T) {
 		tss := sample.Tss_pell()
 
 		// set state to successfully vote on outbound tx
-		accAddress, err := observertypes.GetAccAddressFromOperatorAddress(validator.OperatorAddress)
+		accAddress, err := relayertypes.GetAccAddressFromOperatorAddress(validator.OperatorAddress)
 		require.NoError(t, err)
-		zk.ObserverKeeper.SetObserverSet(ctx, observertypes.RelayerSet{RelayerList: []string{accAddress.String(), sample.AccAddress(), sample.AccAddress()}})
+		zk.ObserverKeeper.SetObserverSet(ctx, relayertypes.RelayerSet{RelayerList: []string{accAddress.String(), sample.AccAddress(), sample.AccAddress()}})
 		sk.StakingKeeper.SetValidator(ctx, validator)
 		xmsg := buildXmsg(t, receiver, *senderChain)
 		xmsg.GetCurrentOutTxParam().ReceiverChainId = getValidEthChain().Id
@@ -191,9 +191,9 @@ func TestKeeper_VoteOnObservedOutboundTx(t *testing.T) {
 		tss := sample.Tss_pell()
 
 		// set state to successfully vote on outbound tx
-		accAddress, err := observertypes.GetAccAddressFromOperatorAddress(validator.OperatorAddress)
+		accAddress, err := relayertypes.GetAccAddressFromOperatorAddress(validator.OperatorAddress)
 		require.NoError(t, err)
-		zk.ObserverKeeper.SetObserverSet(ctx, observertypes.RelayerSet{RelayerList: []string{accAddress.String()}})
+		zk.ObserverKeeper.SetObserverSet(ctx, relayertypes.RelayerSet{RelayerList: []string{accAddress.String()}})
 		sk.StakingKeeper.SetValidator(ctx, validator)
 		xmsg := buildXmsg(t, receiver, *senderChain)
 		xmsg.GetCurrentOutTxParam().TssPubkey = tss.TssPubkey
@@ -273,13 +273,13 @@ func TestKeeper_SaveOutbound(t *testing.T) {
 			HashLists: nil,
 		})
 
-		zk.ObserverKeeper.SetPendingNonces(ctx, observertypes.PendingNonces{
+		zk.ObserverKeeper.SetPendingNonces(ctx, relayertypes.PendingNonces{
 			NonceLow:  int64(xmsg.GetCurrentOutTxParam().OutboundTxTssNonce) - 1,
 			NonceHigh: int64(xmsg.GetCurrentOutTxParam().OutboundTxTssNonce) + 1,
 			ChainId:   xmsg.GetCurrentOutTxParam().ReceiverChainId,
 			Tss:       xmsg.GetCurrentOutTxParam().TssPubkey,
 		})
-		zk.ObserverKeeper.SetTSS(ctx, observertypes.TSS{
+		zk.ObserverKeeper.SetTSS(ctx, relayertypes.TSS{
 			TssPubkey: xmsg.GetCurrentOutTxParam().TssPubkey,
 		})
 

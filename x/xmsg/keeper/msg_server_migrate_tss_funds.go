@@ -18,7 +18,7 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/tss"
 	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
 	pevmtypes "github.com/0xPellNetwork/aegis/x/pevm/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -75,7 +75,7 @@ func (k msgServer) MigrateTssFunds(goCtx context.Context, msg *types.MsgMigrateT
 	return &types.MsgMigrateTssFundsResponse{}, nil
 }
 
-func (k Keeper) MigrateTSSFundsForChain(ctx sdk.Context, chainID int64, amount sdkmath.Uint, currentTss observertypes.TSS, tssList []observertypes.TSS) error {
+func (k Keeper) MigrateTSSFundsForChain(ctx sdk.Context, chainID int64, amount sdkmath.Uint, currentTss relayertypes.TSS, tssList []relayertypes.TSS) error {
 	// Always migrate to the latest TSS if multiple TSS addresses have been generated
 	newTss := tssList[len(tssList)-1]
 	medianGasPrice, isFound := k.GetMedianGasPriceInUint(ctx, chainID)
@@ -205,7 +205,7 @@ func (k Keeper) MigrateTSSFundsForChain(ctx sdk.Context, chainID int64, amount s
 		"xmsgIndex", xmsg.Index)
 
 	k.SetXmsgAndNonceToXmsgAndInTxHashToXmsg(ctx, *xmsg)
-	k.relayerKeeper.SetFundMigrator(ctx, observertypes.TssFundMigratorInfo{
+	k.relayerKeeper.SetFundMigrator(ctx, relayertypes.TssFundMigratorInfo{
 		ChainId:            chainID,
 		MigrationXmsgIndex: xmsg.Index,
 	})

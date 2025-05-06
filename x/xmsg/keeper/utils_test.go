@@ -17,7 +17,7 @@ import (
 	testkeeper "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	pevmkeeper "github.com/0xPellNetwork/aegis/x/pevm/keeper"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -49,7 +49,7 @@ func createXmsgWithNonceRange(
 	lowPending int,
 	highPending int,
 	chainID int64,
-	tss observertypes.TSS,
+	tss relayertypes.TSS,
 	zk testkeeper.PellKeepers,
 ) (xmsgs []*types.Xmsg) {
 	for i := 0; i < lowPending; i++ {
@@ -57,7 +57,7 @@ func createXmsgWithNonceRange(
 		xmsg.XmsgStatus.Status = types.XmsgStatus_OUTBOUND_MINED
 		xmsg.InboundTxParams.SenderChainId = chainID
 		k.SetXmsg(ctx, *xmsg)
-		zk.ObserverKeeper.SetNonceToXmsg(ctx, observertypes.NonceToXmsg{
+		zk.ObserverKeeper.SetNonceToXmsg(ctx, relayertypes.NonceToXmsg{
 			ChainId:   chainID,
 			Nonce:     int64(i),
 			XmsgIndex: xmsg.Index,
@@ -69,7 +69,7 @@ func createXmsgWithNonceRange(
 		xmsg.XmsgStatus.Status = types.XmsgStatus_PENDING_OUTBOUND
 		xmsg.InboundTxParams.SenderChainId = chainID
 		k.SetXmsg(ctx, *xmsg)
-		zk.ObserverKeeper.SetNonceToXmsg(ctx, observertypes.NonceToXmsg{
+		zk.ObserverKeeper.SetNonceToXmsg(ctx, relayertypes.NonceToXmsg{
 			ChainId:   chainID,
 			Nonce:     int64(i),
 			XmsgIndex: xmsg.Index,
@@ -77,7 +77,7 @@ func createXmsgWithNonceRange(
 		})
 		xmsgs = append(xmsgs, xmsg)
 	}
-	zk.ObserverKeeper.SetPendingNonces(ctx, observertypes.PendingNonces{
+	zk.ObserverKeeper.SetPendingNonces(ctx, relayertypes.PendingNonces{
 		ChainId:   chainID,
 		NonceLow:  int64(lowPending),
 		NonceHigh: int64(highPending),
@@ -222,13 +222,13 @@ func deploySystemContracts(
 
 // setSupportedChain sets the supported chains for the observer module
 func setSupportedChain(ctx sdk.Context, zk testkeeper.PellKeepers, chainIDs ...int64) {
-	chainParamsList := make([]*observertypes.ChainParams, len(chainIDs))
+	chainParamsList := make([]*relayertypes.ChainParams, len(chainIDs))
 	for i, chainID := range chainIDs {
 		chainParams := sample.ChainParams_pell(chainID)
 		chainParams.IsSupported = true
 		chainParamsList[i] = chainParams
 	}
-	zk.ObserverKeeper.SetChainParamsList(ctx, observertypes.ChainParamsList{
+	zk.ObserverKeeper.SetChainParamsList(ctx, relayertypes.ChainParamsList{
 		ChainParams: chainParamsList,
 	})
 }

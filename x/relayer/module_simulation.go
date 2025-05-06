@@ -1,4 +1,4 @@
-package observer
+package relayer
 
 import (
 	"github.com/cosmos/cosmos-sdk/types/module"

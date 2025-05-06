@@ -15,7 +15,7 @@ import (
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	emissionsModule "github.com/0xPellNetwork/aegis/x/emissions"
 	emissionstypes "github.com/0xPellNetwork/aegis/x/emissions/types"
-	observerTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 func TestBeginBlocker(t *testing.T) {
@@ -31,7 +31,7 @@ func TestBeginBlocker(t *testing.T) {
 			zk.ObserverKeeper.SetBallot(ctx, &ballot)
 			ballotIdentifiers = append(ballotIdentifiers, ballot.BallotIdentifier)
 		}
-		zk.ObserverKeeper.SetBallotList(ctx, &observerTypes.BallotListForHeight{
+		zk.ObserverKeeper.SetBallotList(ctx, &relayertypes.BallotListForHeight{
 			Height:           0,
 			BallotsIndexList: ballotIdentifiers,
 		})
@@ -169,7 +169,7 @@ func TestBeginBlocker(t *testing.T) {
 			zk.ObserverKeeper.SetBallot(ctx, &ballot)
 			ballotIdentifiers = append(ballotIdentifiers, ballot.BallotIdentifier)
 		}
-		zk.ObserverKeeper.SetBallotList(ctx, &observerTypes.BallotListForHeight{
+		zk.ObserverKeeper.SetBallotList(ctx, &relayertypes.BallotListForHeight{
 			Height:           0,
 			BallotsIndexList: ballotIdentifiers,
 		})
@@ -247,15 +247,15 @@ func TestDistributeObserverRewards(t *testing.T) {
 
 	tt := []struct {
 		name                 string
-		votes                [][]observerTypes.VoteType
+		votes                [][]relayertypes.VoteType
 		totalRewardsForBlock sdkmath.Int
 		expectedRewards      map[string]int64
-		ballotStatus         observerTypes.BallotStatus
+		ballotStatus         relayertypes.BallotStatus
 		slashAmount          sdkmath.Int
 	}{
 		{
 			name:  "all observers rewarded correctly",
-			votes: [][]observerTypes.VoteType{{observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION}},
+			votes: [][]relayertypes.VoteType{{relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION}},
 			// total reward units would be 4 as all votes match the ballot status
 			totalRewardsForBlock: sdkmath.NewInt(100),
 			expectedRewards: map[string]int64{
@@ -264,12 +264,12 @@ func TestDistributeObserverRewards(t *testing.T) {
 				observerSet.RelayerList[2]: 125,
 				observerSet.RelayerList[3]: 125,
 			},
-			ballotStatus: observerTypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION,
+			ballotStatus: relayertypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION,
 			slashAmount:  sdkmath.NewInt(25),
 		},
 		{
 			name:  "one observer slashed",
-			votes: [][]observerTypes.VoteType{{observerTypes.VoteType_FAILURE_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION}},
+			votes: [][]relayertypes.VoteType{{relayertypes.VoteType_FAILURE_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION}},
 			// total reward units would be 3 as 3 votes match the ballot status
 			totalRewardsForBlock: sdkmath.NewInt(75),
 			expectedRewards: map[string]int64{
@@ -278,12 +278,12 @@ func TestDistributeObserverRewards(t *testing.T) {
 				observerSet.RelayerList[2]: 125,
 				observerSet.RelayerList[3]: 125,
 			},
-			ballotStatus: observerTypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION,
+			ballotStatus: relayertypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION,
 			slashAmount:  sdkmath.NewInt(25),
 		},
 		{
 			name:  "all observer slashed",
-			votes: [][]observerTypes.VoteType{{observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION}},
+			votes: [][]relayertypes.VoteType{{relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION}},
 			// total reward units would be 0 as no votes match the ballot status
 			totalRewardsForBlock: sdkmath.NewInt(100),
 			expectedRewards: map[string]int64{
@@ -292,12 +292,12 @@ func TestDistributeObserverRewards(t *testing.T) {
 				observerSet.RelayerList[2]: 75,
 				observerSet.RelayerList[3]: 75,
 			},
-			ballotStatus: observerTypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION,
+			ballotStatus: relayertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION,
 			slashAmount:  sdkmath.NewInt(25),
 		},
 		{
 			name:  "slashed to zero if slash amount is greater than available emissions",
-			votes: [][]observerTypes.VoteType{{observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION}},
+			votes: [][]relayertypes.VoteType{{relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION}},
 			// total reward units would be 0 as no votes match the ballot status
 			totalRewardsForBlock: sdkmath.NewInt(100),
 			expectedRewards: map[string]int64{
@@ -306,14 +306,14 @@ func TestDistributeObserverRewards(t *testing.T) {
 				observerSet.RelayerList[2]: 0,
 				observerSet.RelayerList[3]: 0,
 			},
-			ballotStatus: observerTypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION,
+			ballotStatus: relayertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION,
 			slashAmount:  sdkmath.NewInt(2500),
 		},
 		{
 			name: "withdraw able emissions unchanged if rewards and slashes are equal",
-			votes: [][]observerTypes.VoteType{
-				{observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION},
-				{observerTypes.VoteType_FAILURE_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION, observerTypes.VoteType_SUCCESS_OBSERVATION},
+			votes: [][]relayertypes.VoteType{
+				{relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION},
+				{relayertypes.VoteType_FAILURE_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION, relayertypes.VoteType_SUCCESS_OBSERVATION},
 			},
 			// total reward units would be 7 as 7 votes match the ballot status, including both ballots
 			totalRewardsForBlock: sdkmath.NewInt(70),
@@ -323,7 +323,7 @@ func TestDistributeObserverRewards(t *testing.T) {
 				observerSet.RelayerList[2]: 120,
 				observerSet.RelayerList[3]: 120,
 			},
-			ballotStatus: observerTypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION,
+			ballotStatus: relayertypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION,
 			slashAmount:  sdkmath.NewInt(25),
 		},
 	}
@@ -365,7 +365,7 @@ func TestDistributeObserverRewards(t *testing.T) {
 			// Set the ballot list
 			ballotIdentifiers := []string{}
 			for i, votes := range tc.votes {
-				ballot := observerTypes.Ballot{
+				ballot := relayertypes.Ballot{
 					BallotIdentifier: "ballot" + string(rune(i)),
 					BallotStatus:     tc.ballotStatus,
 					VoterList:        observerSet.RelayerList,
@@ -374,7 +374,7 @@ func TestDistributeObserverRewards(t *testing.T) {
 				zk.ObserverKeeper.SetBallot(ctx, &ballot)
 				ballotIdentifiers = append(ballotIdentifiers, ballot.BallotIdentifier)
 			}
-			zk.ObserverKeeper.SetBallotList(ctx, &observerTypes.BallotListForHeight{
+			zk.ObserverKeeper.SetBallotList(ctx, &relayertypes.BallotListForHeight{
 				Height:           0,
 				BallotsIndexList: ballotIdentifiers,
 			})

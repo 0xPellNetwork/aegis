@@ -15,7 +15,7 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/testutils"
 	"github.com/0xPellNetwork/aegis/relayer/testutils/stub"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // getContractsByChainID is a helper func to get contracts and addresses by chainID
@@ -136,7 +136,7 @@ func Test_PostVoteOutbound(t *testing.T) {
 
 		// create evm client using mock pellBridge and post outbound vote
 		pellBridge := stub.NewMockPellCoreBridge()
-		client, _ := MockEVMClient(t, chain, config.EVMConfig{}, nil, nil, pellBridge, nil, 1, observertypes.ChainParams{ChainId: chain.Id})
+		client, _ := MockEVMClient(t, chain, config.EVMConfig{}, nil, nil, pellBridge, nil, 1, relayertypes.ChainParams{ChainId: chain.Id})
 		client.PostVoteOutbound(ctx, xmsg.Index, receipt, outtx, receiveStatus, nonce, zerolog.Logger{})
 
 		// pause the mock pellBridge to simulate error posting vote

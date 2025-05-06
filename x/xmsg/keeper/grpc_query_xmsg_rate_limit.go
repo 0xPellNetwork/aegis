@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/0xPellNetwork/aegis/pkg/chains"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -40,7 +40,7 @@ func (k Keeper) RateLimiterInput(
 	}
 	tss, found := k.relayerKeeper.GetTSS(ctx)
 	if !found {
-		return nil, observertypes.ErrTssNotFound
+		return nil, relayertypes.ErrTssNotFound
 	}
 
 	// calculate the rate limiter sliding window left boundary (inclusive)
@@ -81,7 +81,7 @@ func (k Keeper) RateLimiterInput(
 
 	// query pending nonces of each foreign chain and get the lowest height of the pending cctxs
 	lowestPendingXmsgHeight := int64(0)
-	pendingNoncesMap := make(map[int64]observertypes.PendingNonces)
+	pendingNoncesMap := make(map[int64]relayertypes.PendingNonces)
 	for _, chain := range externalSupportedChains {
 		pendingNonces, found := k.GetRelayerKeeper().GetPendingNonces(ctx, tss.TssPubkey, chain.Id)
 		if !found {
@@ -226,7 +226,7 @@ func (k Keeper) ListPendingXmsgWithinRateLimit(c context.Context, req *types.Que
 	}
 	tss, found := k.relayerKeeper.GetTSS(ctx)
 	if !found {
-		return nil, observertypes.ErrTssNotFound
+		return nil, relayertypes.ErrTssNotFound
 	}
 
 	// calculate the rate limiter sliding window left boundary (inclusive)
@@ -264,7 +264,7 @@ func (k Keeper) ListPendingXmsgWithinRateLimit(c context.Context, req *types.Que
 
 	// query pending nonces for each foreign chain and get the lowest height of the pending xmsgs
 	lowestPendingXmsgHeight := int64(0)
-	pendingNoncesMap := make(map[int64]observertypes.PendingNonces)
+	pendingNoncesMap := make(map[int64]relayertypes.PendingNonces)
 	for _, chain := range foreignChains {
 		pendingNonces, found := k.GetRelayerKeeper().GetPendingNonces(ctx, tss.TssPubkey, chain.Id)
 		if !found {

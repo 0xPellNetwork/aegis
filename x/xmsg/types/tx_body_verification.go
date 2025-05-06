@@ -8,15 +8,15 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
 	"github.com/0xPellNetwork/aegis/pkg/chains"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // VerifyInTxBody validates the tx body for a inbound tx
 func VerifyInTxBody(
 	msg MsgAddToInTxTracker,
 	txBytes []byte,
-	chainParams observertypes.ChainParams,
-	tss observertypes.QueryGetTssAddressResponse,
+	chainParams relayertypes.ChainParams,
+	tss relayertypes.QueryGetTssAddressResponse,
 ) error {
 	// verify message against transaction body
 	if chains.IsEVMChain(msg.ChainId) {
@@ -32,8 +32,8 @@ func VerifyInTxBody(
 func verifyInTxBodyEVM(
 	msg MsgAddToInTxTracker,
 	txBytes []byte,
-	chainParams observertypes.ChainParams,
-	tss observertypes.QueryGetTssAddressResponse,
+	chainParams relayertypes.ChainParams,
+	tss relayertypes.QueryGetTssAddressResponse,
 ) error {
 	var txx ethtypes.Transaction
 	err := txx.UnmarshalBinary(txBytes)
@@ -59,7 +59,7 @@ func verifyInTxBodyEVM(
 }
 
 // VerifyOutTxBody verifies the tx body for a outbound tx
-func VerifyOutTxBody(msg MsgAddToOutTxTracker, txBytes []byte, tss observertypes.QueryGetTssAddressResponse) error {
+func VerifyOutTxBody(msg MsgAddToOutTxTracker, txBytes []byte, tss relayertypes.QueryGetTssAddressResponse) error {
 	// verify message against transaction body
 	if chains.IsEVMChain(msg.ChainId) {
 		return verifyOutTxBodyEVM(msg, txBytes, tss.Eth)

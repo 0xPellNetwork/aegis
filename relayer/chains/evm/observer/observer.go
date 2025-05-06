@@ -21,7 +21,7 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/db"
 	clientlogs "github.com/0xPellNetwork/aegis/relayer/logs"
 	"github.com/0xPellNetwork/aegis/relayer/metrics"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 const (
@@ -71,7 +71,7 @@ type ChainClient struct {
 func NewEVMChainClient(
 	ctx context.Context,
 	config config.EVMConfig,
-	chainParams observertypes.ChainParams,
+	chainParams relayertypes.ChainParams,
 	evmClient interfaces.EVMRPCClient,
 	evmJSONRPC interfaces.EVMJSONRPCClient,
 	pellcoreClient interfaces.PellCoreBridger,
@@ -136,12 +136,12 @@ func (ob *ChainClient) WithEvmJSONRPC(client interfaces.EVMJSONRPCClient) {
 }
 
 // SetChainParams sets the chain params for the chain client
-func (ob *ChainClient) SetChainParams(params observertypes.ChainParams) {
+func (ob *ChainClient) SetChainParams(params relayertypes.ChainParams) {
 	ob.WithChainParams(params)
 }
 
 // GetChainParams returns the chain params for the chain client
-func (ob *ChainClient) GetChainParams() observertypes.ChainParams {
+func (ob *ChainClient) GetChainParams() relayertypes.ChainParams {
 	return ob.ChainParams()
 }
 

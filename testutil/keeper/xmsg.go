@@ -18,7 +18,7 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	xmsgmocks "github.com/0xPellNetwork/aegis/testutil/keeper/mocks/xmsg"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -243,11 +243,11 @@ func MockUpdateNonce_pell(m *xmsgmocks.XmsgRelayerKeeper, senderChain chains.Cha
 	m.On("GetSupportedChainFromChainID", mock.Anything, senderChain.Id).
 		Return(senderChain)
 	m.On("GetChainNonces", mock.Anything, senderChain.ChainName()).
-		Return(observertypes.ChainNonces{Nonce: nonce}, true)
+		Return(relayertypes.ChainNonces{Nonce: nonce}, true)
 	m.On("GetTSS", mock.Anything).
 		Return(tss, true)
 	m.On("GetPendingNonces", mock.Anything, tss.TssPubkey, mock.Anything).
-		Return(observertypes.PendingNonces{NonceHigh: int64(nonce)}, true)
+		Return(relayertypes.PendingNonces{NonceHigh: int64(nonce)}, true)
 	m.On("SetChainNonces", mock.Anything, mock.Anything)
 	m.On("SetPendingNonces", mock.Anything, mock.Anything)
 	return
@@ -266,30 +266,30 @@ func MockRevertForHandleEVMEvents_pell(m *xmsgmocks.XmsgPevmKeeper, senderChainI
 
 func MockVoteOnOutboundSuccessBallot_pell(m *xmsgmocks.XmsgRelayerKeeper, ctx sdk.Context, xmsg *types.Xmsg, senderChain chains.Chain, observer string) {
 	m.On("VoteOnOutboundBallot", ctx, mock.Anything, xmsg.GetCurrentOutTxParam().ReceiverChainId, chains.ReceiveStatus_SUCCESS, observer).
-		Return(true, true, observertypes.Ballot{BallotStatus: observertypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION}, senderChain.ChainName(), nil).Once()
+		Return(true, true, relayertypes.Ballot{BallotStatus: relayertypes.BallotStatus_BALLOT_FINALIZED_SUCCESS_OBSERVATION}, senderChain.ChainName(), nil).Once()
 }
 
 func MockVoteOnOutboundFailedBallot_pell(m *xmsgmocks.XmsgRelayerKeeper, ctx sdk.Context, xmsg *types.Xmsg, senderChain chains.Chain, observer string) {
 	m.On("VoteOnOutboundBallot", ctx, mock.Anything, xmsg.GetCurrentOutTxParam().ReceiverChainId, chains.ReceiveStatus_FAILED, observer).
-		Return(true, true, observertypes.Ballot{BallotStatus: observertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION}, senderChain.ChainName(), nil).Once()
+		Return(true, true, relayertypes.Ballot{BallotStatus: relayertypes.BallotStatus_BALLOT_FINALIZED_FAILURE_OBSERVATION}, senderChain.ChainName(), nil).Once()
 }
 
 func MockGetOutBound_pell(m *xmsgmocks.XmsgRelayerKeeper, ctx sdk.Context) {
-	m.On("GetTSS", ctx).Return(observertypes.TSS{}, true).Once()
+	m.On("GetTSS", ctx).Return(relayertypes.TSS{}, true).Once()
 }
 
-func MockSaveOutBound_pell(m *xmsgmocks.XmsgRelayerKeeper, ctx sdk.Context, xmsg *types.Xmsg, tss observertypes.TSS) {
+func MockSaveOutBound_pell(m *xmsgmocks.XmsgRelayerKeeper, ctx sdk.Context, xmsg *types.Xmsg, tss relayertypes.TSS) {
 	m.On("RemoveFromPendingNonces",
 		ctx, tss.TssPubkey, xmsg.GetCurrentOutTxParam().ReceiverChainId, mock.Anything).
 		Return().Once()
-	m.On("GetTSS", ctx).Return(observertypes.TSS{}, true)
+	m.On("GetTSS", ctx).Return(relayertypes.TSS{}, true)
 }
 
-func MockSaveOutBoundNewRevertCreated_pell(m *xmsgmocks.XmsgRelayerKeeper, ctx sdk.Context, xmsg *types.Xmsg, tss observertypes.TSS) {
+func MockSaveOutBoundNewRevertCreated_pell(m *xmsgmocks.XmsgRelayerKeeper, ctx sdk.Context, xmsg *types.Xmsg, tss relayertypes.TSS) {
 	m.On("RemoveFromPendingNonces",
 		ctx, tss.TssPubkey, xmsg.GetCurrentOutTxParam().ReceiverChainId, mock.Anything).
 		Return().Once()
-	m.On("GetTSS", ctx).Return(observertypes.TSS{}, true)
+	m.On("GetTSS", ctx).Return(relayertypes.TSS{}, true)
 	m.On("SetNonceToXmsg", mock.Anything, mock.Anything).Return().Once()
 }
 
@@ -305,7 +305,7 @@ func MockXmsgByNonce_pell(
 ) {
 	if isErr {
 		// return error on GetTSS to make XmsgByNonce return error
-		observerKeeper.On("GetTSS", mock.Anything).Return(observertypes.TSS{}, false).Once()
+		observerKeeper.On("GetTSS", mock.Anything).Return(relayertypes.TSS{}, false).Once()
 		return
 	}
 
@@ -315,8 +315,8 @@ func MockXmsgByNonce_pell(
 	}
 	k.SetXmsg(ctx, *xmsg)
 
-	observerKeeper.On("GetTSS", mock.Anything).Return(observertypes.TSS{}, true).Once()
-	observerKeeper.On("GetNonceToXmsg", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(observertypes.NonceToXmsg{
+	observerKeeper.On("GetTSS", mock.Anything).Return(relayertypes.TSS{}, true).Once()
+	observerKeeper.On("GetNonceToXmsg", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(relayertypes.NonceToXmsg{
 		XmsgIndex: xmsg.Index,
 	}, true).Once()
 }

@@ -14,7 +14,7 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/proofs"
 	"github.com/0xPellNetwork/aegis/pkg/retry"
 	pctx "github.com/0xPellNetwork/aegis/relayer/context"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -28,7 +28,7 @@ func (c *PellCoreBridge) PostVoteBlockHeader(
 ) (string, error) {
 	signerAddress := c.keys.GetOperatorAddress().String()
 
-	msg := observertypes.NewMsgVoteBlockHeader(signerAddress, chainID, blockHash, height, header)
+	msg := relayertypes.NewMsgVoteBlockHeader(signerAddress, chainID, blockHash, height, header)
 
 	authzMsg, authzSigner, err := WrapMessageWithAuthz(msg)
 	if err != nil {
@@ -86,7 +86,7 @@ func (c *PellCoreBridge) PostVoteTSS(
 	status chains.ReceiveStatus,
 ) (string, error) {
 	signerAddress := c.keys.GetOperatorAddress().String()
-	msg := observertypes.NewMsgVoteTSS(signerAddress, tssPubKey, keyGenPellHeight, status)
+	msg := relayertypes.NewMsgVoteTSS(signerAddress, tssPubKey, keyGenPellHeight, status)
 
 	authzMsg, authzSigner, err := WrapMessageWithAuthz(msg)
 	if err != nil {
@@ -112,12 +112,12 @@ func (b *PellCoreBridge) PostBlameData(
 	index string,
 ) (string, error) {
 	signerAddress := b.keys.GetOperatorAddress().String()
-	pellBlame := observertypes.Blame{
+	pellBlame := relayertypes.Blame{
 		Index:         index,
 		FailureReason: blame.FailReason,
-		Nodes:         observertypes.ConvertNodes(blame.BlameNodes),
+		Nodes:         relayertypes.ConvertNodes(blame.BlameNodes),
 	}
-	msg := observertypes.NewMsgAddBlameVoteMsg(signerAddress, chainID, pellBlame)
+	msg := relayertypes.NewMsgAddBlameVoteMsg(signerAddress, chainID, pellBlame)
 
 	authzMsg, authzSigner, err := WrapMessageWithAuthz(msg)
 	if err != nil {

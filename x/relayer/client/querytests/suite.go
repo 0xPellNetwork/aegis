@@ -9,7 +9,7 @@ import (
 	"github.com/0xPellNetwork/aegis/app"
 	cmdcfg "github.com/0xPellNetwork/aegis/cmd/pellcored/config"
 	"github.com/0xPellNetwork/aegis/testutil/network"
-	observerTypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -19,7 +19,7 @@ type CliTestSuite struct {
 	cfg           network.Config
 	network       *network.Network
 	xmsgState     *types.GenesisState
-	observerState *observerTypes.GenesisState
+	observerState *relayertypes.GenesisState
 }
 
 func NewCLITestSuite(cfg network.Config) *CliTestSuite {

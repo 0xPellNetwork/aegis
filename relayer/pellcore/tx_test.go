@@ -24,7 +24,7 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/keys"
 	"github.com/0xPellNetwork/aegis/relayer/testutils/stub"
 	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -124,7 +124,7 @@ func TestPellCoreBridge_PostGasPrice(t *testing.T) {
 	ctx := context.Background()
 
 	extraGRPC := withDummyServer(100)
-	setupMockServer(t, observertypes.RegisterQueryServer, skipMethod, nil, nil, extraGRPC...)
+	setupMockServer(t, relayertypes.RegisterQueryServer, skipMethod, nil, nil, extraGRPC...)
 
 	client := setupPellcoreClient(t,
 		withDefaultObserverKeys(),
@@ -161,7 +161,7 @@ func TestPellCoreBridge_PostGasPrice(t *testing.T) {
 //	}
 //
 //	extraGRPC := withDummyServer(100)
-//	setupMockServer(t, observertypes.RegisterQueryServer, method, input, output, extraGRPC...)
+//	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, output, extraGRPC...)
 //
 //	client := setupPellcoreClient(t,
 //		withDefaultObserverKeys(),
@@ -214,7 +214,7 @@ func TestPellCoreBridge_UpdateAppContext(t *testing.T) {
 	server := grpcmock.MockUnstartedServer(
 		grpcmock.RegisterService(xmsgtypes.RegisterQueryServer),
 		grpcmock.RegisterService(upgradetypes.RegisterQueryServer),
-		grpcmock.RegisterService(observertypes.RegisterQueryServer),
+		grpcmock.RegisterService(relayertypes.RegisterQueryServer),
 		grpcmock.RegisterService(lightclienttypes.RegisterQueryServer),
 		grpcmock.WithPlanner(planner.FirstMatch()),
 		grpcmock.WithListener(listener),
@@ -239,9 +239,9 @@ func TestPellCoreBridge_UpdateAppContext(t *testing.T) {
 			method = "/relayer.Query/GetChainParams"
 			s.ExpectUnary(method).
 				UnlimitedTimes().
-				WithPayload(observertypes.QueryGetChainParamsRequest{}).
-				Return(observertypes.QueryGetChainParamsResponse{ChainParams: &observertypes.ChainParamsList{
-					ChainParams: []*observertypes.ChainParams{
+				WithPayload(relayertypes.QueryGetChainParamsRequest{}).
+				Return(relayertypes.QueryGetChainParamsResponse{ChainParams: &relayertypes.ChainParamsList{
+					ChainParams: []*relayertypes.ChainParams{
 						{
 							ChainId: 86,
 						},
@@ -251,8 +251,8 @@ func TestPellCoreBridge_UpdateAppContext(t *testing.T) {
 			method = "/relayer.Query/SupportedChains"
 			s.ExpectUnary(method).
 				UnlimitedTimes().
-				WithPayload(observertypes.QuerySupportedChains{}).
-				Return(observertypes.QuerySupportedChainsResponse{
+				WithPayload(relayertypes.QuerySupportedChains{}).
+				Return(relayertypes.QuerySupportedChainsResponse{
 					Chains: []*chains.Chain{
 						{
 							Id: chains.BscMainnetChain().Id,
@@ -266,10 +266,10 @@ func TestPellCoreBridge_UpdateAppContext(t *testing.T) {
 			method = "/relayer.Query/Keygen"
 			s.ExpectUnary(method).
 				UnlimitedTimes().
-				WithPayload(observertypes.QueryGetKeygenRequest{}).
-				Return(observertypes.QueryKeygenResponse{
-					Keygen: &observertypes.Keygen{
-						Status:         observertypes.KeygenStatus_SUCCESS,
+				WithPayload(relayertypes.QueryGetKeygenRequest{}).
+				Return(relayertypes.QueryKeygenResponse{
+					Keygen: &relayertypes.Keygen{
+						Status:         relayertypes.KeygenStatus_SUCCESS,
 						GranteePubkeys: nil,
 						BlockNumber:    5646,
 					}})
@@ -277,9 +277,9 @@ func TestPellCoreBridge_UpdateAppContext(t *testing.T) {
 			method = "/relayer.Query/TSS"
 			s.ExpectUnary(method).
 				UnlimitedTimes().
-				WithPayload(observertypes.QueryGetTSSRequest{}).
-				Return(observertypes.QueryTSSResponse{
-					Tss: observertypes.TSS{
+				WithPayload(relayertypes.QueryGetTSSRequest{}).
+				Return(relayertypes.QueryTSSResponse{
+					Tss: relayertypes.TSS{
 						TssPubkey:           "pellpub1addwnpepqtadxdyt037h86z60nl98t6zk56mw5zpnm79tsmvspln3hgt5phdc79kvfc",
 						TssParticipantList:  nil,
 						OperatorAddressList: nil,
@@ -291,8 +291,8 @@ func TestPellCoreBridge_UpdateAppContext(t *testing.T) {
 			method = "/relayer.Query/CrosschainFlags"
 			s.ExpectUnary(method).
 				UnlimitedTimes().
-				WithPayload(observertypes.QueryGetCrosschainFlagsRequest{}).
-				Return(observertypes.QueryCrosschainFlagsResponse{CrosschainFlags: observertypes.CrosschainFlags{
+				WithPayload(relayertypes.QueryGetCrosschainFlagsRequest{}).
+				Return(relayertypes.QueryCrosschainFlagsResponse{CrosschainFlags: relayertypes.CrosschainFlags{
 					IsInboundEnabled:             true,
 					IsOutboundEnabled:            false,
 					GasPriceIncreaseFlags:        nil,
@@ -331,7 +331,7 @@ func TestPellCoreBridge_PostBlameData(t *testing.T) {
 	ctx := context.Background()
 
 	extraGRPC := withDummyServer(100)
-	setupMockServer(t, observertypes.RegisterQueryServer, skipMethod, nil, nil, extraGRPC...)
+	setupMockServer(t, relayertypes.RegisterQueryServer, skipMethod, nil, nil, extraGRPC...)
 
 	client := setupPellcoreClient(t,
 		withDefaultObserverKeys(),
@@ -359,7 +359,7 @@ func TestPellCoreBridge_PostVoteBlockHeader(t *testing.T) {
 	ctx := context.Background()
 
 	extraGRPC := withDummyServer(100)
-	setupMockServer(t, observertypes.RegisterQueryServer, skipMethod, nil, nil, extraGRPC...)
+	setupMockServer(t, relayertypes.RegisterQueryServer, skipMethod, nil, nil, extraGRPC...)
 
 	client := setupPellcoreClient(t,
 		withDefaultObserverKeys(),
@@ -388,15 +388,15 @@ func TestPellCoreBridge_PostVoteInbound(t *testing.T) {
 
 	address := sdktypes.AccAddress(stub.TestKeyringPair.PubKey().Address().Bytes())
 
-	expectedOutput := observertypes.QueryHasVotedResponse{HasVoted: false}
-	input := observertypes.QueryHasVotedRequest{
+	expectedOutput := relayertypes.QueryHasVotedResponse{HasVoted: false}
+	input := relayertypes.QueryHasVotedRequest{
 		BallotIdentifier: "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
 		VoterAddress:     address.String(),
 	}
 	method := "/relayer.Query/HasVoted"
 
 	extraGRPC := withDummyServer(100)
-	setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput, extraGRPC...)
+	setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput, extraGRPC...)
 
 	client := setupPellcoreClient(t,
 		withDefaultObserverKeys(),
@@ -471,8 +471,8 @@ func TestPellCoreBridge_PostVoteOutbound(t *testing.T) {
 	//
 	//address := sdktypes.AccAddress(stub.TestKeyringPair.PubKey().Address().Bytes())
 	//
-	//expectedOutput := observertypes.QueryHasVotedResponse{HasVoted: false}
-	//input := observertypes.QueryHasVotedRequest{
+	//expectedOutput := relayertypes.QueryHasVotedResponse{HasVoted: false}
+	//input := relayertypes.QueryHasVotedRequest{
 	//	BallotIdentifier: "0xd2200e02c15c44031b8b52d79a6237081661ca9c81ff98c09b75185641d5dfbd",
 	//	VoterAddress:     address.String(),
 	//}
@@ -480,7 +480,7 @@ func TestPellCoreBridge_PostVoteOutbound(t *testing.T) {
 	//
 	//extraGRPC := withDummyServer(blockHeight)
 	//
-	//server := setupMockServer(t, observertypes.RegisterQueryServer, method, input, expectedOutput, extraGRPC...)
+	//server := setupMockServer(t, relayertypes.RegisterQueryServer, method, input, expectedOutput, extraGRPC...)
 	//require.NotNil(t, server)
 
 	//client := setupPellcoreClient(t,

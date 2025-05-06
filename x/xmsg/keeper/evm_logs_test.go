@@ -8,7 +8,7 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgkeeper "github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -51,12 +51,12 @@ func SetupStateForProcessLogs(
 		Prices:  []uint64{100},
 	})
 
-	zk.ObserverKeeper.SetChainNonces(ctx, observertypes.ChainNonces{
+	zk.ObserverKeeper.SetChainNonces(ctx, relayertypes.ChainNonces{
 		Index:   chain.ChainName(),
 		ChainId: chain.Id,
 		Nonce:   0,
 	})
-	zk.ObserverKeeper.SetPendingNonces(ctx, observertypes.PendingNonces{
+	zk.ObserverKeeper.SetPendingNonces(ctx, relayertypes.PendingNonces{
 		NonceLow:  0,
 		NonceHigh: 0,
 		ChainId:   chain.Id,
@@ -247,7 +247,7 @@ func TestKeeper_ProcessPellSentEvent(t *testing.T) {
 	// 	admin := keepertest.SetAdminPolices(ctx, zk.AuthorityKeeper)
 	// 	SetupStateForProcessLogsPellSent(t, ctx, k, zk, sdkk, chain, admin)
 
-	// 	zk.ObserverKeeper.SetChainNonces(ctx, observertypes.ChainNonces{
+	// 	zk.ObserverKeeper.SetChainNonces(ctx, relayertypes.ChainNonces{
 	// 		Index:   chain.ChainName(),
 	// 		ChainId: chain.ChainId,
 	// 		Nonce:   1,

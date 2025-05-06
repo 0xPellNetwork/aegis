@@ -21,7 +21,7 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/metrics"
 	"github.com/0xPellNetwork/aegis/relayer/pellcore"
 	clienttypes "github.com/0xPellNetwork/aegis/relayer/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -70,7 +70,7 @@ type Observer struct {
 	chain chains.Chain
 
 	// chainParams contains the dynamic chain parameters of the observed chain
-	chainParams observertypes.ChainParams
+	chainParams relayertypes.ChainParams
 
 	// pellcoreClient is the client to interact with PellChain
 	pellcoreClient interfaces.PellCoreBridger
@@ -119,7 +119,7 @@ type Observer struct {
 func NewObserver(
 	coreContext *corecontext.PellCoreContext,
 	chain chains.Chain,
-	chainParams observertypes.ChainParams,
+	chainParams relayertypes.ChainParams,
 	pellcoreClient interfaces.PellCoreBridger,
 	tss interfaces.TSSSigner,
 	blockCacheSize int,
@@ -219,12 +219,12 @@ func (ob *Observer) WithChain(chain chains.Chain) *Observer {
 }
 
 // ChainParams returns the chain params for the observer.
-func (ob *Observer) ChainParams() observertypes.ChainParams {
+func (ob *Observer) ChainParams() relayertypes.ChainParams {
 	return ob.chainParams
 }
 
 // WithChainParams attaches a new chain params to the observer.
-func (ob *Observer) WithChainParams(params observertypes.ChainParams) *Observer {
+func (ob *Observer) WithChainParams(params relayertypes.ChainParams) *Observer {
 	ob.chainParams = params
 	return ob
 }

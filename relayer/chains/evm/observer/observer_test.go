@@ -21,7 +21,7 @@ import (
 	"github.com/0xPellNetwork/aegis/relayer/testutils"
 	"github.com/0xPellNetwork/aegis/relayer/testutils/stub"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -33,7 +33,7 @@ func getAppContext(
 	t *testing.T,
 	evmChain chains.Chain,
 	endpoint string,
-	evmChainParams *observertypes.ChainParams,
+	evmChainParams *relayertypes.ChainParams,
 ) (*pctx.AppContext, config.EVMConfig) {
 	// use default endpoint if not provided
 	if endpoint == "" {
@@ -50,7 +50,7 @@ func getAppContext(
 	}
 
 	// create core context
-	evmChainParamsMap := make(map[int64]*observertypes.ChainParams)
+	evmChainParamsMap := make(map[int64]*relayertypes.ChainParams)
 	evmChainParamsMap[evmChain.Id] = evmChainParams
 
 	// create app context
@@ -58,7 +58,7 @@ func getAppContext(
 
 	// feed chain params
 	err := appCtx.Update(
-		observertypes.Keygen{},
+		relayertypes.Keygen{},
 		[]chains.Chain{evmChain},
 		evmChainParamsMap,
 		"",
@@ -82,7 +82,7 @@ func MockEVMClient(
 	pellcoreClient interfaces.PellCoreBridger,
 	tss interfaces.TSSSigner,
 	lastBlock uint64,
-	params observertypes.ChainParams,
+	params relayertypes.ChainParams,
 ) (*evmobserver.ChainClient, *pctx.AppContext) {
 	// use default mock evm client if not provided
 	if evmClient == nil {

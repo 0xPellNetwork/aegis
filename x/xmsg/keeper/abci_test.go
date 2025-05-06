@@ -12,7 +12,7 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	testkeeper "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -31,7 +31,7 @@ func TestKeeper_IterateAndUpdateXmsgGasPrice(t *testing.T) {
 		ctx sdk.Context,
 		k keeper.Keeper,
 		xmsg types.Xmsg,
-		flags observertypes.GasPriceIncreaseFlags,
+		flags relayertypes.GasPriceIncreaseFlags,
 	) (math.Uint, math.Uint, error) {
 		if _, ok := failMap[xmsg.Index]; ok {
 			return math.NewUint(0), math.NewUint(0), errors.New("failed")
@@ -62,14 +62,14 @@ func TestKeeper_IterateAndUpdateXmsgGasPrice(t *testing.T) {
 	failMap[sample.GetXmsgIndicesFromString_pell("1-12")] = struct{}{}
 
 	// test that the default crosschain flags are used when not set and the epoch length is not reached
-	ctx = ctx.WithBlockHeight(observertypes.DefaultCrosschainFlags().GasPriceIncreaseFlags.EpochLength + 1)
+	ctx = ctx.WithBlockHeight(relayertypes.DefaultCrosschainFlags().GasPriceIncreaseFlags.EpochLength + 1)
 
 	xmsgCount, flags := k.IterateAndUpdateXmsgGasPrice(ctx, supportedChains, updateFunc)
 	require.Equal(t, 0, xmsgCount)
-	require.Equal(t, *observertypes.DefaultCrosschainFlags().GasPriceIncreaseFlags, flags)
+	require.Equal(t, *relayertypes.DefaultCrosschainFlags().GasPriceIncreaseFlags, flags)
 
 	// test that custom crosschain flags are used when set and the epoch length is reached
-	customFlags := observertypes.GasPriceIncreaseFlags{
+	customFlags := relayertypes.GasPriceIncreaseFlags{
 		EpochLength:             100,
 		RetryInterval:           time.Minute * 10,
 		GasPriceIncreasePercent: 100,
@@ -85,7 +85,7 @@ func TestKeeper_IterateAndUpdateXmsgGasPrice(t *testing.T) {
 	require.Equal(t, customFlags, flags)
 
 	// test that xmsg are iterated and updated when the epoch length is reached
-	ctx = ctx.WithBlockHeight(observertypes.DefaultCrosschainFlags().GasPriceIncreaseFlags.EpochLength * 2)
+	ctx = ctx.WithBlockHeight(relayertypes.DefaultCrosschainFlags().GasPriceIncreaseFlags.EpochLength * 2)
 	xmsgCount, flags = k.IterateAndUpdateXmsgGasPrice(ctx, supportedChains, updateFunc)
 
 	// 2 eth + 5 bsc = 7
@@ -106,13 +106,13 @@ func TestKeeper_IterateAndUpdateXmsgGasPrice(t *testing.T) {
 
 func TestCheckAndUpdateXmsgGasPrice(t *testing.T) {
 	sampleTimestamp := time.Now()
-	retryIntervalReached := sampleTimestamp.Add(observertypes.DefaultGasPriceIncreaseFlags.RetryInterval + time.Second)
-	retryIntervalNotReached := sampleTimestamp.Add(observertypes.DefaultGasPriceIncreaseFlags.RetryInterval - time.Second)
+	retryIntervalReached := sampleTimestamp.Add(relayertypes.DefaultGasPriceIncreaseFlags.RetryInterval + time.Second)
+	retryIntervalNotReached := sampleTimestamp.Add(relayertypes.DefaultGasPriceIncreaseFlags.RetryInterval - time.Second)
 
 	tt := []struct {
 		name                     string
 		xmsg                     types.Xmsg
-		flags                    observertypes.GasPriceIncreaseFlags
+		flags                    relayertypes.GasPriceIncreaseFlags
 		blockTimestamp           time.Time
 		medianGasPrice           uint64
 		expectedGasPriceIncrease math.Uint
@@ -134,7 +134,7 @@ func TestCheckAndUpdateXmsgGasPrice(t *testing.T) {
 					},
 				},
 			},
-			flags:                    observertypes.DefaultGasPriceIncreaseFlags,
+			flags:                    relayertypes.DefaultGasPriceIncreaseFlags,
 			blockTimestamp:           retryIntervalReached,
 			medianGasPrice:           50,
 			expectedGasPriceIncrease: math.NewUint(50),    // 100% medianGasPrice
@@ -155,7 +155,7 @@ func TestCheckAndUpdateXmsgGasPrice(t *testing.T) {
 					},
 				},
 			},
-			flags: observertypes.GasPriceIncreaseFlags{
+			flags: relayertypes.GasPriceIncreaseFlags{
 				EpochLength:             100,
 				RetryInterval:           time.Minute * 10,
 				GasPriceIncreasePercent: 200, // Increase gas price to 100+50*2 = 200
@@ -181,7 +181,7 @@ func TestCheckAndUpdateXmsgGasPrice(t *testing.T) {
 					},
 				},
 			},
-			flags: observertypes.GasPriceIncreaseFlags{
+			flags: relayertypes.GasPriceIncreaseFlags{
 				EpochLength:             100,
 				RetryInterval:           time.Minute * 10,
 				GasPriceIncreasePercent: 100,
@@ -207,7 +207,7 @@ func TestCheckAndUpdateXmsgGasPrice(t *testing.T) {
 					},
 				},
 			},
-			flags: observertypes.GasPriceIncreaseFlags{
+			flags: relayertypes.GasPriceIncreaseFlags{
 				EpochLength:             100,
 				RetryInterval:           time.Minute * 10,
 				GasPriceIncreasePercent: 200, // Increase gas price to 100+50*2 = 200
@@ -233,7 +233,7 @@ func TestCheckAndUpdateXmsgGasPrice(t *testing.T) {
 					},
 				},
 			},
-			flags:                    observertypes.DefaultGasPriceIncreaseFlags,
+			flags:                    relayertypes.DefaultGasPriceIncreaseFlags,
 			blockTimestamp:           retryIntervalReached,
 			medianGasPrice:           100,
 			expectedGasPriceIncrease: math.NewUint(0),
@@ -254,7 +254,7 @@ func TestCheckAndUpdateXmsgGasPrice(t *testing.T) {
 					},
 				},
 			},
-			flags:                    observertypes.DefaultGasPriceIncreaseFlags,
+			flags:                    relayertypes.DefaultGasPriceIncreaseFlags,
 			blockTimestamp:           retryIntervalReached,
 			medianGasPrice:           100,
 			expectedGasPriceIncrease: math.NewUint(0),
@@ -275,7 +275,7 @@ func TestCheckAndUpdateXmsgGasPrice(t *testing.T) {
 					},
 				},
 			},
-			flags:                    observertypes.DefaultGasPriceIncreaseFlags,
+			flags:                    relayertypes.DefaultGasPriceIncreaseFlags,
 			blockTimestamp:           retryIntervalNotReached,
 			medianGasPrice:           100,
 			expectedGasPriceIncrease: math.NewUint(0),
@@ -296,7 +296,7 @@ func TestCheckAndUpdateXmsgGasPrice(t *testing.T) {
 					},
 				},
 			},
-			flags:          observertypes.DefaultGasPriceIncreaseFlags,
+			flags:          relayertypes.DefaultGasPriceIncreaseFlags,
 			blockTimestamp: retryIntervalReached,
 			medianGasPrice: 0,
 			isError:        true,

@@ -8,7 +8,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -17,7 +17,7 @@ func (k msgServer) AddToInTxTracker(goCtx context.Context, msg *types.MsgAddToIn
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	chain := k.GetRelayerKeeper().GetSupportedChainFromChainID(ctx, msg.ChainId)
 	if chain == nil {
-		return nil, observertypes.ErrSupportedChains
+		return nil, relayertypes.ErrSupportedChains
 	}
 
 	// emergency or observer group can submit tracker without proof
@@ -58,14 +58,14 @@ func verifyProofAndInTxBody(ctx sdk.Context, k msgServer, msg *types.MsgAddToInT
 	if !found || chainParams == nil {
 		return types.ErrUnsupportedChain.Wrapf("chain params not found for chain %d", msg.ChainId)
 	}
-	tss, err := k.GetRelayerKeeper().GetTssAddress(ctx, &observertypes.QueryGetTssAddressRequest{
+	tss, err := k.GetRelayerKeeper().GetTssAddress(ctx, &relayertypes.QueryGetTssAddressRequest{
 		BitcoinChainId: msg.ChainId,
 	})
 	if err != nil {
-		return observertypes.ErrTssNotFound.Wrapf(err.Error())
+		return relayertypes.ErrTssNotFound.Wrapf(err.Error())
 	}
 	if tss == nil {
-		return observertypes.ErrTssNotFound.Wrapf("tss address nil")
+		return relayertypes.ErrTssNotFound.Wrapf("tss address nil")
 	}
 
 	if err := types.VerifyInTxBody(*msg, txBytes, *chainParams, *tss); err != nil {

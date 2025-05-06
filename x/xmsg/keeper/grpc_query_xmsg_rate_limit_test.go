@@ -12,7 +12,7 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -71,12 +71,12 @@ func setXmsgsInKeeper(
 	ctx sdk.Context,
 	k keeper.Keeper,
 	zk keepertest.PellKeepers,
-	tss observertypes.TSS,
+	tss relayertypes.TSS,
 	cctxs []*types.Xmsg,
 ) {
 	for _, cctx := range cctxs {
 		k.SetXmsg(ctx, *cctx)
-		zk.ObserverKeeper.SetNonceToXmsg(ctx, observertypes.NonceToXmsg{
+		zk.ObserverKeeper.SetNonceToXmsg(ctx, relayertypes.NonceToXmsg{
 			ChainId: cctx.GetCurrentOutTxParam().ReceiverChainId,
 			// #nosec G701 always in range for tests
 			Nonce:     int64(cctx.GetCurrentOutTxParam().OutboundTxTssNonce),
@@ -124,12 +124,12 @@ func TestKeeper_ListPendingXmsgWithinRateLimit(t *testing.T) {
 		// Eth chain cctxs setup
 		ethMinedXmsgs    []*types.Xmsg
 		ethPendingXmsgs  []*types.Xmsg
-		ethPendingNonces observertypes.PendingNonces
+		ethPendingNonces relayertypes.PendingNonces
 
 		// Bsc chain cctxs setup
 		bscMinedXmsgs    []*types.Xmsg
 		bscPendingXmsgs  []*types.Xmsg
-		bscPendingNonces observertypes.PendingNonces
+		bscPendingNonces relayertypes.PendingNonces
 
 		// current block height and limit
 		currentHeight int64
@@ -148,7 +148,7 @@ func TestKeeper_ListPendingXmsgWithinRateLimit(t *testing.T) {
 			rateLimitFlags:  nil, // no rate limiter flags set in the keeper
 			ethMinedXmsgs:   ethMinedXmsgs,
 			ethPendingXmsgs: ethPendingXmsgs,
-			ethPendingNonces: observertypes.PendingNonces{
+			ethPendingNonces: relayertypes.PendingNonces{
 				ChainId:   ethChainID,
 				NonceLow:  1099,
 				NonceHigh: 1199,
@@ -165,7 +165,7 @@ func TestKeeper_ListPendingXmsgWithinRateLimit(t *testing.T) {
 			rateLimitFlags:  createTestRateLimiterFlags(500, math.NewUint(0)),
 			ethMinedXmsgs:   ethMinedXmsgs,
 			ethPendingXmsgs: ethPendingXmsgs,
-			ethPendingNonces: observertypes.PendingNonces{
+			ethPendingNonces: relayertypes.PendingNonces{
 				ChainId:   ethChainID,
 				NonceLow:  1099,
 				NonceHigh: 1199,
@@ -181,7 +181,7 @@ func TestKeeper_ListPendingXmsgWithinRateLimit(t *testing.T) {
 			rateLimitFlags:  createTestRateLimiterFlags(700, math.NewUint(10*1e18)),
 			ethMinedXmsgs:   ethMinedXmsgs,
 			ethPendingXmsgs: ethPendingXmsgs,
-			ethPendingNonces: observertypes.PendingNonces{
+			ethPendingNonces: relayertypes.PendingNonces{
 				ChainId:   ethChainID,
 				NonceLow:  1099,
 				NonceHigh: 1199,
@@ -189,7 +189,7 @@ func TestKeeper_ListPendingXmsgWithinRateLimit(t *testing.T) {
 			},
 			bscMinedXmsgs:   bscMinedXmsgs,
 			bscPendingXmsgs: bscPendingXmsgs,
-			bscPendingNonces: observertypes.PendingNonces{
+			bscPendingNonces: relayertypes.PendingNonces{
 				ChainId:   bscChainID,
 				NonceLow:  1099,
 				NonceHigh: 1199,
@@ -208,7 +208,7 @@ func TestKeeper_ListPendingXmsgWithinRateLimit(t *testing.T) {
 			rateLimitFlags:  createTestRateLimiterFlags(700, math.NewUint(10*1e18)),
 			ethMinedXmsgs:   ethRevertedXmsgs,      // replace mined cctxs with reverted cctxs, should be ignored
 			ethPendingXmsgs: ethPendingRevertXmsgs, // replace pending cctxs with pending revert cctxs, should be ignored
-			ethPendingNonces: observertypes.PendingNonces{
+			ethPendingNonces: relayertypes.PendingNonces{
 				ChainId:   ethChainID,
 				NonceLow:  1099,
 				NonceHigh: 1199,
@@ -216,7 +216,7 @@ func TestKeeper_ListPendingXmsgWithinRateLimit(t *testing.T) {
 			},
 			bscMinedXmsgs:   bscRevertedXmsgs,
 			bscPendingXmsgs: bscPendingRevertXmsgs,
-			bscPendingNonces: observertypes.PendingNonces{
+			bscPendingNonces: relayertypes.PendingNonces{
 				ChainId:   bscChainID,
 				NonceLow:  1099,
 				NonceHigh: 1199,
@@ -235,7 +235,7 @@ func TestKeeper_ListPendingXmsgWithinRateLimit(t *testing.T) {
 			rateLimitFlags:  createTestRateLimiterFlags(700, math.NewUint(10*1e18)),
 			ethMinedXmsgs:   ethMinedXmsgs,
 			ethPendingXmsgs: ethPendingXmsgs,
-			ethPendingNonces: observertypes.PendingNonces{
+			ethPendingNonces: relayertypes.PendingNonces{
 				ChainId:   ethChainID,
 				NonceLow:  999, // endNonce will be set to 0 (NonceLow - 1000 < 0)
 				NonceHigh: 1199,
@@ -243,7 +243,7 @@ func TestKeeper_ListPendingXmsgWithinRateLimit(t *testing.T) {
 			},
 			bscMinedXmsgs:   bscMinedXmsgs,
 			bscPendingXmsgs: bscPendingXmsgs,
-			bscPendingNonces: observertypes.PendingNonces{
+			bscPendingNonces: relayertypes.PendingNonces{
 				ChainId:   bscChainID,
 				NonceLow:  999,
 				NonceHigh: 1199,
@@ -262,7 +262,7 @@ func TestKeeper_ListPendingXmsgWithinRateLimit(t *testing.T) {
 			rateLimitFlags:  createTestRateLimiterFlags(700, math.NewUint(10*1e18)),
 			ethMinedXmsgs:   ethMinedXmsgs,
 			ethPendingXmsgs: ethPendingXmsgs,
-			ethPendingNonces: observertypes.PendingNonces{
+			ethPendingNonces: relayertypes.PendingNonces{
 				ChainId:   ethChainID,
 				NonceLow:  1099,
 				NonceHigh: 1199,
@@ -270,7 +270,7 @@ func TestKeeper_ListPendingXmsgWithinRateLimit(t *testing.T) {
 			},
 			bscMinedXmsgs:   bscMinedXmsgs,
 			bscPendingXmsgs: bscPendingXmsgs,
-			bscPendingNonces: observertypes.PendingNonces{
+			bscPendingNonces: relayertypes.PendingNonces{
 				ChainId:   bscChainID,
 				NonceLow:  1099,
 				NonceHigh: 1199,

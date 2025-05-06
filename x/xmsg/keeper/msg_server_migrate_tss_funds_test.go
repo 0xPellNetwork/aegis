@@ -18,7 +18,7 @@ import (
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
 	"github.com/0xPellNetwork/aegis/x/pevm/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 	xmsgtypes "github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -32,13 +32,13 @@ func setupTssMigrationParams(
 	setNewTss bool,
 	setCurrentTSS bool,
 ) (string, string) {
-	zk.ObserverKeeper.SetCrosschainFlags(ctx, observertypes.CrosschainFlags{
+	zk.ObserverKeeper.SetCrosschainFlags(ctx, relayertypes.CrosschainFlags{
 		IsInboundEnabled:  false,
 		IsOutboundEnabled: true,
 	})
 
-	zk.ObserverKeeper.SetChainParamsList(ctx, observertypes.ChainParamsList{
-		ChainParams: []*observertypes.ChainParams{
+	zk.ObserverKeeper.SetChainParamsList(ctx, relayertypes.ChainParamsList{
+		ChainParams: []*relayertypes.ChainParams{
 			{
 				ChainId:               chain.Id,
 				BallotThreshold:       sdkmath.LegacyNewDec(0),
@@ -59,7 +59,7 @@ func setupTssMigrationParams(
 	if setNewTss {
 		k.GetRelayerKeeper().SetTSSHistory(ctx, newTss)
 	}
-	k.GetRelayerKeeper().SetPendingNonces(ctx, observertypes.PendingNonces{
+	k.GetRelayerKeeper().SetPendingNonces(ctx, relayertypes.PendingNonces{
 		NonceLow:  1,
 		NonceHigh: 1,
 		ChainId:   chain.Id,
@@ -74,7 +74,7 @@ func setupTssMigrationParams(
 		Prices:      []uint64{100000, 100000, 100000},
 		MedianIndex: 1,
 	})
-	k.GetRelayerKeeper().SetChainNonces(ctx, observertypes.ChainNonces{
+	k.GetRelayerKeeper().SetChainNonces(ctx, relayertypes.ChainNonces{
 		Index:   chain.ChainName(),
 		ChainId: chain.Id,
 		Nonce:   1,
@@ -217,7 +217,7 @@ func TestMsgServer_MigrateTssFunds(t *testing.T) {
 
 		observerMock := keepertest.GetXmsgObserverMock(t, k)
 		observerMock.On("IsInboundEnabled", mock.Anything).Return(false)
-		observerMock.On("GetTSS", mock.Anything).Return(observertypes.TSS{}, false)
+		observerMock.On("GetTSS", mock.Anything).Return(relayertypes.TSS{}, false)
 
 		msgServer := keeper.NewMsgServerImpl(*k)
 		chain := getValidEthChain()
@@ -243,7 +243,7 @@ func TestMsgServer_MigrateTssFunds(t *testing.T) {
 		observerMock := keepertest.GetXmsgObserverMock(t, k)
 		observerMock.On("IsInboundEnabled", mock.Anything).Return(false)
 		observerMock.On("GetTSS", mock.Anything).Return(sample.Tss_pell(), true)
-		observerMock.On("GetAllTSS", mock.Anything).Return([]observertypes.TSS{})
+		observerMock.On("GetAllTSS", mock.Anything).Return([]relayertypes.TSS{})
 
 		msgServer := keeper.NewMsgServerImpl(*k)
 		chain := getValidEthChain()
@@ -270,7 +270,7 @@ func TestMsgServer_MigrateTssFunds(t *testing.T) {
 		observerMock.On("IsInboundEnabled", mock.Anything).Return(false)
 		tss := sample.Tss_pell()
 		observerMock.On("GetTSS", mock.Anything).Return(tss, true)
-		observerMock.On("GetAllTSS", mock.Anything).Return([]observertypes.TSS{tss})
+		observerMock.On("GetAllTSS", mock.Anything).Return([]relayertypes.TSS{tss})
 
 		msgServer := keeper.NewMsgServerImpl(*k)
 		chain := getValidEthChain()
@@ -300,7 +300,7 @@ func TestMsgServer_MigrateTssFunds(t *testing.T) {
 		tss2 := sample.Tss_pell()
 		tss2.FinalizedPellHeight = 1
 		observerMock.On("GetTSS", mock.Anything).Return(tss1, true)
-		observerMock.On("GetAllTSS", mock.Anything).Return([]observertypes.TSS{tss2})
+		observerMock.On("GetAllTSS", mock.Anything).Return([]relayertypes.TSS{tss2})
 
 		msgServer := keeper.NewMsgServerImpl(*k)
 		chain := getValidEthChain()
@@ -330,8 +330,8 @@ func TestMsgServer_MigrateTssFunds(t *testing.T) {
 		tss2 := sample.Tss_pell()
 		tss2.FinalizedPellHeight = 3
 		observerMock.On("GetTSS", mock.Anything).Return(tss1, true)
-		observerMock.On("GetAllTSS", mock.Anything).Return([]observertypes.TSS{tss2})
-		observerMock.On("GetPendingNonces", mock.Anything, mock.Anything, mock.Anything).Return(observertypes.PendingNonces{}, false)
+		observerMock.On("GetAllTSS", mock.Anything).Return([]relayertypes.TSS{tss2})
+		observerMock.On("GetPendingNonces", mock.Anything, mock.Anything, mock.Anything).Return(relayertypes.PendingNonces{}, false)
 
 		msgServer := keeper.NewMsgServerImpl(*k)
 		chain := getValidEthChain()
@@ -407,7 +407,7 @@ func TestMsgServer_MigrateTssFunds(t *testing.T) {
 		chain := getValidEthChain()
 		amount := sdkmath.NewUintFromString("10000000000000000000")
 		indexString, tssPubkey := setupTssMigrationParams(zk, k, ctx, *chain, amount, true, true)
-		k.GetRelayerKeeper().SetPendingNonces(ctx, observertypes.PendingNonces{
+		k.GetRelayerKeeper().SetPendingNonces(ctx, relayertypes.PendingNonces{
 			NonceLow:  1,
 			NonceHigh: 10,
 			ChainId:   chain.Id,
@@ -439,7 +439,7 @@ func TestMsgServer_MigrateTssFunds(t *testing.T) {
 		chain := getValidEthChain()
 		amount := sdkmath.NewUintFromString("10000000000000000000")
 		indexString, tssPubkey := setupTssMigrationParams(zk, k, ctx, *chain, amount, true, true)
-		k.GetRelayerKeeper().SetPendingNonces(ctx, observertypes.PendingNonces{
+		k.GetRelayerKeeper().SetPendingNonces(ctx, relayertypes.PendingNonces{
 			NonceLow:  1,
 			NonceHigh: 1,
 			ChainId:   chain.Id,
@@ -448,7 +448,7 @@ func TestMsgServer_MigrateTssFunds(t *testing.T) {
 		existingXmsg := sample.Xmsg_pell(t, "sample_index")
 		existingXmsg.XmsgStatus.Status = xmsgtypes.XmsgStatus_PENDING_OUTBOUND
 		k.SetXmsg(ctx, *existingXmsg)
-		k.GetRelayerKeeper().SetFundMigrator(ctx, observertypes.TssFundMigratorInfo{
+		k.GetRelayerKeeper().SetFundMigrator(ctx, relayertypes.TssFundMigratorInfo{
 			ChainId:            chain.Id,
 			MigrationXmsgIndex: existingXmsg.Index,
 		})

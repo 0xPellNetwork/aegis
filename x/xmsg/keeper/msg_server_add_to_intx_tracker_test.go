@@ -13,7 +13,7 @@ import (
 	keepertest "github.com/0xPellNetwork/aegis/testutil/keeper"
 	"github.com/0xPellNetwork/aegis/testutil/sample"
 	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/keeper"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
@@ -74,7 +74,7 @@ func TestMsgServer_AddToInTxTracker(t *testing.T) {
 			BlockHash: "",
 			TxIndex:   0,
 		})
-		require.ErrorIs(t, err, observertypes.ErrSupportedChains)
+		require.ErrorIs(t, err, relayertypes.ErrSupportedChains)
 		_, found := k.GetInTxTracker(ctx, chainID, txHash)
 		require.False(t, found)
 	})
@@ -244,7 +244,7 @@ func TestMsgServer_AddToInTxTracker(t *testing.T) {
 			BlockHash: "",
 			TxIndex:   0,
 		})
-		require.ErrorIs(t, err, observertypes.ErrTssNotFound)
+		require.ErrorIs(t, err, relayertypes.ErrTssNotFound)
 	})
 
 	t.Run("fail if proof is provided but error while verifying tx body", func(t *testing.T) {
@@ -264,7 +264,7 @@ func TestMsgServer_AddToInTxTracker(t *testing.T) {
 		observerMock.On("GetSupportedChainFromChainID", mock.Anything, mock.Anything).Return(&chains.Chain{})
 		observerMock.On("IsNonTombstonedObserver", mock.Anything, mock.Anything).Return(false)
 		observerMock.On("GetChainParamsByChainID", mock.Anything, mock.Anything).Return(sample.ChainParams_pell(chains.EthChain().Id), true)
-		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&observertypes.QueryGetTssAddressResponse{
+		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&relayertypes.QueryGetTssAddressResponse{
 			Eth: sample.EthAddress().Hex(),
 		}, nil)
 
@@ -312,7 +312,7 @@ func TestMsgServer_AddToInTxTracker(t *testing.T) {
 		chainParams := sample.ChainParams_pell(chains.EthChain().Id)
 		chainParams.DelegationManagerContractAddress = tssAddress.Hex()
 		observerMock.On("GetChainParamsByChainID", mock.Anything, mock.Anything).Return(chainParams, true)
-		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&observertypes.QueryGetTssAddressResponse{
+		observerMock.On("GetTssAddress", mock.Anything, mock.Anything).Return(&relayertypes.QueryGetTssAddressResponse{
 			Eth: tssAddress.Hex(),
 		}, nil)
 		lightclientMock.On("VerifyProof", mock.Anything, mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(ethTxBytes, nil)

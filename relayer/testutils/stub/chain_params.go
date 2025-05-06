@@ -7,11 +7,11 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 
 	"github.com/0xPellNetwork/aegis/relayer/testutils"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
-func MockChainParams(chainID int64, confirmation uint64) observertypes.ChainParams {
-	return observertypes.ChainParams{
+func MockChainParams(chainID int64, confirmation uint64) relayertypes.ChainParams {
+	return relayertypes.ChainParams{
 		ChainId:                  chainID,
 		ConfirmationCount:        confirmation,
 		ConnectorContractAddress: testutils.ConnectorAddresses[chainID].Hex(),

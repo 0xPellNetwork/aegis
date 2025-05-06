@@ -15,7 +15,7 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	"github.com/0xPellNetwork/aegis/testutil/nullify"
 	authoritytypes "github.com/0xPellNetwork/aegis/x/authority/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -23,11 +23,11 @@ func SetupPellGenesisState(t *testing.T, genesisState map[string]json.RawMessage
 	// Cross-chain genesis state
 	var xmsgGenesis types.GenesisState
 	require.NoError(t, codec.UnmarshalJSON(genesisState[types.ModuleName], &xmsgGenesis))
-	nodeAccountList := make([]*observertypes.NodeAccount, len(observerList))
+	nodeAccountList := make([]*relayertypes.NodeAccount, len(observerList))
 	for i, operator := range observerList {
-		nodeAccountList[i] = &observertypes.NodeAccount{
+		nodeAccountList[i] = &relayertypes.NodeAccount{
 			Operator:   operator,
-			NodeStatus: observertypes.NodeStatus_ACTIVE,
+			NodeStatus: relayertypes.NodeStatus_ACTIVE,
 		}
 	}
 
@@ -51,17 +51,17 @@ func SetupPellGenesisState(t *testing.T, genesisState map[string]json.RawMessage
 	require.NoError(t, err)
 
 	// Observer genesis state
-	var observerGenesis observertypes.GenesisState
-	require.NoError(t, codec.UnmarshalJSON(genesisState[observertypes.ModuleName], &observerGenesis))
-	observerSet := observertypes.RelayerSet{
+	var observerGenesis relayertypes.GenesisState
+	require.NoError(t, codec.UnmarshalJSON(genesisState[relayertypes.ModuleName], &observerGenesis))
+	observerSet := relayertypes.RelayerSet{
 		RelayerList: observerList,
 	}
 
 	privnetChainList := chains.PrivnetChainList()
 	if setupChainNonces {
-		chainNonceList := make([]observertypes.ChainNonces, len(privnetChainList))
+		chainNonceList := make([]relayertypes.ChainNonces, len(privnetChainList))
 		for i, chain := range privnetChainList {
-			chainNonceList[i] = observertypes.ChainNonces{
+			chainNonceList[i] = relayertypes.ChainNonces{
 				Index:   chain.ChainName(),
 				ChainId: chain.Id,
 				Nonce:   0,
@@ -72,12 +72,12 @@ func SetupPellGenesisState(t *testing.T, genesisState map[string]json.RawMessage
 
 	observerGenesis.Observers = observerSet
 	observerGenesis.NodeAccountList = nodeAccountList
-	observerGenesis.Keygen = &observertypes.Keygen{
-		Status:         observertypes.KeygenStatus_PENDING,
+	observerGenesis.Keygen = &relayertypes.Keygen{
+		Status:         relayertypes.KeygenStatus_PENDING,
 		GranteePubkeys: observerList,
 		BlockNumber:    5,
 	}
-	observerGenesis.CrosschainFlags = &observertypes.CrosschainFlags{
+	observerGenesis.CrosschainFlags = &relayertypes.CrosschainFlags{
 		IsInboundEnabled:  true,
 		IsOutboundEnabled: true,
 	}
@@ -111,17 +111,17 @@ func SetupPellGenesisState(t *testing.T, genesisState map[string]json.RawMessage
 
 	genesisState[types.ModuleName] = xmsgGenesisBz
 	genesisState[stakingtypes.ModuleName] = stakingGenesisStateBz
-	genesisState[observertypes.ModuleName] = observerGenesisBz
+	genesisState[relayertypes.ModuleName] = observerGenesisBz
 	genesisState[evmtypes.ModuleName] = evmGenesisBz
 	genesisState[authoritytypes.ModuleName] = authorityGenesisBz
 }
 
-func AddObserverData(t *testing.T, n int, genesisState map[string]json.RawMessage, codec codec.Codec, ballots []*observertypes.Ballot) *observertypes.GenesisState {
-	state := observertypes.GenesisState{}
-	require.NoError(t, codec.UnmarshalJSON(genesisState[observertypes.ModuleName], &state))
+func AddObserverData(t *testing.T, n int, genesisState map[string]json.RawMessage, codec codec.Codec, ballots []*relayertypes.Ballot) *relayertypes.GenesisState {
+	state := relayertypes.GenesisState{}
+	require.NoError(t, codec.UnmarshalJSON(genesisState[relayertypes.ModuleName], &state))
 
 	// set chain params with chains all enabled
-	state.ChainParamsList = observertypes.GetDefaultChainParams()
+	state.ChainParamsList = relayertypes.GetDefaultChainParams()
 	for i := range state.ChainParamsList.ChainParams {
 		state.ChainParamsList.ChainParams[i].IsSupported = true
 	}
@@ -131,19 +131,19 @@ func AddObserverData(t *testing.T, n int, genesisState map[string]json.RawMessag
 		state.Ballots = ballots
 	}
 	state.Params.BallotMaturityBlocks = 3
-	state.Keygen = &observertypes.Keygen{BlockNumber: 10, GranteePubkeys: []string{}}
+	state.Keygen = &relayertypes.Keygen{BlockNumber: 10, GranteePubkeys: []string{}}
 
 	// set tss
-	tss := observertypes.TSS{
+	tss := relayertypes.TSS{
 		TssPubkey:           "tssPubkey",
 		TssParticipantList:  []string{"tssParticipantList"},
 		OperatorAddressList: []string{"operatorAddressList"},
 		FinalizedPellHeight: 1,
 		KeygenPellHeight:    1,
 	}
-	pendingNonces := make([]observertypes.PendingNonces, len(chains.ChainsList()))
+	pendingNonces := make([]relayertypes.PendingNonces, len(chains.ChainsList()))
 	for i, chain := range chains.ChainsList() {
-		pendingNonces[i] = observertypes.PendingNonces{
+		pendingNonces[i] = relayertypes.PendingNonces{
 			ChainId:   chain.Id,
 			NonceLow:  0,
 			NonceHigh: 0,
@@ -151,21 +151,21 @@ func AddObserverData(t *testing.T, n int, genesisState map[string]json.RawMessag
 		}
 	}
 	state.Tss = &tss
-	state.TssHistory = []observertypes.TSS{tss}
+	state.TssHistory = []relayertypes.TSS{tss}
 	state.PendingNonces = pendingNonces
 
 	// set crosschain flags
-	crosschainFlags := &observertypes.CrosschainFlags{
+	crosschainFlags := &relayertypes.CrosschainFlags{
 		IsInboundEnabled:             true,
 		IsOutboundEnabled:            true,
-		GasPriceIncreaseFlags:        &observertypes.DefaultGasPriceIncreaseFlags,
-		BlockHeaderVerificationFlags: &observertypes.DefaultBlockHeaderVerificationFlags,
+		GasPriceIncreaseFlags:        &relayertypes.DefaultGasPriceIncreaseFlags,
+		BlockHeaderVerificationFlags: &relayertypes.DefaultBlockHeaderVerificationFlags,
 	}
 	nullify.Fill(&crosschainFlags)
 	state.CrosschainFlags = crosschainFlags
 
 	for i := 0; i < n; i++ {
-		state.ChainNonces = append(state.ChainNonces, observertypes.ChainNonces{Signer: "ANY", Index: strconv.Itoa(i), Signers: []string{}})
+		state.ChainNonces = append(state.ChainNonces, relayertypes.ChainNonces{Signer: "ANY", Index: strconv.Itoa(i), Signers: []string{}})
 	}
 
 	// check genesis state validity
@@ -174,7 +174,7 @@ func AddObserverData(t *testing.T, n int, genesisState map[string]json.RawMessag
 	// marshal genesis state
 	buf, err := codec.MarshalJSON(&state)
 	require.NoError(t, err)
-	genesisState[observertypes.ModuleName] = buf
+	genesisState[relayertypes.ModuleName] = buf
 	return &state
 }
 

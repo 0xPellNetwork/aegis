@@ -9,19 +9,19 @@ import (
 	"github.com/0xPellNetwork/aegis/pkg/chains"
 	"github.com/0xPellNetwork/aegis/relayer/config"
 	lightclienttypes "github.com/0xPellNetwork/aegis/x/lightclient/types"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 )
 
 // PellCoreContext contains core context params
 // these are initialized and updated at runtime at every height
 type PellCoreContext struct {
 	coreContextLock    *sync.RWMutex
-	keygen             observertypes.Keygen
+	keygen             relayertypes.Keygen
 	chainsEnabled      []chains.Chain
-	evmChainParams     map[int64]*observertypes.ChainParams
-	bitcoinChainParams *observertypes.ChainParams
+	evmChainParams     map[int64]*relayertypes.ChainParams
+	bitcoinChainParams *relayertypes.ChainParams
 	currentTssPubkey   string
-	crossChainFlags    observertypes.CrosschainFlags
+	crossChainFlags    relayertypes.CrosschainFlags
 
 	// verificationFlags is used to store the verification flags for the lightclient module to enable header/proof verification
 	verificationFlags lightclienttypes.VerificationFlags
@@ -30,26 +30,26 @@ type PellCoreContext struct {
 // NewPellCoreContext creates and returns new PellCoreContext
 // it is initializing chain params from provided config
 func NewPellCoreContext(cfg config.Config) *PellCoreContext {
-	evmChainParams := make(map[int64]*observertypes.ChainParams)
+	evmChainParams := make(map[int64]*relayertypes.ChainParams)
 	for _, e := range cfg.EVMChainConfigs {
-		evmChainParams[e.Chain.Id] = &observertypes.ChainParams{}
+		evmChainParams[e.Chain.Id] = &relayertypes.ChainParams{}
 	}
-	var bitcoinChainParams *observertypes.ChainParams
+	var bitcoinChainParams *relayertypes.ChainParams
 	_, found := cfg.GetBTCConfig()
 	if found {
-		bitcoinChainParams = &observertypes.ChainParams{}
+		bitcoinChainParams = &relayertypes.ChainParams{}
 	}
 	return &PellCoreContext{
 		coreContextLock:    new(sync.RWMutex),
 		chainsEnabled:      []chains.Chain{},
 		evmChainParams:     evmChainParams,
 		bitcoinChainParams: bitcoinChainParams,
-		crossChainFlags:    observertypes.CrosschainFlags{},
+		crossChainFlags:    relayertypes.CrosschainFlags{},
 		verificationFlags:  lightclienttypes.VerificationFlags{},
 	}
 }
 
-func (c *PellCoreContext) GetKeygen() observertypes.Keygen {
+func (c *PellCoreContext) GetKeygen() relayertypes.Keygen {
 	c.coreContextLock.RLock()
 	defer c.coreContextLock.RUnlock()
 
@@ -58,7 +58,7 @@ func (c *PellCoreContext) GetKeygen() observertypes.Keygen {
 		copiedPubkeys = make([]string, len(c.keygen.GranteePubkeys))
 		copy(copiedPubkeys, c.keygen.GranteePubkeys)
 	}
-	return observertypes.Keygen{
+	return relayertypes.Keygen{
 		Status:         c.keygen.Status,
 		GranteePubkeys: copiedPubkeys,
 		BlockNumber:    c.keygen.BlockNumber,
@@ -79,27 +79,27 @@ func (c *PellCoreContext) GetEnabledChains() []chains.Chain {
 	return copiedChains
 }
 
-func (c *PellCoreContext) GetEVMChainParams(chainID int64) (*observertypes.ChainParams, bool) {
+func (c *PellCoreContext) GetEVMChainParams(chainID int64) (*relayertypes.ChainParams, bool) {
 	c.coreContextLock.RLock()
 	defer c.coreContextLock.RUnlock()
 	evmChainParams, found := c.evmChainParams[chainID]
 	return evmChainParams, found
 }
 
-func (c *PellCoreContext) GetAllEVMChainParams() map[int64]*observertypes.ChainParams {
+func (c *PellCoreContext) GetAllEVMChainParams() map[int64]*relayertypes.ChainParams {
 	c.coreContextLock.RLock()
 	defer c.coreContextLock.RUnlock()
 
 	// deep copy evm chain params
-	copied := make(map[int64]*observertypes.ChainParams, len(c.evmChainParams))
+	copied := make(map[int64]*relayertypes.ChainParams, len(c.evmChainParams))
 	for chainID, evmConfig := range c.evmChainParams {
-		copied[chainID] = &observertypes.ChainParams{}
+		copied[chainID] = &relayertypes.ChainParams{}
 		*copied[chainID] = *evmConfig
 	}
 	return copied
 }
 
-func (c *PellCoreContext) GetCrossChainFlags() observertypes.CrosschainFlags {
+func (c *PellCoreContext) GetCrossChainFlags() relayertypes.CrosschainFlags {
 	c.coreContextLock.RLock()
 	defer c.coreContextLock.RUnlock()
 	return c.crossChainFlags
@@ -112,25 +112,27 @@ func (c *PellCoreContext) GetVerificationFlags() lightclienttypes.VerificationFl
 }
 
 // IsOutboundObservationEnabled returns true if the chain is supported and outbound flag is enabled
-func (c *PellCoreContext) IsOutboundObservationEnabled(chainParams observertypes.ChainParams) bool {
-	flags := c.GetCrossChainFlags()
-	return chainParams.IsSupported && flags.IsOutboundEnabled
+func (c *PellCoreContext) IsOutboundObservationEnabled(chainParams relayertypes.ChainParams) bool {
+	return c.isObservationEnabled(chainParams, func(f relayertypes.CrosschainFlags) bool {
+		return f.IsOutboundEnabled
+	})
 }
 
 // IsInboundObservationEnabled returns true if the chain is supported and inbound flag is enabled
-func (c *PellCoreContext) IsInboundObservationEnabled(chainParams observertypes.ChainParams) bool {
-	flags := c.GetCrossChainFlags()
-	return chainParams.IsSupported && flags.IsInboundEnabled
+func (c *PellCoreContext) IsInboundObservationEnabled(chainParams relayertypes.ChainParams) bool {
+	return c.isObservationEnabled(chainParams, func(f relayertypes.CrosschainFlags) bool {
+		return f.IsInboundEnabled
+	})
 }
 
 // Update updates core context and params for all chains
 // this must be the ONLY function that writes to core context
 func (c *PellCoreContext) Update(
-	keygen observertypes.Keygen,
+	keygen relayertypes.Keygen,
 	newChains []chains.Chain,
-	evmChainParams map[int64]*observertypes.ChainParams,
+	evmChainParams map[int64]*relayertypes.ChainParams,
 	tssPubKey string,
-	crosschainFlags observertypes.CrosschainFlags,
+	crosschainFlags relayertypes.CrosschainFlags,
 	verificationFlags lightclienttypes.VerificationFlags,
 	init bool,
 	logger zerolog.Logger,
@@ -186,4 +188,16 @@ func (c *PellCoreContext) Update(
 	}
 
 	return nil
+}
+
+// 私有辅助函数，减少代码重复
+func (c *PellCoreContext) isObservationEnabled(
+	chainParams relayertypes.ChainParams,
+	flagCheck func(relayertypes.CrosschainFlags) bool,
+) bool {
+	if !chainParams.IsSupported {
+		return false
+	}
+	flags := c.GetCrossChainFlags()
+	return flagCheck(flags)
 }

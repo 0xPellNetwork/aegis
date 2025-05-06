@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/0xPellNetwork/aegis/cmd/pelltool/config"
-	observertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
+	relayertypes "github.com/0xPellNetwork/aegis/x/relayer/types"
 	"github.com/0xPellNetwork/aegis/x/xmsg/types"
 )
 
@@ -67,7 +67,7 @@ func TestGetTssAddress(t *testing.T) {
 				t.Errorf("Expected to request '/pell-chain', got: %s", r.URL.Path)
 			}
 			w.WriteHeader(http.StatusOK)
-			response := observertypes.QueryGetTssAddressResponse{}
+			response := relayertypes.QueryGetTssAddressResponse{}
 			bytes, err := json.Marshal(response)
 			require.NoError(t, err)
 			_, err = w.Write(bytes)
@@ -83,7 +83,7 @@ func TestGetTssAddress(t *testing.T) {
 		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			if r.URL.Path != "/pell-chain/relayer/get_tss_address/8332" {
 				w.WriteHeader(http.StatusBadRequest)
-				response := observertypes.QueryGetTssAddressResponse{}
+				response := relayertypes.QueryGetTssAddressResponse{}
 				bytes, err := json.Marshal(response)
 				require.NoError(t, err)
 				_, err = w.Write(bytes)
