@@ -8,7 +8,7 @@ on:
 jobs:
 
   build:
-    runs-on: [ "Linux", "X64", "ci" ]
+    runs-on: ubuntu-lates
     name: Build
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

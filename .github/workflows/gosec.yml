@@ -14,7 +14,7 @@ concurrency:
       
 jobs:
   tests:
-    runs-on: [ "Linux", "X64", "ci" ]
+    runs-on: ubuntu-lates
 
     env:
       GO111MODULE: on

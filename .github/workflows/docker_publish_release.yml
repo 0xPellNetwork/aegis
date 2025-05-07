@@ -15,7 +15,7 @@ on:
 jobs:
   build_and_publish:
     name: Build
-    runs-on: ["Linux", "X64", "ci"]
+    runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
