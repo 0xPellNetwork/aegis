@@ -8,7 +8,7 @@ on:
 jobs:
   generate-check:
     name: Verify
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     
     steps:
     - name: Check out code
