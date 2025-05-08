@@ -9,7 +9,7 @@ on:
 jobs:
   generate-check:
     name: Verify
-    runs-on: [ "self-hosted", "Linux", "X64", "ci" ]
+    runs-on: ubuntu-latest
     
     steps:
     - name: Check out code

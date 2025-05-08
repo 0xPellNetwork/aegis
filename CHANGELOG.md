@@ -4,8 +4,19 @@
 
 Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed changelog format guidelines.
 
- 
-## [Unreleased v1.3.0]
+## [Unreleased v1.4.0]
+
+### ✨ Features
+
+### 📈 Improvements
+
+- [deps] Bump deps to fix security alert ([#4](https://github.com/0xPellNetwork/aegis/pull/4))
+
+### 🐛 Bug Fixes
+
+### 📦 Dependencies
+
+## [Released v1.3.0]
 
 ### ✨ Features
 
@@ -32,7 +43,6 @@ Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed changelog form
 [contract] bump contract version from v0.2.31 to v0.2.34 ([#265](https://github.com/0xPellNetwork/chain/pull/265))
 
 [e2e] Remove pelldvs dependences in e2e test ([#278](https://github.com/0xPellNetwork/chain/pull/278))
-
 
 ## [Released v1.2.0]
 

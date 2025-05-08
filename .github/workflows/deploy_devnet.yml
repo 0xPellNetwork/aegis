@@ -6,7 +6,7 @@ on:
 jobs:
   deploy_pellnode0:
     name: Build On X64
-    runs-on: [ "self-hosted", "Linux", "X64", "node2" ]
+    runs-on: ubuntu-latest
     env:
       GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

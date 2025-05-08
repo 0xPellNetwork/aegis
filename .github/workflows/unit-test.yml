@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    runs-on: [ "self-hosted", "Linux", "X64", "ci" ]
+    runs-on: ubuntu-latest
     steps:
       # Step 1: Checkout the repository
       - name: Checkout code
@@ -28,9 +28,13 @@ jobs:
           go-version: 1.23  # Specify your project's Go version here
           cache: false
 
-      # Step 4: Install dependencies
-      - name: Install dependencies
-        run: go mod tidy
+      # Step 4: Configure Git and Install dependencies
+      - name: Configure Git and Install dependencies
+        env:
+          token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global url."https://${token}:x-oauth-basic@github.com/0xPellNetwork".insteadOf "https://github.com/0xPellNetwork"
+          go mod tidy
 
       - name: Verify testdata existence
         run: |
@@ -41,7 +45,8 @@ jobs:
           ls -R ./relayer/testdata
 
       - name: Run Unit Tests
-        run: go test ./... -coverprofile=coverage.out
+        run: |
+          go test ./... -coverprofile=coverage.out
 
       # Optional Step: Upload coverage results to Codecov
       - name: Upload Coverage to Codecov

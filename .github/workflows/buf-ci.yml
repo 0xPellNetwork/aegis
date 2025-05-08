@@ -12,7 +12,7 @@ permissions:
   pull-requests: write
 jobs:
   buf:
-    runs-on: ["self-hosted", "Linux", "X64", "ci"]
+    runs-on: ubuntu-latest
     steps:
       # Run `git checkout`
       - uses: actions/checkout@v4
