@@ -20,7 +20,7 @@ require (
 	cosmossdk.io/x/upgrade v0.1.4
 	github.com/CosmWasm/wasmd v0.53.0
 	github.com/btcsuite/btcd v0.24.2
-	github.com/btcsuite/btcd/btcutil v1.1.6 // indirect
+	github.com/btcsuite/btcd/btcutil v1.1.6
 	github.com/cometbft/cometbft v0.38.17
 	github.com/cosmos/cosmos-db v1.0.2
 	github.com/cosmos/cosmos-proto v1.0.0-beta.5 // indirect
@@ -394,7 +394,8 @@ replace (
 	github.com/binance-chain/tss-lib => gitlab.com/thorchain/tss/tss-lib v0.1.5
 	github.com/btcsuite/btcd => github.com/btcsuite/btcd v0.22.3
 
-	github.com/cosmos/cosmos-sdk => github.com/cosmos/cosmos-sdk v0.50.8
+	github.com/cosmos/cosmos-sdk => github.com/0xPellNetwork/cosmos-sdk v0.50.10-alpha-1
+
 	github.com/cosmos/cosmos-sdk/x/feegrant => cosmossdk.io/x/feegrant v0.1.0
 	// use cometbft
 	github.com/evmos/ethermint => github.com/0xPellNetwork/ethermint v0.1.0
