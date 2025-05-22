@@ -11,6 +11,7 @@ Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed changelog form
 ### 📈 Improvements
 
 - [deps] Bump deps to fix security alert ([#4](https://github.com/0xPellNetwork/aegis/pull/4))
+- [deps] update Cosmos SDK to use 0xPellNetwork fork v0.50.10-alpha-1 ([#5](https://github.com/0xPellNetwork/aegis/pull/5))
 
 ### 🐛 Bug Fixes
 

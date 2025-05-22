@@ -31,7 +31,7 @@ jobs:
       # Step 4: Configure Git and Install dependencies
       - name: Configure Git and Install dependencies
         env:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
         run: |
           git config --global url."https://${token}:x-oauth-basic@github.com/0xPellNetwork".insteadOf "https://github.com/0xPellNetwork"
           go mod tidy
