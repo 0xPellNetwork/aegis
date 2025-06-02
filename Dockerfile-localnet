@@ -1,9 +1,4 @@
 FROM golang:1.23 AS build-env
-ENV HTTP_PROXY=http://host.docker.internal:7892
-ENV HTTPS_PROXY=http://host.docker.internal:7892
-ENV http_proxy=http://host.docker.internal:7892
-ENV https_proxy=http://host.docker.internal:7892
-ENV NO_PROXY=localhost,127.0.0.1
 
 # Version to build. Default is empty
 ARG VERSION
