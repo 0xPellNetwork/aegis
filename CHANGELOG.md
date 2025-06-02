@@ -4,7 +4,7 @@
 
 Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed changelog format guidelines.
 
-## [Unreleased v1.4.0]
+## [Released v1.4.0]
 
 ### ✨ Features
 
@@ -12,6 +12,7 @@ Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed changelog form
 
 - [deps] Bump deps to fix security alert ([#4](https://github.com/0xPellNetwork/aegis/pull/4))
 - [deps] update Cosmos SDK to use 0xPellNetwork fork v0.50.10-alpha-1 ([#5](https://github.com/0xPellNetwork/aegis/pull/5))
+- [x/xsecurity] feat: add LST token dual staking feature ([#283](https://github.com/0xPellNetwork/chain/pull/283))
 
 ### 🐛 Bug Fixes
 
@@ -22,8 +23,6 @@ Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed changelog form
 ### ✨ Features
 
 - [cmd/pellcored] Fix import genesis state from file cmd  ([#260](https://github.com/0xPellNetwork/chain/pull/260))
-
-- [x/xsecurity] feat: add LST token dual staking feature ([#283](https://github.com/0xPellNetwork/chain/pull/283))
 
 ### 📈 Improvements
 
