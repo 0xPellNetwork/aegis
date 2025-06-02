@@ -8,7 +8,6 @@ ARG LEDGER_ENABLED="false"
 ARG COSMOS_BUILD_OPTIONS=""
 ARG BUILD_TAGS=""
 
-# Install cli tools for building and final image
 RUN apt-get update && apt-get install -y make git bash gcc curl jq
 
 RUN curl -L https://foundry.paradigm.xyz | bash
