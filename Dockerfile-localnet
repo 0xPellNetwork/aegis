@@ -1,4 +1,9 @@
 FROM golang:1.23 AS build-env
+ENV HTTP_PROXY=http://host.docker.internal:7892
+ENV HTTPS_PROXY=http://host.docker.internal:7892
+ENV http_proxy=http://host.docker.internal:7892
+ENV https_proxy=http://host.docker.internal:7892
+ENV NO_PROXY=localhost,127.0.0.1
 
 # Version to build. Default is empty
 ARG VERSION
@@ -8,7 +13,6 @@ ARG LEDGER_ENABLED="false"
 ARG COSMOS_BUILD_OPTIONS=""
 ARG BUILD_TAGS=""
 
-# Install cli tools for building and final image
 RUN apt-get update && apt-get install -y make git bash gcc curl jq
 
 RUN curl -L https://foundry.paradigm.xyz | bash

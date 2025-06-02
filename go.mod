@@ -394,7 +394,7 @@ replace (
 	github.com/binance-chain/tss-lib => gitlab.com/thorchain/tss/tss-lib v0.1.5
 	github.com/btcsuite/btcd => github.com/btcsuite/btcd v0.22.3
 
-	github.com/cosmos/cosmos-sdk => github.com/0xPellNetwork/cosmos-sdk v0.50.10-alpha-1
+	github.com/cosmos/cosmos-sdk => github.com/0xPellNetwork/cosmos-sdk v0.50.10-alpha-3
 
 	github.com/cosmos/cosmos-sdk/x/feegrant => cosmossdk.io/x/feegrant v0.1.0
 	// use cometbft
