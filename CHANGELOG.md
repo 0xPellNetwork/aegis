@@ -16,6 +16,8 @@ Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed changelog form
 
 ### 🐛 Bug Fixes
 
+- [app/upgrades] Fix store upgrade configuration for new xsecurity module migration to prevent store initialization issues ([#7](https://github.com/0xPellNetwork/aegis/pull/7))
+
 ### 📦 Dependencies
 
 ## [Released v1.3.0]
