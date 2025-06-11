@@ -1,0 +1,231 @@
+name: Publish Release From Docker
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag_version:
+        description: 'Tag version to release (e.g., v1.0.0)'
+        required: true
+        type: string
+      docker_image_tag:
+        description: 'Docker image tag (defaults to same as tag_version)'
+        required: false
+        type: string
+      skip_create_release:
+        description: 'Skip creating new GitHub release (use existing one)'
+        required: false
+        type: boolean
+        default: false
+      prerelease:
+        description: 'Mark as prerelease'
+        required: false
+        type: boolean
+        default: true
+
+concurrency:
+  group: publish-release-docker
+  cancel-in-progress: false
+
+jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    outputs:
+      tag_version: ${{ steps.get-tag.outputs.TAG_VERSION }}
+      docker_tag: ${{ steps.get-tag.outputs.DOCKER_TAG }}
+    steps:
+      - name: Get Tag Version
+        id: get-tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG_VERSION="${{ github.event.inputs.tag_version }}"
+            DOCKER_TAG="${{ github.event.inputs.docker_image_tag }}"
+            if [ -z "$DOCKER_TAG" ]; then
+              DOCKER_TAG="$TAG_VERSION"
+            fi
+            echo "Manual execution - Tag version: $TAG_VERSION"
+            echo "Manual execution - Docker tag: $DOCKER_TAG"
+          else
+            TAG_VERSION="${GITHUB_REF#refs/tags/}"
+            DOCKER_TAG="$TAG_VERSION"
+            echo "Automatic execution - Tag version: $TAG_VERSION"
+          fi
+          
+          echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
+          echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
+          echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_OUTPUT
+          echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_OUTPUT
+
+  publish-release:
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
+    needs: [check-branch]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          tags: true
+
+      - name: Set Version from Tag
+        run: |
+          echo "GITHUB_TAG_VERSION=${{ needs.check-branch.outputs.tag_version }}" >> "${GITHUB_ENV}"
+          echo "GORELEASER_CURRENT_TAG=${{ needs.check-branch.outputs.tag_version }}" >> "${GITHUB_ENV}"
+          echo "DOCKER_IMAGE_TAG=${{ needs.check-branch.outputs.docker_tag }}" >> "${GITHUB_ENV}"
+          echo "Using tag version: ${{ needs.check-branch.outputs.tag_version }}"
+          echo "Using docker tag: ${{ needs.check-branch.outputs.docker_tag }}"
+
+      - name: Print Version Info
+        run: |
+          echo "GORELEASER_CURRENT_TAG=${GORELEASER_CURRENT_TAG}"
+          echo "DOCKER_IMAGE_TAG=${DOCKER_IMAGE_TAG}"
+          echo "Event name: ${{ github.event_name }}"
+          echo "Skip create release: ${{ github.event.inputs.skip_create_release }}"
+          echo "Prerelease: ${{ github.event.inputs.prerelease }}"
+          if [ -z "${GORELEASER_CURRENT_TAG}" ]; then
+            echo "ERROR: GORELEASER_CURRENT_TAG is empty!"
+            exit 1
+          fi
+
+      - name: Create GitHub Release
+        if: github.event.inputs.skip_create_release != 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: ${{ github.event.inputs.prerelease == 'true' || github.event_name == 'push' }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ env.GORELEASER_CURRENT_TAG }}
+          body: |
+            ## Release ${{ env.GORELEASER_CURRENT_TAG }}
+            
+            This release contains binaries extracted from Docker images.
+            
+            **Execution type**: ${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Automatic (tag push)' }}
+            **Docker image used**: `docker.io/pellnetwork/pellnode:${{ env.DOCKER_IMAGE_TAG }}`
+            
+            ### Downloads
+            - `pellcored-${{ env.GORELEASER_CURRENT_TAG }}-linux-amd64` - Linux AMD64 binary
+            - `pellclientd-${{ env.GORELEASER_CURRENT_TAG }}-linux-amd64` - Linux AMD64 client binary
+            - `checksums.txt` - SHA256 checksums for verification
+
+      - name: Login to Docker Hub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+
+      - name: Extract Binaries from Docker Image
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create release directory
+          mkdir -p release
+          
+          # Pull the Docker image using the specified docker tag
+          echo "Pulling image: docker.io/pellnetwork/pellnode:${DOCKER_IMAGE_TAG}"
+          docker pull docker.io/pellnetwork/pellnode:${DOCKER_IMAGE_TAG}
+          
+          # Create container and extract binaries
+          CONTAINER_ID=$(docker create docker.io/pellnetwork/pellnode:${DOCKER_IMAGE_TAG})
+          echo "Created container: $CONTAINER_ID"
+          
+          # Extract pellcored binary
+          if docker cp $CONTAINER_ID:/usr/local/bin/pellcored ./pellcored-${GORELEASER_CURRENT_TAG}-linux-amd64; then
+            echo "Successfully extracted pellcored binary"
+            chmod +x ./pellcored-${GORELEASER_CURRENT_TAG}-linux-amd64
+            mv ./pellcored-${GORELEASER_CURRENT_TAG}-linux-amd64 release/
+          else
+            echo "Failed to extract pellcored binary"
+            exit 1
+          fi
+          
+          # Extract pellclientd binary (if exists)
+          if docker cp $CONTAINER_ID:/usr/local/bin/pellclientd ./pellclientd-${GORELEASER_CURRENT_TAG}-linux-amd64 2>/dev/null; then
+            echo "Successfully extracted pellclientd binary"
+            chmod +x ./pellclientd-${GORELEASER_CURRENT_TAG}-linux-amd64
+            mv ./pellclientd-${GORELEASER_CURRENT_TAG}-linux-amd64 release/
+          else
+            echo "pellclientd binary not found or failed to extract (this might be expected)"
+          fi
+          
+          # Clean up container
+          docker rm $CONTAINER_ID
+          
+          # Generate checksums
+          cd release
+          sha256sum * > checksums.txt
+          echo "Generated checksums:"
+          cat checksums.txt
+
+      - name: Verify Extracted Binaries
+        run: |
+          echo "Verifying extracted binaries..."
+          ls -la release/
+          
+          # Test if pellcored binary is executable and shows version
+          if [ -f "release/pellcored-${GORELEASER_CURRENT_TAG}-linux-amd64" ]; then
+            echo "Testing pellcored binary..."
+            ./release/pellcored-${GORELEASER_CURRENT_TAG}-linux-amd64 version || echo "Version command failed, but binary exists"
+          fi
+
+      - name: Upload Release Assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Uploading release assets..."
+          gh release upload "${GORELEASER_CURRENT_TAG}" release/* --clobber
+
+      - name: Generate Artifact Attestations
+        id: attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: |
+            release/pellcored-*
+            release/pellclientd-*
+            release/checksums.txt
+
+      - name: Upload Attestation Bundle
+        env: 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash 
+        run: | 
+          if [ -f "${{ steps.attestation.outputs.bundle-path }}" ]; then
+            gh release upload "${GORELEASER_CURRENT_TAG}" "${{ steps.attestation.outputs.bundle-path }}" --clobber
+            echo "Attestation bundle uploaded successfully"
+          else
+            echo "Attestation bundle not found, skipping upload"
+          fi
+
+      - name: Clean Up
+        if: always()
+        run: |
+          # Clean up Docker images to save space
+          docker image prune -f
+          # Clean up release directory
+          rm -rf release/
+
+  release-success:
+    needs: publish-release
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - name: Notify Success
+        run: |
+          echo "🚀 Release ${{ needs.check-branch.outputs.tag_version }} published successfully!"
+          echo "Binaries have been extracted from Docker and uploaded to GitHub Release."
+          echo "Execution type: ${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Automatic' }}"
+
+      # Optional: Add notification to Slack/Discord/etc
+      # - name: Notify Lark upon release
+      #   uses: drayeasy/action-lark-notify@main
+      #   env:
+      #     LARK_WEBHOOK: ${{ secrets.LARK_WEBHOOK_URL_FOR_RELEASE }}
+      #     LARK_MESSAGE_TITLE: "🚀 Pellcored Release ${{ needs.check-branch.outputs.tag_version }}"
+      #     LARK_MESSAGE_URL: "${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ needs.check-branch.outputs.tag_version }}"
+      #     LARK_MESSAGE_TEMPLATE: "green"
