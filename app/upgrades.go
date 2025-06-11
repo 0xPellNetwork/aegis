@@ -5,10 +5,7 @@ import (
 
 	storetypes "cosmossdk.io/store/types"
 	upgradetypes "cosmossdk.io/x/upgrade/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/cosmos/ibc-go/modules/capability"
-	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
 
 	xsecuritytypes "github.com/0xPellNetwork/aegis/x/xsecurity/types"
 )
@@ -19,16 +16,28 @@ func (app *PellApp) RegisterUpgradeHandlers() {
 	app.UpgradeKeeper.SetUpgradeHandler(
 		releaseVersion,
 		func(ctx context.Context, plan upgradetypes.Plan, fromVM module.VersionMap) (module.VersionMap, error) {
-			sdkCtx := sdk.UnwrapSDKContext(ctx)
-
-			// Check if capability module is already initialized
-			if app.CapabilityKeeper.IsInitialized(sdkCtx) {
-				// If already initialized, set its version to skip InitGenesis
-				fromVM[capabilitytypes.ModuleName] = capability.AppModule{}.ConsensusVersion()
+			// Debug: Log original fromVM
+			app.Logger().Info("=== Upgrade Handler Debug ===")
+			app.Logger().Info("Original fromVM", "count", len(fromVM))
+			for name, version := range fromVM {
+				app.Logger().Info("Original module version", "module", name, "version", version)
 			}
 
-			// Set initial version for new modules only
+			// Get current version map of all modules
+			currentVersionMap := app.ModuleManager.GetVersionMap()
+			app.Logger().Info("Current version map", "count", len(currentVersionMap))
+
+			// Set all existing modules to their current consensus versions
+			for moduleName, version := range currentVersionMap {
+				fromVM[moduleName] = version
+				app.Logger().Info("Set existing module version", "module", moduleName, "version", version)
+			}
+
+			// Only truly new modules need initialization
 			fromVM[xsecuritytypes.ModuleName] = 1
+			app.Logger().Info("Set new module version", "module", xsecuritytypes.ModuleName, "version", 1)
+
+			app.Logger().Info("Final fromVM", "count", len(fromVM))
 
 			return app.ModuleManager.RunMigrations(ctx, app.configurator, fromVM)
 		},
